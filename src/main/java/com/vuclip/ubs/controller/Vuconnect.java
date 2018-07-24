@@ -3,9 +3,8 @@ package com.vuclip.ubs.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +17,7 @@ import com.vuclip.ubs.vuconnect.PartnerActivationConsentParserRequestVO;
 import com.vuclip.ubs.vuconnect.PartnerActivationConsentParserResponseVO;
 import com.vuclip.ubs.vuconnect.PartnerActivationConsentRequestVO;
 import com.vuclip.ubs.vuconnect.PartnerActivationConsentResponseVO;
+import com.vuclip.ubs.vuconnect.PartnerActivationConsentResponseVOMapper;
 import com.vuclip.ubs.vuconnect.PartnerDeactivationConsentParserRequestVO;
 import com.vuclip.ubs.vuconnect.PartnerDeactivationConsentParserResponseVO;
 import com.vuclip.ubs.vuconnect.PartnerDeactivationConsentRequestVO;
@@ -29,34 +29,30 @@ public class Vuconnect {
 	@Autowired(required = true)
 	JdbcTemplate jdbcTemplate;
 
-	@RequestMapping(value = "/activationConsent", method = { RequestMethod.POST }, produces = {
+	@RequestMapping(value = "/consent//activationConsent", method = { RequestMethod.POST }, produces = {
 			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody DeferredResult<PartnerActivationConsentResponseVO> processActivationConsent(
+	public @ResponseBody PartnerActivationConsentResponseVO processActivationConsent(
 			@RequestBody @Valid PartnerActivationConsentRequestVO partnerActivationConsentRequestVO) {
-		DeferredResult<PartnerActivationConsentResponseVO> deferredResult = new DeferredResult<>();
 
-		System.out.println(partnerActivationConsentRequestVO.toString());
-		// String productCode =
-		// VuConnectUtil.getPartnerLayerProductCode(partnerActivationConsentRequestVO.getRequestedBillingCode());
-		// LOGGER.error("ActivationConsent Request No Product code Configured for
-		// Request Billing Code {}",
-		// partnerActivationConsentRequestVO.getRequestedBillingCode());
-		//
-		// // Get product-specific thread-pool
-		// CustomThreadPool customThreadPool =
-		// ThreadPoolUtil.getVuconnectProductSpecificThreadPool(productCode);
-		// customThreadPool.submit(new
-		// NioActivationConsentController(partnerActivationConsentRequestVO,
-		// deferredResult, productCode));
-
-		// Return deferredResult
-		return deferredResult;
+		System.out.println("REQUEST : " + partnerActivationConsentRequestVO.toString());
+		String userId = partnerActivationConsentRequestVO.getUserId();
+		PartnerActivationConsentResponseVO response = null;
+		String query = "SELECT * FROM ubs_mock.consent_data where userId='" + userId + "' ";
+		try {
+			response = jdbcTemplate.queryForObject(query, new PartnerActivationConsentResponseVOMapper());
+		} catch (EmptyResultDataAccessException e) {
+			System.out.println("No REcord found");
+		}
+		System.out.println("RESPONSE : " + response.toString());
+		return response;
 	}
 
-	@RequestMapping(value = "/activationConsentParser", method = { RequestMethod.POST }, produces = {
+	@RequestMapping(value = "/consent/activationConsentParser", method = { RequestMethod.POST }, produces = {
 			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody DeferredResult<PartnerActivationConsentParserResponseVO> processActivationConsentParser(
 			@RequestBody @Valid PartnerActivationConsentParserRequestVO partnerActivationConsentParserRequestVO) {
+		System.out.println(partnerActivationConsentParserRequestVO.toString());
+
 		DeferredResult<PartnerActivationConsentParserResponseVO> deferredResult = new DeferredResult<>();
 		// ConsentParserRequestVO consentParseRequestVo = new ConsentParserRequestVO();
 		//
@@ -78,10 +74,12 @@ public class Vuconnect {
 		return deferredResult;
 	}
 
-	@RequestMapping(value = "/deactivationConsent", method = { RequestMethod.POST }, produces = {
+	@RequestMapping(value = "/consent/deactivationConsent", method = { RequestMethod.POST }, produces = {
 			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody DeferredResult<PartnerDeactivationConsentResponseVO> processDeactivationConsent(
 			@RequestBody @Valid PartnerDeactivationConsentRequestVO partnerDeactivationConsentRequestVO) {
+		System.out.println(partnerDeactivationConsentRequestVO.toString());
+
 		DeferredResult<PartnerDeactivationConsentResponseVO> deferredResult = new DeferredResult<>();
 
 		// String productCode =
@@ -101,10 +99,12 @@ public class Vuconnect {
 		return deferredResult;
 	}
 
-	@RequestMapping(value = "/deactivationConsentParser", method = { RequestMethod.POST }, produces = {
+	@RequestMapping(value = "/consent/deactivationConsentParser", method = { RequestMethod.POST }, produces = {
 			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody DeferredResult<PartnerDeactivationConsentParserResponseVO> processDeactivationConsentParser(
 			@RequestBody @Valid PartnerDeactivationConsentParserRequestVO partnerDeactivationConsentParserRequestVO) {
+		System.out.println(partnerDeactivationConsentParserRequestVO.toString());
+
 		DeferredResult<PartnerDeactivationConsentParserResponseVO> deferredResult = new DeferredResult<>();
 		// ConsentParserRequestVO consentParseRequestVo = new ConsentParserRequestVO();
 		//

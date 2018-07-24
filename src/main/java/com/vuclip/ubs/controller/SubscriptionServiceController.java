@@ -1,22 +1,16 @@
 package com.vuclip.ubs.controller;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vuclip.ubs.common.ObjectMapperUtils;
 import com.vuclip.ubs.subscription_service.SubscriptionStatusReponse;
+import com.vuclip.ubs.subscription_service.UserSubscriptionMapper;
 
 @RestController
 public class SubscriptionServiceController {
@@ -24,27 +18,47 @@ public class SubscriptionServiceController {
 	@Autowired(required = true)
 	JdbcTemplate jdbcTemplate;
 
-
 	@RequestMapping(value = "/getUserStatus/{productId}", method = RequestMethod.GET, produces = "application/json")
 	public SubscriptionStatusReponse sgetSubscriptionStatus(@PathVariable Integer productId,
-			@RequestParam(required = true) String userid, @RequestParam(required = false) String msisdn,
+			@RequestParam(required = false) String userid, @RequestParam(required = false) String msisdn,
 			@RequestParam(required = false) Long subscriptionId) {
-		String query = "select * from ubs_mock.get_user_status where jsondata like '%" + userid + "%';";
-		List<String> strresponse = jdbcTemplate.query(query, new RowMapper<String>() {
-			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return rs.getString(1);
+		System.out.println("GETUSERSTATUS REQUEST PARAM : " + userid + msisdn + subscriptionId + productId);
+		String whereClause = "";
+		boolean u = false, m = false, s = false;
+		if (userid != null) {
+			whereClause += " user_id='" + userid + "' and";
+			u = true;
+		}
+		if (msisdn != null) {
+			whereClause += " msisdn='" + msisdn + "'  and";
+			m = true;
+		}
+		if (subscriptionId != null) {
+			whereClause += " subscription_id='" + subscriptionId + "'  and";
+			s = true;
+		}
+
+		if (whereClause.contains("and"))
+			whereClause = whereClause.substring(0, whereClause.length() - 3);
+		SubscriptionStatusReponse strresponse = null;
+		if (u || m || s) {
+			String query = "SELECT * FROM ubs_mock.user_subscription where " + whereClause;
+			try {
+				strresponse = jdbcTemplate.queryForObject(query, new UserSubscriptionMapper());
+			} catch (EmptyResultDataAccessException e) {
+				System.out.println("No REcord found");
 			}
-		});
-		if (strresponse.size() > 1) {
-			SubscriptionStatusReponse errorResponse = new SubscriptionStatusReponse();
-			errorResponse.setMessage("Value in DB are returning more then one record check " + query);
-			errorResponse.setResponseCode("500");
-			errorResponse.setStatus(null);
-			errorResponse.setSuccessful(false);
-			return errorResponse;
+		}
+
+		if (strresponse == null) {
+			return new SubscriptionStatusReponse(false, "Error", "200", null);
 
 		}
-		return ObjectMapperUtils.readValueFromString(strresponse.get(0), SubscriptionStatusReponse.class);
+		strresponse.setResponseCode("200");
+		strresponse.setSuccessful(true);
+		strresponse.setMessage("success");
+		System.out.println("GETUSERSTATUSRESPONSE : " + strresponse.toString());
+		return strresponse;
 	}
 
 }

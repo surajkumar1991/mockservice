@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "successful", "message", "responseCode", "status" })
@@ -15,6 +16,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class SubscriptionStatusReponse {
 
 	@JsonProperty("successful")
@@ -24,6 +26,6 @@ public class SubscriptionStatusReponse {
 	@JsonProperty("responseCode")
 	private String responseCode;
 	@JsonProperty("status")
-	private SubscriptionStatusData status;
+	private Status_ status;
 
 }

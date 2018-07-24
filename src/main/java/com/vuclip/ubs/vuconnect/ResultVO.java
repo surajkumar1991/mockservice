@@ -1,60 +1,68 @@
 package com.vuclip.ubs.vuconnect;
 
-import javax.xml.bind.annotation.XmlElement;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import lombok.ToString;
-
-//@XmlRootElement(name="activationRequestResult")
-//@JacksonXmlRootElement(localName = "activationRequestResult")
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-@ToString
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({ "responseCode", "message", "status" })
 public class ResultVO {
 
-	
-	private String status;
-	
-	
-	private String code;
-	
-	
+	@JsonProperty("responseCode")
+	private String responseCode;
+	@JsonProperty("message")
 	private String message;
+	@JsonProperty("status")
+	private String status;
 
-	public void setStatus(String status) {
+	/**
+	 * No args constructor for use in serialization
+	 * 
+	 */
+	public ResultVO() {
+	}
+
+	/**
+	 * 
+	 * @param message
+	 * @param responseCode
+	 * @param status
+	 */
+	public ResultVO(String responseCode, String message, String status) {
+		super();
+		this.responseCode = responseCode;
+		this.message = message;
 		this.status = status;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	@JsonProperty("responseCode")
+	public String getResponseCode() {
+		return responseCode;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	@JsonProperty("responseCode")
+	public void setResponseCode(String responseCode) {
+		this.responseCode = responseCode;
 	}
 
-	@XmlElement(name="status")
-	public String getStatus() {
-		return status;
-	}
-	
-	@XmlElement(name="code")
-	public String getCode() {
-		return code;
-	}
-	
-	@XmlElement(name="message")
+	@JsonProperty("message")
 	public String getMessage() {
 		return message;
 	}
 
-	@Override
-	public String toString() {
-		return "Result [status=" + status + ", code=" + code + ", message="
-				+ message + "]";
+	@JsonProperty("message")
+	public void setMessage(String message) {
+		this.message = message;
 	}
-	
-	
+
+	@JsonProperty("status")
+	public String getStatus() {
+		return status;
+	}
+
+	@JsonProperty("status")
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 }
