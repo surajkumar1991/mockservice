@@ -3,11 +3,11 @@ serviceName: ubs-mock-services
 isCiDeploymentEnabled: true
 isQaAutomationEnabled: false
 isSystemTestEnabled: false
-systemTestRepoName: NA
-qaAutomationTestRepoName: NA
-qualityGateName: UBSMockServices
+systemTestRepoName: na
+qaAutomationTestRepoName: na
+qualityGateName: UbsMockServices
 pomFilePath: pom.xml
-systemTestBranchName: NA
-qaAutomationTestBranchName: NA
-systemTestRunCommand: NA
+systemTestBranchName: na
+qaAutomationTestBranchName: na
+systemTestRunCommand: na
 recipients: cc:premium.automation@vuclip.com, cc:unified.billing@vuclip.com, cc:rahul.sahu@vuclip.com
