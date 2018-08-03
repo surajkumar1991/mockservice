@@ -23,3 +23,5 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+/ubs-mock-services/access_logs/*.log
+/ubs-mock-services/*
