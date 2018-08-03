@@ -2,9 +2,9 @@ package com.vuclip.ubs.vuconnect;
 
 
 import java.math.BigInteger;
-import java.util.Map;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,9 +12,10 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@ToString
 public class PartnerDeactivationConsentParserResponseVO {
 
    private boolean isBackButtonClicked;
