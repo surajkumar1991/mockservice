@@ -10,14 +10,7 @@ public class UserSubscriptionMapper implements RowMapper<SubscriptionStatusRepon
 	public SubscriptionStatusReponse mapRow(ResultSet rs, int rownumber) throws SQLException {
 		SubscriptionStatusReponse s1 = new SubscriptionStatusReponse();
 		Status_ s = new Status_();
-		// "userSubAuthKey", "userId", "msisdn", "subscriptionId", "startDate",
-		// "endDate", "nextBillingDate",
-		// "lastChargeDate", "chargedPrice", "country", "partnerId",
-		// "subscriptionStatus", "subscriptionValidityDays",
-		// "productId", "itemId", "itemTypeId", "subscriptionBillingCode",
-		// "chargedBillingCode", "customerTransactionId",
-		// "renewalAllowed", "activationDate", "deactivationDate", "payload", "summary",
-		// "mode", "paid" })
+
 		s.setActivationDate(rs.getLong("activation_date"));
 		s.setChargedBillingCode(rs.getString("charged_billing_code"));
 		s.setChargedPrice(rs.getDouble("charged_price"));
