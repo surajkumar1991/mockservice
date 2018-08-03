@@ -1,0 +1,47 @@
+---
+- name: 'stop running {{ process_name }} process'
+  shell: 'ps aux | pgrep -f {{ process_name }} | xargs kill -9'
+  register: shell_result
+  failed_when: shell_result.rc != -9 and shell_result.rc != 0
+
+- name: 'stop running {{ process_name }} docker container'
+  shell: 'docker stop {{ process_name }}'
+  register: shell_result
+  ignore_errors: yes
+
+- name: 'remove {{ process_name }} docker container'
+  shell: 'docker rm {{ process_name }}'
+  register: shell_result
+  ignore_errors: yes
+
+- name: 'remove dangling images'
+  shell: 'docker rmi $(docker images -f dangling=true -q)'
+  register: shell_result
+  ignore_errors: yes
+
+- name: 'remove images of {{ service_name }}'
+  shell: "docker rmi -f $(docker images | grep {{ service_name }} | awk '{print $3}')"
+  register: shell_result
+  ignore_errors: yes
+
+- name: 'pull new {{ process_name }} docker image'
+  shell: 'docker pull {{ docker_registry }}/{{project_name}}/{{ service_name }}:{{ image_tag_name }}'
+  register: shell_result
+
+- name: 'create service startup and application.properties file for {{ service_name }}'
+  template: src={{ item }} dest="{{ service_war_dir }}/{{ item | basename | regex_replace('.j2','') }}" mode=0755
+  with_fileglob:
+     - "{{ properties_template_location }}/*.j2"
+
+- name: 'executing start up script for {{ service_name }}'
+  shell: 'sh start-{{ service_name }}.sh chdir={{ service_war_dir }}'
+
+- name: 'pause for {{ service_name }} service to start-up'
+  pause:
+    minutes: 2
+
+- name: '{{ service_name }} service is up'
+  uri:
+    url: '{{ heartBeatUrl }}:{{ expose_port }}/{{ service_name }}/{{ heart_beat_url_context }}'
+    status_code : 200
+    timeout : 360

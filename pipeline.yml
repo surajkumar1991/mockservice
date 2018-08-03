@@ -1,0 +1,13 @@
+pipelineType: maven
+serviceName: ubs-mock-services
+isCiDeploymentEnabled: true
+isQaAutomationEnabled: false
+isSystemTestEnabled: false
+systemTestRepoName: NA
+qaAutomationTestRepoName: NA
+qualityGateName: UBSMockServices
+pomFilePath: pom.xml
+systemTestBranchName: NA
+qaAutomationTestBranchName: NA
+systemTestRunCommand: NA
+recipients: cc:premium.automation@vuclip.com, cc:unified.billing@vuclip.com, cc:rahul.sahu@vuclip.com
