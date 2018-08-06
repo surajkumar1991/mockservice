@@ -23,7 +23,7 @@ public class SchedularController {
 
 	@RequestMapping(value = "/health", method = RequestMethod.GET)
 	public ResponseEntity<String> sendAdNotification() {
-		return new ResponseEntity<String>("Hello", HttpStatus.OK);
+		return new ResponseEntity<String>("{\"status\":\"UP\"}", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/schedular", method = RequestMethod.POST, consumes = "application/json")
