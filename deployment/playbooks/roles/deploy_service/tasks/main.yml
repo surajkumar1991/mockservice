@@ -1,4 +1,10 @@
 ---
+- name: example copying file with owner and permissions
+  copy:
+    src: /opt/rahul/ubs-mock-services/target/ubs-mock-services.jar
+    dest: /opt/ubs-mock-services/ubs-mock-services.jar
+    mode: 0644
+    
 - name: 'stop running {{ process_name }} process'
   shell: 'ps aux | pgrep -f {{ process_name }} | xargs kill -9'
   register: shell_result
