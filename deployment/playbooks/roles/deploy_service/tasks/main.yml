@@ -4,11 +4,6 @@
   register: shell_result
   failed_when: shell_result.rc != -9 and shell_result.rc != 0
 
-- name: 'stop running {{ process_name }} docker container'
-  shell: 'docker stop {{ process_name }}'
-  register: shell_result
-  ignore_errors: yes
-
 - name: 'remove {{ process_name }} docker container'
   shell: 'docker rm {{ process_name }}'
   register: shell_result
