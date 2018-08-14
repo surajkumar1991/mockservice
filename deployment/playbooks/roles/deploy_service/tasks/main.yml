@@ -1,14 +1,22 @@
 ---
+- name: 'create service startup and application.properties file for {{ service_name }}'
+  template: 
+  src: "{{ item }}" 
+  dest: "{{ service_war_dir }}/{{ item | basename | regex_replace('.j2','') }}" 
+  mode: 0755
+  with_fileglob:
+     - "{{ properties_template_location }}/*.j2"
+     
 - name: example copying file with owner and permissions
   copy:
     src: /opt/rahul/ubs-mock-services/target/ubs-mock-services.jar
     dest: /opt/ubs-mock-services/ubs-mock-services.jar
-    mode: 0644
+    mode: 0644    
     
+        
 - name: 'stop running {{ process_name }} process'
   shell: 'ps aux | pgrep -f {{ process_name }} | xargs kill -9'
   register: shell_result
-  failed_when: shell_result.rc != -9 and shell_result.rc != 0
 
 - name: 'remove {{ process_name }} docker container'
   shell: 'docker rm {{ process_name }}'
@@ -29,10 +37,7 @@
   shell: 'docker pull {{ docker_registry }}/{{project_name}}/{{ service_name }}:{{ image_tag_name }}'
   register: shell_result
 
-- name: 'create service startup and application.properties file for {{ service_name }}'
-  template: src={{ item }} dest="{{ service_war_dir }}/{{ item | basename | regex_replace('.j2','') }}" mode=0755
-  with_fileglob:
-     - "{{ properties_template_location }}/*.j2"
+
 
 - name: 'executing start up script for {{ service_name }}'
   shell: 'sh start-{{ service_name }}.sh chdir={{ service_war_dir }}'
