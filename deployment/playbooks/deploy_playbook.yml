@@ -5,10 +5,10 @@
   become_user: "{{ become_user_name }}"
   become_method: sudo
   vars_files:
-    - environments/local/service_vars.yml
+    - environments/{{ var_env }}/service_vars.yml
   vars:
-    - ansible_ssh_user: "kohitij"
-    - ansible_ssh_pass: "kohitij123"
+    - ansible_ssh_user: "{{ user_name }}"
+    - ansible_ssh_pass: "{{ pswd }}"
 
   roles:
     - { role: deploy_service, service_name: "{{ var_service }}", image_tag_name: "{{ img_tag_name }}", env_name : "{{ var_env }}" }
