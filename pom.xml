@@ -39,8 +39,8 @@
 			<releases>
 				<enabled>true</enabled>
 			</releases>
-			<id>repo</id>
-			<name>repo</name>
+			<id>releases</id>
+			<name>releases</name>
 			<url>http://184.105.232.117:8081/artifactory/repo</url>
 		</repository>
 	</repositories>
