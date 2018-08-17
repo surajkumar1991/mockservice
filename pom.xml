@@ -26,6 +26,44 @@
 		<swagger>2.8.0</swagger>
 	</properties>
 
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>repo</id>
+			<name>repo</name>
+			<url>http://184.105.232.117:8081/artifactory/repo</url>
+		</repository>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<id>releases</id>
+			<name>releases</name>
+			<url>http://184.105.232.117:8081/artifactory/repo</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>repo</id>
+			<name>repo</name>
+			<url>http://184.105.232.117:8081/artifactory/repo</url>
+		</pluginRepository>
+		<pluginRepository>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<id>releases</id>
+			<name>releases</name>
+			<url>http://184.105.232.117:8081/artifactory/repo</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>io.springfox</groupId>
