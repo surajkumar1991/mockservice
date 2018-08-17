@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vuclip.ubs.subscription_service.FreeTrialEligibilityRequestVO;
+import com.vuclip.ubs.subscription_service.FreeTrialEligibilityResponseVO;
+import com.vuclip.ubs.subscription_service.Response;
 import com.vuclip.ubs.subscription_service.SubscriptionStatusReponse;
 import com.vuclip.ubs.subscription_service.UserSubscriptionMapper;
 
@@ -61,4 +64,44 @@ public class SubscriptionServiceController {
 		return strresponse;
 	}
 
+	@RequestMapping(value = "/check/freeTrialEligibility", method = RequestMethod.GET, produces = "application/json")
+	public FreeTrialEligibilityResponseVO checkFreeTrialEligibility(
+			FreeTrialEligibilityRequestVO freeTrialEligibilityRequestVO) {
+
+		Response response = null;
+
+		if (freeTrialEligibilityRequestVO.getUserId() == null && freeTrialEligibilityRequestVO.getMsisdn() == null) {
+			response = new Response(false, "UserId or Msisdn is required", "200");
+			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(false).response(response).build();
+		}
+
+		if (freeTrialEligibilityRequestVO.getCountry() == null) {
+			response = new Response(false, "Country is required", "200");
+			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(false).response(response).build();
+		}
+
+	
+		if (whereClause.contains("and"))
+			whereClause = whereClause.substring(0, whereClause.length() - 2);
+		Boolean freeTrialEligibility = null;
+		if (u || m) {
+			String query = "SELECT free_trial FROM ubs_mock.free_trial_history where " + whereClause;
+			try {
+				strresponse = jdbcTemplate.queryForObject(query, new UserSubscriptionMapper());
+			} catch (EmptyResultDataAccessException e) {
+				System.out.println("No Record found");
+			}
+		}
+
+		if (strresponse == null) {
+			response = new Response(true, "success", "200");
+
+			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(true).response(response).build();
+		}
+
+		response = new Response(true, "success", "200");
+
+		return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(true).response(response).build();
+
+	}
 }
