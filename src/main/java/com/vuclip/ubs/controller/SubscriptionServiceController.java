@@ -90,11 +90,11 @@ public class SubscriptionServiceController {
 		}
 
 		if (userid != null) {
-			String query = "SELECT * FROM ubs-mock-services.free_trial_history where user_id='" + userid + "'";
+			String query = "SELECT * FROM ubs_mock_services.free_trial_history where user_id='" + userid + "'";
 			return getFreeTrialRecords(query);
 		}
 		if (msisdn != null) {
-			String query = "SELECT * FROM ubs-mock-services.free_trial_history where msisdn='" + msisdn + "'";
+			String query = "SELECT * FROM ubs_mock_services.free_trial_history where msisdn='" + msisdn + "'";
 			return getFreeTrialRecords(query);
 		}
 
