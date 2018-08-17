@@ -1,5 +1,10 @@
 package com.vuclip.ubs.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vuclip.ubs.common.ObjectMapperUtils;
 import com.vuclip.ubs.subscription_service.FreeTrialEligibilityRequestVO;
 import com.vuclip.ubs.subscription_service.FreeTrialEligibilityResponseVO;
 import com.vuclip.ubs.subscription_service.Response;
@@ -17,6 +23,8 @@ import com.vuclip.ubs.subscription_service.UserSubscriptionMapper;
 
 @RestController
 public class SubscriptionServiceController {
+
+	Logger logger = LogManager.getLogger(SubscriptionServiceController.class);
 
 	@Autowired(required = true)
 	JdbcTemplate jdbcTemplate;
@@ -67,41 +75,52 @@ public class SubscriptionServiceController {
 	@RequestMapping(value = "/check/freeTrialEligibility", method = RequestMethod.GET, produces = "application/json")
 	public FreeTrialEligibilityResponseVO checkFreeTrialEligibility(
 			FreeTrialEligibilityRequestVO freeTrialEligibilityRequestVO) {
+		String userid = freeTrialEligibilityRequestVO.getUserId();
+		String msisdn = freeTrialEligibilityRequestVO.getMsisdn();
+		String country = freeTrialEligibilityRequestVO.getCountry();
 
-		Response response = null;
-
-		if (freeTrialEligibilityRequestVO.getUserId() == null && freeTrialEligibilityRequestVO.getMsisdn() == null) {
-			response = new Response(false, "UserId or Msisdn is required", "200");
-			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(false).response(response).build();
+		if (userid == null && msisdn == null) {
+			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(false)
+					.response(new Response(false, "UserId or Msisdn is required", "200")).build();
 		}
 
-		if (freeTrialEligibilityRequestVO.getCountry() == null) {
-			response = new Response(false, "Country is required", "200");
-			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(false).response(response).build();
+		if (country == null) {
+			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(false)
+					.response(new Response(false, "UserId or Msisdn is required", "200")).build();
 		}
 
-	
-		if (whereClause.contains("and"))
-			whereClause = whereClause.substring(0, whereClause.length() - 2);
-		Boolean freeTrialEligibility = null;
-		if (u || m) {
-			String query = "SELECT free_trial FROM ubs_mock.free_trial_history where " + whereClause;
-			try {
-				strresponse = jdbcTemplate.queryForObject(query, new UserSubscriptionMapper());
-			} catch (EmptyResultDataAccessException e) {
-				System.out.println("No Record found");
+		if (userid != null) {
+			String query = "SELECT * FROM ubs-mock-services.free_trial_history where user_id='" + userid + "'";
+			return getFreeTrialRecords(query);
+		}
+		if (msisdn != null) {
+			String query = "SELECT * FROM ubs-mock-services.free_trial_history where msisdn='" + msisdn + "'";
+			return getFreeTrialRecords(query);
+		}
+
+		return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(false)
+				.response(new Response(false, "No message available", "500")).build();
+
+	}
+
+	private FreeTrialEligibilityResponseVO getFreeTrialRecords(String query) {
+		try {
+			logger.info("QUERY FOR FETCHING DATA " + query);
+			List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
+			if (respon.size() >= 1) {
+				Object jsonval = respon.get(0).get("json");
+				System.out.println(jsonval);
+				FreeTrialEligibilityResponseVO response = ObjectMapperUtils.readValueFromString((String) jsonval,
+						FreeTrialEligibilityResponseVO.class);
+				return response;
 			}
+		} catch (Exception e) {
+			System.out.println("New User");
+			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(true)
+					.response(new Response(true, "SUCCESS", "200")).build();
+
 		}
-
-		if (strresponse == null) {
-			response = new Response(true, "success", "200");
-
-			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(true).response(response).build();
-		}
-
-		response = new Response(true, "success", "200");
-
-		return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(true).response(response).build();
-
+		return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(false)
+				.response(new Response(false, "SUCCESS", "200")).build();
 	}
 }
