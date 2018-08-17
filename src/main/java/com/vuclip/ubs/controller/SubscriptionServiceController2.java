@@ -19,6 +19,8 @@ import com.vuclip.ubs.subscription_service.BlockStatusRequestVO;
 import com.vuclip.ubs.subscription_service.BlockStatusResponseVO;
 import com.vuclip.ubs.subscription_service.BlockUserRequestVO;
 import com.vuclip.ubs.subscription_service.BlockUserResponseVO;
+import com.vuclip.ubs.subscription_service.DeactivateRequestVO;
+import com.vuclip.ubs.subscription_service.DeactivateResponseVO;
 import com.vuclip.ubs.subscription_service.Response;
 import com.vuclip.ubs.subscription_service.StatusSummary;
 import com.vuclip.ubs.subscription_service.UnblockRequestVO;
@@ -73,6 +75,45 @@ public class SubscriptionServiceController2 {
 	public UnblockResponseVO unblock(@Valid @RequestBody UnblockRequestVO unblockRequestVO) {
 		logger.info("unblock request : {}", unblockRequestVO);
 		return UnblockResponseVO.builder().response(new Response(true, "SUCCESS", "200")).build();
+	}
+
+	@RequestMapping(value = "/deactivate", method = RequestMethod.POST, produces = "application/json")
+	public DeactivateResponseVO deactivate(@RequestBody DeactivateRequestVO deactivateRequestVO) {
+		logger.info("Got request for deactivate: {}", deactivateRequestVO);
+
+		String userid = deactivateRequestVO.getUserId();
+		String msisdn = deactivateRequestVO.getMsisdn();
+
+		if (userid != null) {
+			String query = "SELECT * FROM block where user_id='" + userid + "'";
+			return getDeactivateRecords(query);
+		}
+		if (msisdn != null) {
+			String query = "SELECT * FROM block where msisdn='" + msisdn + "'";
+			return getDeactivateRecords(query);
+		}
+		return DeactivateResponseVO.builder().status(null).successful(true).message("SUCCESS").responseCode("200")
+				.build();
+
+	}
+
+	private DeactivateResponseVO getDeactivateRecords(String query) {
+		try {
+			logger.info("QUERY FOR FETCHING DATA " + query);
+			List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
+			if (respon.size() >= 1) {
+				Object jsonval = respon.get(0).get("json");
+				System.out.println(jsonval);
+				DeactivateResponseVO response = ObjectMapperUtils.readValueFromString((String) jsonval,
+						DeactivateResponseVO.class);
+				return response;
+			}
+		} catch (Exception e) {
+			System.out.println("No REcord found");
+
+		}
+		return DeactivateResponseVO.builder().status(null).successful(true).message("SUCCESS").responseCode("200")
+				.build();
 	}
 
 	private BlockUserResponseVO getBlockRecords(String query) {
