@@ -48,17 +48,16 @@
 		<AsyncLogger name="org.springframework.amqp.rabbit"
 			level="error" includeLocation="true" additivity="false" />
 
-		<AsyncLogger name="com.vuclip.ms.cas" level="info"
-			includeLocation="true" additivity="false">
+		<AsyncLogger name="com.vuclip.ubs.controller"
+			level="debug" includeLocation="true" additivity="false">
 			<AppenderRef ref="DebugRollingFile" />
+			<AppenderRef ref="Console" />
+
 		</AsyncLogger>
 
-		<AsyncLogger name="com.vuclip.ubs" level="DEBUG"
-			includeLocation="true" additivity="false">
-			<AppenderRef ref="DebugRollingFile" />
-		</AsyncLogger>
 
-		<AsyncRoot level="info">
+
+		<AsyncRoot level="debug">
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="DebugRollingFile" />
 		</AsyncRoot>
