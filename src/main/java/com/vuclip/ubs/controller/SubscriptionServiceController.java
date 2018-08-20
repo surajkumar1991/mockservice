@@ -33,7 +33,7 @@ public class SubscriptionServiceController {
 	public SubscriptionStatusReponse sgetSubscriptionStatus(@PathVariable Integer productId,
 			@RequestParam(required = false) String userid, @RequestParam(required = false) String msisdn,
 			@RequestParam(required = false) Long subscriptionId) {
-		System.out.println("GETUSERSTATUS REQUEST PARAM : " + userid + msisdn + subscriptionId + productId);
+		logger.info("GETUSERSTATUS REQUEST PARAM : " + userid + msisdn + subscriptionId + productId);
 		String whereClause = "";
 		boolean u = false, m = false, s = false;
 		if (userid != null) {
@@ -57,7 +57,7 @@ public class SubscriptionServiceController {
 			try {
 				strresponse = jdbcTemplate.queryForObject(query, new UserSubscriptionMapper());
 			} catch (EmptyResultDataAccessException e) {
-				System.out.println("No REcord found");
+				logger.info("No REcord found");
 			}
 		}
 
@@ -68,7 +68,7 @@ public class SubscriptionServiceController {
 		strresponse.setResponseCode("200");
 		strresponse.setSuccessful(true);
 		strresponse.setMessage("success");
-		System.out.println("GETUSERSTATUSRESPONSE : " + strresponse.toString());
+		logger.info("GET USER STATUS RESPONSE : " + strresponse.toString());
 		return strresponse;
 	}
 
@@ -86,7 +86,7 @@ public class SubscriptionServiceController {
 
 		if (country == null) {
 			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(false)
-					.response(new Response(false, "UserId or Msisdn is required", "200")).build();
+					.response(new Response(false, "Country is required", "200")).build();
 		}
 
 		if (userid != null) {
@@ -108,19 +108,21 @@ public class SubscriptionServiceController {
 			logger.info("QUERY FOR FETCHING DATA " + query);
 			List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
 			if (respon.size() >= 1) {
-				Object jsonval = respon.get(0).get("json");
-				System.out.println(jsonval);
+				Object jsonval = respon.get(0).get("");
+				logger.info(jsonval);
 				FreeTrialEligibilityResponseVO response = ObjectMapperUtils.readValueFromString((String) jsonval,
 						FreeTrialEligibilityResponseVO.class);
 				return response;
 			}
 		} catch (Exception e) {
-			System.out.println("New User");
+			logger.info("Excpetion:" + e.getMessage());
 			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(true)
-					.response(new Response(true, "SUCCESS", "200")).build();
+					.response(new Response(false, "failure", "200")).build();
 
 		}
-		return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(false)
-				.response(new Response(false, "SUCCESS", "200")).build();
+		logger.info("Free Trial New User");
+		return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(true)
+				.response(new Response(true, "SUCCESS", "200")).build();
+
 	}
 }
