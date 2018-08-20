@@ -64,7 +64,7 @@ public class SubscriptionServiceController {
 			return getUserSubscriptionRecord(query);
 		}
 		if (subscriptionId != null) {
-			String query = "SELECT * FROM user_subscription where subscription_id='" + subscriptionId + "'";
+			String query = "SELECT * FROM user_subscription where subscription_id=" + subscriptionId;
 			return getUserSubscriptionRecord(query);
 		}
 		return new SubscriptionStatusReponse(false, "Data is not valid", "FA004", null);
