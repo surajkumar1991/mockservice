@@ -134,6 +134,8 @@ public class SubscriptionServiceController {
 				System.out.println(jsonval);
 				SubscriptionStatusReponse response = ObjectMapperUtils.readValueFromString((String) jsonval,
 						SubscriptionStatusReponse.class);
+				logger.info("RESPONSE "+response.toString());
+				
 				return response;
 			}
 		} catch (Exception e) {

@@ -15,7 +15,7 @@ import lombok.ToString;
 @JsonPropertyOrder({ "userSubAuthKey", "userId", "msisdn", "subscriptionId", "startDate", "endDate", "nextBillingDate",
 		"lastChargeDate", "chargedPrice", "country", "partnerId", "subscriptionStatus", "subscriptionValidityDays",
 		"productId", "itemId", "itemTypeId", "subscriptionBillingCode", "chargedBillingCode", "customerTransactionId",
-		"renewalAllowed", "activationDate", "deactivationDate", "payload", "summary", "mode", "paid" })
+		"renewalAllowed", "activationDate", "deactivationDate", "payload", "summary", "mode", "paid","userSource" })
 @Getter
 @Setter
 @NoArgsConstructor
@@ -70,6 +70,9 @@ public class Status_ {
 	private Long deactivationDate;
 	@JsonProperty("payload")
 	private String payload;
+	
+	@JsonProperty("userSource")
+	private String userSource;
 	@JsonProperty("summary")
 	private String summary;
 	@JsonProperty("mode")
