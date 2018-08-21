@@ -149,12 +149,12 @@ public class SubscriptionServiceController2 {
 				return response;
 			}
 		} catch (Exception e) {
-			System.out.println("No REcord found");
-			return BlockStatusResponseVO.builder().blockedUserData(null).blockSummary(StatusSummary.BLACK_LISTED)
+			System.out.println("No Record found");
+			return BlockStatusResponseVO.builder().blockedUserData(null).blockSummary(StatusSummary.NOT_BLACKLISTED)
 					.build();
 
 		}
-		return BlockStatusResponseVO.builder().blockedUserData(null).blockSummary(StatusSummary.BLACK_LISTED).build();
+		return BlockStatusResponseVO.builder().blockedUserData(null).blockSummary(StatusSummary.NOT_BLACKLISTED).build();
 	}
 
 }
