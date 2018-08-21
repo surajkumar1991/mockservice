@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
+import com.vuclip.ubs.subscription_service.SubscriptionStatusReponse;
 import com.vuclip.ubs.vuconnect.PartnerActivationConsentParserRequestVO;
 import com.vuclip.ubs.vuconnect.PartnerActivationConsentParserResponseVO;
 import com.vuclip.ubs.vuconnect.PartnerActivationConsentRequestVO;
@@ -29,22 +30,37 @@ public class Vuconnect {
 	@Autowired(required = true)
 	JdbcTemplate jdbcTemplate;
 
-	@RequestMapping(value = "/consent//activationConsent", method = { RequestMethod.POST }, produces = {
+	@RequestMapping(value = "/consent/activationConsent", method = { RequestMethod.POST }, produces = {
 			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody PartnerActivationConsentResponseVO processActivationConsent(
 			@RequestBody @Valid PartnerActivationConsentRequestVO partnerActivationConsentRequestVO) {
 
 		System.out.println("REQUEST : " + partnerActivationConsentRequestVO.toString());
-		String userId = partnerActivationConsentRequestVO.getUserId();
+		String userid = partnerActivationConsentRequestVO.getUserId();
 		PartnerActivationConsentResponseVO response = null;
-		String query = "SELECT * FROM ubs_mock.consent_data where userId='" + userId + "' ";
-		try {
-			response = jdbcTemplate.queryForObject(query, new PartnerActivationConsentResponseVOMapper());
-		} catch (EmptyResultDataAccessException e) {
-			System.out.println("No REcord found");
+		if (userid != null) {
+			try {
+				String query = "SELECT * FROM consent_data where user_id='" + userid + "' ";
+
+				response = jdbcTemplate.queryForObject(query, new PartnerActivationConsentResponseVOMapper());
+			} catch (EmptyResultDataAccessException e) {
+				System.out.println("No REcord found");
+			}
 		}
+		String msisdn = partnerActivationConsentRequestVO.getMsisdn();
+		if (msisdn != null) {
+			try {
+				String query = "SELECT * FROM consent_data where msisdn='" + msisdn + "' ";
+
+				response = jdbcTemplate.queryForObject(query, new PartnerActivationConsentResponseVOMapper());
+			} catch (EmptyResultDataAccessException e) {
+				System.out.println("No REcord found");
+			}
+		}
+
 		System.out.println("RESPONSE : " + response.toString());
 		return response;
+
 	}
 
 	@RequestMapping(value = "/consent/activationConsentParser", method = { RequestMethod.POST }, produces = {
