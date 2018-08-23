@@ -20,7 +20,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "resultVO", "deactivationConsentUrl", "billingTransactionId", "partnerTransactionId",
 		"userStatus" })
-public class DeactivateResponseVO {
+public class DeactivateUserResponseVO {
 
 	@JsonProperty("resultVO")
 	private ResultVO resultVO;
