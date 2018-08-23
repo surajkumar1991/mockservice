@@ -31,13 +31,13 @@ public class UserStatus {
 	@JsonProperty("msisdn")
 	private String msisdn;
 	@JsonProperty("subscriptionId")
-	private Integer subscriptionId;
+	private Long subscriptionId;
 	@JsonProperty("startDate")
-	private Integer startDate;
+	private Long startDate;
 	@JsonProperty("endDate")
-	private Integer endDate;
+	private Long endDate;
 	@JsonProperty("nextBillingDate")
-	private Integer nextBillingDate;
+	private Long nextBillingDate;
 	@JsonProperty("lastChargeDate")
 	private Object lastChargeDate;
 	@JsonProperty("chargedPrice")
@@ -65,7 +65,7 @@ public class UserStatus {
 	@JsonProperty("renewalAllowed")
 	private Boolean renewalAllowed;
 	@JsonProperty("activationDate")
-	private Integer activationDate;
+	private Long activationDate;
 	@JsonProperty("deactivationDate")
 	private Object deactivationDate;
 	@JsonProperty("payload")
