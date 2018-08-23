@@ -66,7 +66,7 @@ public class SubscriptionServiceController2 {
 			String query = "SELECT * FROM block where msisdn='" + msisdn + "'";
 			return getBlockRecords(query);
 		}
-		return BlockUserResponseVO.builder().blockedUserData(null).response(new Response(true, "SUCCESS", "200"))
+		return BlockUserResponseVO.builder().blockedUserData(null).response(new Response("SUCCESS", true, "200"))
 				.build();
 
 	}
@@ -74,7 +74,7 @@ public class SubscriptionServiceController2 {
 	@RequestMapping(value = "/unblock", method = RequestMethod.POST, produces = "application/json")
 	public UnblockResponseVO unblock(@Valid @RequestBody UnblockRequestVO unblockRequestVO) {
 		logger.info("unblock request : {}", unblockRequestVO);
-		return UnblockResponseVO.builder().response(new Response(true, "SUCCESS", "200")).build();
+		return UnblockResponseVO.builder().response(new Response("SUCCESS", true, "200")).build();
 	}
 
 	@RequestMapping(value = "/deactivate", method = RequestMethod.POST, produces = "application/json")
@@ -129,11 +129,11 @@ public class SubscriptionServiceController2 {
 			}
 		} catch (Exception e) {
 			System.out.println("No REcord found");
-			return BlockUserResponseVO.builder().blockedUserData(null).response(new Response(true, "SUCCESS", "200"))
+			return BlockUserResponseVO.builder().blockedUserData(null).response(new Response("SUCCESS", true, "200"))
 					.build();
 
 		}
-		return BlockUserResponseVO.builder().blockedUserData(null).response(new Response(true, "SUCCESS", "200"))
+		return BlockUserResponseVO.builder().blockedUserData(null).response(new Response("SUCCESS", true, "200"))
 				.build();
 	}
 
@@ -154,7 +154,8 @@ public class SubscriptionServiceController2 {
 					.build();
 
 		}
-		return BlockStatusResponseVO.builder().blockedUserData(null).blockSummary(StatusSummary.NOT_BLACKLISTED).build();
+		return BlockStatusResponseVO.builder().blockedUserData(null).blockSummary(StatusSummary.NOT_BLACKLISTED)
+				.build();
 	}
 
 }
