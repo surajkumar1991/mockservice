@@ -12,12 +12,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DeactivateUserResponseVO  {
 
-	private String deactivationConsentUrl;
-
-	private String billingTransactionId;
-	
-	private String partnerTransactionId;
-	
+	private boolean successful;
+	private String message;
+	private String responseCode;
 	private SubscriptionStatusData userStatus;
 
 }
