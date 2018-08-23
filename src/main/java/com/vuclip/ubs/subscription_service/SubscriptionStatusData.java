@@ -1,7 +1,5 @@
 package com.vuclip.ubs.subscription_service;
 
-import java.math.Long;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
