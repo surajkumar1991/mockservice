@@ -92,8 +92,7 @@ public class SubscriptionServiceController2 {
 			String query = "SELECT * FROM block where msisdn='" + msisdn + "'";
 			return getDeactivateRecords(query);
 		}
-		return DeactivateResponseVO.builder().status(null).successful(true).message("SUCCESS").responseCode("200")
-				.build();
+		return DeactivateResponseVO.builder().status(null).response(new Response("SUCCESS", true, "200")).build();
 
 	}
 
@@ -112,8 +111,7 @@ public class SubscriptionServiceController2 {
 			System.out.println("No REcord found");
 
 		}
-		return DeactivateResponseVO.builder().status(null).successful(true).message("SUCCESS").responseCode("200")
-				.build();
+		return DeactivateResponseVO.builder().status(null).response(new Response("SUCCESS", true, "200")).build();
 	}
 
 	private BlockUserResponseVO getBlockRecords(String query) {

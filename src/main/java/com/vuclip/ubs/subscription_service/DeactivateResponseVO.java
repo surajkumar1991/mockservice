@@ -11,9 +11,7 @@ import lombok.Setter;
 @Builder
 public class DeactivateResponseVO {
 
-	private boolean successful;
-	private String message;
-	private String responseCode;
+	private Response response;
 	private SubscriptionStatusData status;
 
 
