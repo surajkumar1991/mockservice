@@ -1,7 +1,11 @@
 package com.vuclip.ubs.subscription_service;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author Akash Kadam
@@ -9,6 +13,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class DeactivateRequestVO {
 
 	String userId;
