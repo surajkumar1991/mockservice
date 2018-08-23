@@ -50,6 +50,6 @@ public class SubscriptionStatusData {
 	private Boolean renewalAllowed;
 	private Date activationDate;
 	private Map<String, String> payload = new HashMap<String, String>();
-	private StatusSummary mode;
+	private String mode;
 	private StatusSummary summary;
 }
