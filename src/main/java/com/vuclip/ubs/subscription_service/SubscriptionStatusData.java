@@ -1,6 +1,6 @@
 package com.vuclip.ubs.subscription_service;
 
-import java.math.BigInteger;
+import java.math.Long;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,14 +29,14 @@ public class SubscriptionStatusData {
 	private String userId;
 	private String msisdn;
 	private Long subscriptionId;
-	private BigInteger startDate;
-	private BigInteger endDate;
-	private BigInteger nextBillingDate;
-	private BigInteger lastChargeDate;
+	private Long startDate;
+	private Long endDate;
+	private Long nextBillingDate;
+	private Long lastChargeDate;
 	private Double chargedPrice;
-	private Country country;
+	private String country;
 	private String partner;
-	private SubscriptionPlanCycle planCycle;
+	private String planCycle;
 	private int partnerId;
 	private boolean subscribable;
 	private String subscriptionStatus;
@@ -48,7 +48,7 @@ public class SubscriptionStatusData {
 	private String chargedBillingCode;
 	private String customerTransactionId;
 	private Boolean renewalAllowed;
-	private Date activationDate;
+	private Long activationDate;
 	private Map<String, String> payload = new HashMap<String, String>();
 	private String mode;
 	private StatusSummary summary;
