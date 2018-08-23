@@ -15,6 +15,6 @@ public class DeactivateUserResponseVO  {
 	private boolean successful;
 	private String message;
 	private String responseCode;
-	private SubscriptionStatusData userStatus;
+	private SubscriptionStatusData status;
 
 }

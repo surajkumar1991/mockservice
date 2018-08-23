@@ -92,7 +92,7 @@ public class SubscriptionServiceController2 {
 			String query = "SELECT * FROM deactivate where msisdn='" + msisdn + "'";
 			return getDeactivateRecords(query);
 		}
-		return DeactivateUserResponseVO.builder().userStatus(null).build();
+		return DeactivateUserResponseVO.builder().status(null).build();
 
 	}
 
@@ -111,7 +111,7 @@ public class SubscriptionServiceController2 {
 			System.out.println("No REcord found");
 
 		}
-		return DeactivateUserResponseVO.builder().userStatus(null).build();
+		return DeactivateUserResponseVO.builder().status(null).build();
 	}
 
 	private BlockUserResponseVO getBlockRecords(String query) {
