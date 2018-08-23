@@ -25,7 +25,6 @@ import com.vuclip.ubs.subscription_service.Response;
 import com.vuclip.ubs.subscription_service.StatusSummary;
 import com.vuclip.ubs.subscription_service.UnblockRequestVO;
 import com.vuclip.ubs.subscription_service.UnblockResponseVO;
-import com.vuclip.ubs.vuconnect.ResultVO;
 
 @RestController
 public class SubscriptionServiceController2 {
@@ -93,7 +92,7 @@ public class SubscriptionServiceController2 {
 			String query = "SELECT * FROM deactivate where msisdn='" + msisdn + "'";
 			return getDeactivateRecords(query);
 		}
-		return DeactivateUserResponseVO.builder().userStatus(null).resultVO(new ResultVO("200","success", "SUCCESS" )).build();
+		return DeactivateUserResponseVO.builder().userStatus(null).build();
 
 	}
 
@@ -112,7 +111,7 @@ public class SubscriptionServiceController2 {
 			System.out.println("No REcord found");
 
 		}
-		return DeactivateUserResponseVO.builder().userStatus(null).resultVO(new ResultVO("200","success", "SUCCESS" )).build();
+		return DeactivateUserResponseVO.builder().userStatus(null).build();
 	}
 
 	private BlockUserResponseVO getBlockRecords(String query) {
