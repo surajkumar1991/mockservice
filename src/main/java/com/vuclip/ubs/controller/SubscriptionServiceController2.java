@@ -74,7 +74,18 @@ public class SubscriptionServiceController2 {
 	@RequestMapping(value = "/unblock", method = RequestMethod.POST, produces = "application/json")
 	public UnblockResponseVO unblock(@Valid @RequestBody UnblockRequestVO unblockRequestVO) {
 		logger.info("unblock request : {}", unblockRequestVO);
-		return UnblockResponseVO.builder().response(new Response("SUCCESS", true, "200")).build();
+		String userid = unblockRequestVO.getUserId();
+		String msisdn = unblockRequestVO.getUserId();
+
+		if (userid != null) {
+			String query = "SELECT * FROM unblock where user_id='" + userid + "'";
+			return getUnblockRecords(query);
+		}
+		if (msisdn != null) {
+			String query = "SELECT * FROM unblock where msisdn='" + msisdn + "'";
+			return getUnblockRecords(query);
+		}
+		return UnblockResponseVO.builder().response(new Response("FAILURE", true, "200")).build();
 	}
 
 	@RequestMapping(value = "/deactivate", method = RequestMethod.POST, produces = "application/json")
@@ -154,6 +165,25 @@ public class SubscriptionServiceController2 {
 		}
 		return BlockStatusResponseVO.builder().blockedUserData(null).blockSummary(StatusSummary.NOT_BLACKLISTED)
 				.build();
+	}
+
+	private UnblockResponseVO getUnblockRecords(String query) {
+		try {
+			logger.info("QUERY FOR FETCHING DATA " + query);
+			List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
+			if (respon.size() >= 1) {
+				Object jsonval = respon.get(0).get("json");
+				System.out.println(jsonval);
+				UnblockResponseVO response = ObjectMapperUtils.readValueFromString((String) jsonval,
+						UnblockResponseVO.class);
+				return response;
+			}
+		} catch (Exception e) {
+			System.out.println("No Record found");
+			return UnblockResponseVO.builder().response(new Response("FAILURE", true, "200")).build();
+
+		}
+		return UnblockResponseVO.builder().response(new Response("Not Blacklisted", true, "AB015")).build();
 	}
 
 }
