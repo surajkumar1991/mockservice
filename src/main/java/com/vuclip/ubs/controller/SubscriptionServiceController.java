@@ -42,7 +42,7 @@ public class SubscriptionServiceController {
 		 * if (whereClause.contains("and")) whereClause = whereClause.substring(0,
 		 * whereClause.length() - 3); SubscriptionStatusReponse strresponse = null; if
 		 * (u || m || s) { String query =
-		 * "SELECT * FROM ubs_mock.user_subscription where " + whereClause; try {
+		 * "SELECT * FROM user_subscription where " + whereClause; try {
 		 * strresponse = jdbcTemplate.queryForObject(query, new
 		 * UserSubscriptionMapper()); } catch (EmptyResultDataAccessException e) {
 		 * logger.info("No REcord found"); } }
