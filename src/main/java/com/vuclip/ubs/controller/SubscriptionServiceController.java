@@ -80,12 +80,12 @@ public class SubscriptionServiceController {
 
 		if (userid == null && msisdn == null) {
 			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(false)
-					.response(new Response(false, "UserId or Msisdn is required", "200")).build();
+					.response(new Response("UserId or Msisdn is required", false, "200")).build();
 		}
 
 		if (country == null) {
 			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(false)
-					.response(new Response(false, "Country is required", "200")).build();
+					.response(new Response("Country is required", false, "200")).build();
 		}
 
 		if (userid != null) {
@@ -98,7 +98,7 @@ public class SubscriptionServiceController {
 		}
 
 		return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(false)
-				.response(new Response(false, "No message available", "500")).build();
+				.response(new Response("No message available", false, "500")).build();
 
 	}
 
@@ -116,12 +116,12 @@ public class SubscriptionServiceController {
 		} catch (Exception e) {
 			logger.info("Excpetion:" + e.getMessage());
 			return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(true)
-					.response(new Response(false, "failure", "200")).build();
+					.response(new Response("faiure", false, "200")).build();
 
 		}
 		logger.info("Free Trial New User");
 		return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(true)
-				.response(new Response(true, "SUCCESS", "200")).build();
+				.response(new Response("SUCCESS", true, "200")).build();
 
 	}
 
@@ -134,8 +134,8 @@ public class SubscriptionServiceController {
 				System.out.println(jsonval);
 				SubscriptionStatusReponse response = ObjectMapperUtils.readValueFromString((String) jsonval,
 						SubscriptionStatusReponse.class);
-				logger.info("RESPONSE "+response.toString());
-				
+				logger.info("RESPONSE " + response.toString());
+
 				return response;
 			}
 		} catch (Exception e) {
