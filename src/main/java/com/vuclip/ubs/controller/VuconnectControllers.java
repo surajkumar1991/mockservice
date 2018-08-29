@@ -26,8 +26,8 @@ import com.vuclip.ubs.vuconnect.PartnerDeactivationConsentRequestVO;
 import com.vuclip.ubs.vuconnect.PartnerDeactivationConsentResponseVO;
 
 @RestController("/vuconnect")
-public class Vuconnect {
-	Logger logger = LogManager.getLogger(Vuconnect.class);
+public class VuconnectControllers {
+	Logger logger = LogManager.getLogger(VuconnectControllers.class);
 
 	@Autowired(required = true)
 	JdbcTemplate jdbcTemplate;

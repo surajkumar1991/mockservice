@@ -32,9 +32,9 @@ import com.vuclip.ubs.subscription_service.UnblockRequestVO;
 import com.vuclip.ubs.subscription_service.UnblockResponseVO;
 
 @RestController
-public class SubscriptionServiceController {
+public class SubscriptionServiceControllers {
 
-	Logger logger = LogManager.getLogger(SubscriptionServiceController.class);
+	Logger logger = LogManager.getLogger(SubscriptionServiceControllers.class);
 
 	@Autowired(required = true)
 	JdbcTemplate jdbcTemplate;
