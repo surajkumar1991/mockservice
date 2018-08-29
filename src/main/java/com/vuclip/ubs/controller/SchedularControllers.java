@@ -14,7 +14,7 @@ import com.vuclip.ubs.common.ObjectMapperUtils;
 import com.vuclip.ubs.schedular.SchedularRequest;
 
 @RestController
-public class SchedularController {
+public class SchedularControllers {
 
 	@Value("#{'${error.product.ids}'.split(',')}")
 	List<String> productIds;

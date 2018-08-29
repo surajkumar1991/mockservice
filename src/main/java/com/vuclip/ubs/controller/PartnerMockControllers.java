@@ -18,8 +18,8 @@ import com.vuclip.ubs.partner_mock.PaytmStatusCheckResponseVO;
 
 
 @RestController("/partnerMock")
-public class PartnerMock {
-	Logger logger = LogManager.getLogger(PartnerMock.class);
+public class PartnerMockControllers {
+	Logger logger = LogManager.getLogger(PartnerMockControllers.class);
 
 	@Autowired(required = true)
 	JdbcTemplate jdbcTemplate;

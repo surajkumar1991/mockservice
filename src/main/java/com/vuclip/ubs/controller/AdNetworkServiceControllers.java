@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class AdNetworkService {
+public class AdNetworkServiceControllers {
 
 	@RequestMapping(value = "/conversion/{volumtid}/pixel.jpg", method = { RequestMethod.POST, RequestMethod.GET })
 	public ResponseEntity<String> conversionPost(@PathVariable String volumtid) {
