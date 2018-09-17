@@ -16,7 +16,8 @@ public class PartnerActivationConsentResponseVOMapper implements RowMapper<Partn
 		response.setPartnerTransactionId(rs.getString("partnerTransactionId"));
 		response.setResultVO(
 				new ResultVO(rs.getString("responseCode"), rs.getString("message"), rs.getString("status")));
-
+		response.setPartnerSpecificValues(null);
+		response.setFormData(null);
 		return response;
 	}
 
