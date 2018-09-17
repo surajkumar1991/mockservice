@@ -1,5 +1,7 @@
 package com.vuclip.ubs.vuconnect;
 
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,5 +24,8 @@ public class PartnerActivationConsentResponseVO {
 	private String partnerTransactionId;
 
 	private ResultVO resultVO;
+	private String formData;
+
+	private Map<String, String> partnerSpecificValues;
 
 }
