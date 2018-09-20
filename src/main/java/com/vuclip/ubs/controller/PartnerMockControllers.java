@@ -52,7 +52,7 @@ public class PartnerMockControllers {
 				System.out.println(jsonval);
 				PaytmStatusCheckResponseVO response = ObjectMapperUtils.readValueFromString((String) jsonval,
 						PaytmStatusCheckResponseVO.class);
-				logger.info("Response " + response);
+				System.out.println("Response " + response);
 				return response;
 			}
 		} catch (Exception e) {
