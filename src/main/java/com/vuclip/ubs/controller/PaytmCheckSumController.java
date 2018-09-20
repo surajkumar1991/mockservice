@@ -18,7 +18,7 @@ import com.vuclip.ubs.utils.PaytmChecksumUtils;
 public class PaytmCheckSumController {
 	Logger logger = LogManager.getLogger(PaytmCheckSumController.class);
 
-	@RequestMapping(value = "/paytm/checkSum", method = { RequestMethod.POST }, consumes = "application/*")
+	@RequestMapping(value = "/paytm/checkSum", method = { RequestMethod.POST })
 	public ResponseEntity<TreeMap<String, String>> conversionPost(HttpServletRequest httpServletRequest) {
 		TreeMap<String, String> parametersMap = new TreeMap<>();
 		logger.info("Fetching params from Request and creating Map for processing");
@@ -33,11 +33,8 @@ public class PaytmCheckSumController {
 				parametersMap.put(key, value);
 			}
 		}
-//		try {
-//			logger.info(httpServletRequest.getReader().lines().collect(Collectors.joining()));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		// logger.info(httpServletRequest.getReader().lines().collect(Collectors.joining()));
+
 		logger.info("Initial parameters Map from Request " + parametersMap);
 		TreeMap<String, String> newp = PaytmChecksumUtils.getChecksumParametersMap(parametersMap);
 		logger.info(" Temp parameter map form Request " + newp.toString());

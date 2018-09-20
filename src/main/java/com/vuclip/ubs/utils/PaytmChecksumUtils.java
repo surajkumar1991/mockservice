@@ -4,9 +4,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.paytm.merchant.CheckSumServiceHelper;
 
 public class PaytmChecksumUtils {
+	static Logger logger = LogManager.getLogger(PaytmChecksumUtils.class);
+
 	public static final String CHECKSUM_STRING_DELIMITER = "|";
 	public static final String IS_CHECKSUM_VALID = "IS_CHECKSUM_VALID";
 	public static final String PROMO_RESPCODE = "PROMO_RESPCODE";
@@ -56,13 +61,15 @@ public class PaytmChecksumUtils {
 
 	public static String getChecksum(TreeMap<String, String> parameters) {
 
+//		=getChecksumParametersMap(new HashMap<>());
+
 		CheckSumServiceHelper checkSumServiceHelper = CheckSumServiceHelper.getCheckSumServiceHelper();
 		String checkSum = null;
 		try {
 
 			checkSum = checkSumServiceHelper.genrateCheckSum("_MIo%_T%p3a3Ilri", parameters);
 		} catch (Exception e) {
-			System.out.println("Exception while generating Paytm checksum");
+			logger.info("=========================Exception while generating Paytm checksum");
 		}
 
 		return checkSum;
