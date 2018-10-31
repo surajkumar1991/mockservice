@@ -33,6 +33,26 @@ public class PartnerMockControllers {
 		System.out.println("REQUEST : " + paytmStatusCheckRequestVO.toString());
 		String orderId = paytmStatusCheckRequestVO.getORDERID();
 		if (orderId != null) {
+				String query = "SELECT * FROM paytm_status where user_id='" + orderId.split("_")[0] + "' ";
+				PaytmStatusCheckResponseVO record= getRecords(query);
+				record.setORDERID(orderId);
+				return record;
+			}
+		
+		}
+		logger.info("Returning null response");
+		return null; 
+	}
+	
+	@RequestMapping(value = "/oltp/HANDLER_INTERNAL/RENEWAL", method = { RequestMethod.GET }, produces = {"application/json" })
+	public @ResponseBody PaytmStatusCheckResponseVO processPaytmRenewalResponse(@RequestParam String JsonData) {
+		
+		if(JsonData!= null) {
+		PaytmStatusCheckRequestVO paytmStatusCheckRequestVO=ObjectMapperUtils.readValueFromString(JsonData, PaytmStatusCheckRequestVO.class);
+
+		System.out.println("REQUEST : " + paytmStatusCheckRequestVO.toString());
+		String orderId = paytmStatusCheckRequestVO.getORDERID();
+		if (orderId != null) {
 				String query = "SELECT * FROM paytm_status where order_id='" + orderId + "' ";
 				return getRecords(query);
 			}
