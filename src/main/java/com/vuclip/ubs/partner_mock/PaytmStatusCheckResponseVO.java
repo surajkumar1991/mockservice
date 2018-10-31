@@ -28,7 +28,7 @@ public class PaytmStatusCheckResponseVO {
 	private String tXNID;
 	@JsonProperty("STATUS")
 	private String sTATUS;
-	@JsonProperty("SUBSID")
+	@JsonProperty("SUBS_ID")
 	private String sUBSID;
 	@JsonProperty("ORDERID")
 	private String oRDERID;
