@@ -2,6 +2,9 @@ package com.vuclip.ubs.controller;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vuclip.ubs.common.ObjectMapperUtils;
+import com.vuclip.ubs.partner_mock.PaytmRenewalResponse;
 import com.vuclip.ubs.partner_mock.PaytmStatusCheckRequestVO;
 import com.vuclip.ubs.partner_mock.PaytmStatusCheckResponseVO;
-
 
 @RestController("/partnerMock")
 public class PartnerMockControllers {
@@ -24,63 +27,95 @@ public class PartnerMockControllers {
 	@Autowired(required = true)
 	JdbcTemplate jdbcTemplate;
 
-	@RequestMapping(value = "/oltp/HANDLER_INTERNAL/TXNSTATUS", method = { RequestMethod.GET }, produces = {"application/json" })
+	@RequestMapping(value = "/oltp/HANDLER_INTERNAL/TXNSTATUS", method = { RequestMethod.GET }, produces = {
+			"application/json" })
 	public @ResponseBody PaytmStatusCheckResponseVO processPaytmStatusResponse(@RequestParam String JsonData) {
-		
-		if(JsonData!= null) {
-		PaytmStatusCheckRequestVO paytmStatusCheckRequestVO=ObjectMapperUtils.readValueFromString(JsonData, PaytmStatusCheckRequestVO.class);
 
-		System.out.println("REQUEST : " + paytmStatusCheckRequestVO.toString());
-		String orderId = paytmStatusCheckRequestVO.getORDERID();
-		if (orderId != null) {
+		if (JsonData != null) {
+			PaytmStatusCheckRequestVO paytmStatusCheckRequestVO = ObjectMapperUtils.readValueFromString(JsonData,
+					PaytmStatusCheckRequestVO.class);
+
+			logger.info("REQUEST : " + paytmStatusCheckRequestVO.toString());
+			String orderId = paytmStatusCheckRequestVO.getORDERID();
+			if (orderId != null) {
 				String query = "SELECT * FROM paytm_status where user_id='" + orderId.split("_")[0] + "' ";
-				PaytmStatusCheckResponseVO record= getRecords(query);
+				PaytmStatusCheckResponseVO record = getRecords(query);
 				record.setORDERID(orderId);
+				logger.info("TXNSTATUS Response: " + record.toString());
+
 				return record;
 			}
-		
-		}
-		logger.info("Returning null response");
-		return null; 
-	}
-	
-	@RequestMapping(value = "/oltp/HANDLER_INTERNAL/RENEWAL", method = { RequestMethod.GET }, produces = {"application/json" })
-	public @ResponseBody PaytmStatusCheckResponseVO processPaytmRenewalResponse(@RequestParam String JsonData) {
-		
-		if(JsonData!= null) {
-		PaytmStatusCheckRequestVO paytmStatusCheckRequestVO=ObjectMapperUtils.readValueFromString(JsonData, PaytmStatusCheckRequestVO.class);
 
-		System.out.println("REQUEST : " + paytmStatusCheckRequestVO.toString());
-		String orderId = paytmStatusCheckRequestVO.getORDERID();
-		if (orderId != null) {
-				String query = "SELECT * FROM paytm_status where order_id='" + orderId + "' ";
-				return getRecords(query);
-			}
-		
 		}
 		logger.info("Returning null response");
-		return null; 
+		return null;
 	}
-	
-	
+
+	@RequestMapping(value = "/oltp-web/processTransaction", method = { RequestMethod.GET }, produces = {
+			"application/json" })
+	public @ResponseBody PaytmRenewalResponse processPaytmRenewalResponse(HttpServletRequest request) {
+
+		logger.info("REQUEST : " + request.getParameter("ORDER_ID"));
+		String orderId = request.getParameter("ORDER_ID");
+		if (orderId != null) {
+			String query = "SELECT * FROM paytm_renewal where user_id='" + orderId.split("_")[0] + "' ";
+			PaytmRenewalResponse record = getRenewalRecords(query);
+			record.setORDERID(orderId);
+			logger.info("TXNSTATUS Response: " + record.toString());
+			return record;
+		}
+
+		logger.info("Returning null response");
+		return null;
+
+	}
+
 	private PaytmStatusCheckResponseVO getRecords(String query) {
+
+		try {
+			Object record = getRecord(query);
+			if (record != null) {
+				return ObjectMapperUtils.readValueFromString(ObjectMapperUtils.writeValueAsString(record),
+						PaytmStatusCheckResponseVO.class);
+			}
+		} catch (Exception e) {
+			logger.info("Excpetion:" + e.getMessage());
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private PaytmRenewalResponse getRenewalRecords(String query) {
+
+		try {
+			Object record = getRecord(query);
+			if (record != null) {
+				return ObjectMapperUtils.readValueFromString(ObjectMapperUtils.writeValueAsString(record),
+						PaytmRenewalResponse.class);
+			}
+		} catch (Exception e) {
+			logger.info("Excpetion:" + e.getMessage());
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private Object getRecord(String query) {
 		try {
 			logger.info("QUERY FOR FETCHING DATA " + query);
 			List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
 			if (respon.size() >= 1) {
 				Object jsonval = respon.get(0).get("json");
-				System.out.println(jsonval);
-				PaytmStatusCheckResponseVO response = ObjectMapperUtils.readValueFromString((String) jsonval,
-						PaytmStatusCheckResponseVO.class);
-				System.out.println("Response " + response);
-				return response;
+				logger.info("found record");
+				return jsonval;
 			}
 		} catch (Exception e) {
-			System.out.println("No Record found");
+			logger.info("No Record found");
 			logger.info("Excpetion:" + e.getMessage());
-			return PaytmStatusCheckResponseVO.builder().build();
+			e.printStackTrace();
 
 		}
-		return PaytmStatusCheckResponseVO.builder().build();
+		return null;
 	}
+
 }
