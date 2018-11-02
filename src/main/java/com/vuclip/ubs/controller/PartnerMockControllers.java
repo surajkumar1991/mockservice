@@ -62,7 +62,7 @@ public class PartnerMockControllers {
 			PaytmRenewalResponse record = getRenewalRecords(query);
 			record.setORDERID(orderId);
 			record.setSUBSID(request.getParameter("SUBS_ID"));
-			
+
 			logger.info("RENEWAL Response: " + record.toString());
 			return record;
 		}
@@ -75,10 +75,9 @@ public class PartnerMockControllers {
 	private PaytmStatusCheckResponseVO getRecords(String query) {
 
 		try {
-			Object record = getRecord(query);
+			String record = getRecord(query);
 			if (record != null) {
-				return ObjectMapperUtils.readValueFromString(ObjectMapperUtils.writeValueAsString(record),
-						PaytmStatusCheckResponseVO.class);
+				return ObjectMapperUtils.readValueFromString( record, PaytmStatusCheckResponseVO.class);
 			}
 		} catch (Exception e) {
 			logger.info("Excpetion:" + e.getMessage());
@@ -90,10 +89,10 @@ public class PartnerMockControllers {
 	private PaytmRenewalResponse getRenewalRecords(String query) {
 
 		try {
-			Object record = getRecord(query);
+			String record = getRecord(query);
 			if (record != null) {
-				return ObjectMapperUtils.readValueFromString(ObjectMapperUtils.writeValueAsString(record),
-						PaytmRenewalResponse.class);
+
+				return ObjectMapperUtils.readValueFromString(record, PaytmRenewalResponse.class);
 			}
 		} catch (Exception e) {
 			logger.info("Excpetion:" + e.getMessage());
@@ -102,14 +101,16 @@ public class PartnerMockControllers {
 		return null;
 	}
 
-	private Object getRecord(String query) {
+	private String getRecord(String query) {
 		try {
 			logger.info("QUERY FOR FETCHING DATA " + query);
 			List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
 			if (respon.size() >= 1) {
 				Object jsonval = respon.get(0).get("json");
+				System.out.println(jsonval);
+				logger.info("Object " + jsonval);
 				logger.info("found record");
-				return jsonval;
+				return (String) jsonval;
 			}
 		} catch (Exception e) {
 			logger.info("No Record found");
