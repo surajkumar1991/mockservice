@@ -51,7 +51,7 @@ public class PartnerMockControllers {
 		return null;
 	}
 
-	@RequestMapping(value = "/oltp-web/processTransaction", method = { RequestMethod.GET }, produces = {
+	@RequestMapping(value = "/oltp-web/processTransaction", method = { RequestMethod.POST }, produces = {
 			"application/json" })
 	public @ResponseBody PaytmRenewalResponse processPaytmRenewalResponse(HttpServletRequest request) {
 
@@ -61,7 +61,9 @@ public class PartnerMockControllers {
 			String query = "SELECT * FROM paytm_renewal where user_id='" + orderId.split("_")[0] + "' ";
 			PaytmRenewalResponse record = getRenewalRecords(query);
 			record.setORDERID(orderId);
-			logger.info("TXNSTATUS Response: " + record.toString());
+			record.setSUBSID(request.getParameter("SUBS_ID"));
+			
+			logger.info("RENEWAL Response: " + record.toString());
 			return record;
 		}
 
