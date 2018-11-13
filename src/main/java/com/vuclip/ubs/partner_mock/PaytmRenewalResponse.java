@@ -5,9 +5,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import lombok.ToString;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "MID", "TXNID", "STATUS", "ORDERID", "RESPMSG", "SUBS_ID", "RESPCODE", "TXNAMOUNT",
 		"CHECKSUMHASH" })
+@ToString
 public class PaytmRenewalResponse {
 
 	@JsonProperty("MID")
