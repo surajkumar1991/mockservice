@@ -54,8 +54,14 @@ public class PartnerMockControllers {
 	@RequestMapping(value = "/oltp-web/processTransaction", method = { RequestMethod.POST }, produces = {
 			"application/json" })
 	public @ResponseBody PaytmRenewalResponse processPaytmRenewalResponse(HttpServletRequest request) {
-
+		
 		logger.info("REQUEST : " + request.getParameter("ORDER_ID"));
+
+		Map<String, String[]> parameters = request.getParameterMap();
+		for (String key : parameters.keySet()) {
+			logger.info("Key " + key + ", Value " + parameters.get(key).toString());
+		}
+
 		String orderId = request.getParameter("ORDER_ID");
 		if (orderId != null) {
 			String query = "SELECT * FROM paytm_renewal where user_id='" + orderId.split("_")[0] + "' ";
@@ -77,7 +83,7 @@ public class PartnerMockControllers {
 		try {
 			String record = getRecord(query);
 			if (record != null) {
-				return ObjectMapperUtils.readValueFromString( record, PaytmStatusCheckResponseVO.class);
+				return ObjectMapperUtils.readValueFromString(record, PaytmStatusCheckResponseVO.class);
 			}
 		} catch (Exception e) {
 			logger.info("Excpetion:" + e.getMessage());
@@ -107,7 +113,6 @@ public class PartnerMockControllers {
 			List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
 			if (respon.size() >= 1) {
 				Object jsonval = respon.get(0).get("json");
-				System.out.println(jsonval);
 				logger.info("Object " + jsonval);
 				logger.info("found record");
 				return (String) jsonval;
