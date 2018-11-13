@@ -54,12 +54,15 @@ public class PartnerMockControllers {
 	@RequestMapping(value = "/oltp-web/processTransaction", method = { RequestMethod.POST }, produces = {
 			"application/json" })
 	public @ResponseBody PaytmRenewalResponse processPaytmRenewalResponse(HttpServletRequest request) {
-		
+
 		logger.info("REQUEST : " + request.getParameter("ORDER_ID"));
 
 		Map<String, String[]> parameters = request.getParameterMap();
 		for (String key : parameters.keySet()) {
-			logger.info("Key " + key + ", Value " + parameters.get(key).toString());
+			logger.info("Key " + key);
+			for (String value : parameters.get(key)) {
+				logger.info("Value " + value);
+			}
 		}
 
 		String orderId = request.getParameter("ORDER_ID");
