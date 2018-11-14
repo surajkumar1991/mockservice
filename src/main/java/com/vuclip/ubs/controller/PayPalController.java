@@ -12,7 +12,7 @@ public class PayPalController {
 
     private Logger logger = LogManager.getLogger(PayPalController.class);
 
-    @RequestMapping(value = "paypal/v1/oauth2/token", method = {RequestMethod.GET}, produces = {"application/json"})
+    @RequestMapping(value = "paypal/v1/oauth2/token", method = {RequestMethod.GET,RequestMethod.POST}, produces = {"application/json"})
     public @ResponseBody
     String paypalAuth(HttpServletRequest request) {
         Enumeration<String> headerNames = request.getHeaderNames();
