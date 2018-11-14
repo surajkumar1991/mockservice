@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AdNetworkServiceControllers {
 
-	@RequestMapping(value = "/conversion/{volumtid}/pixel.jpg", method = { RequestMethod.POST, RequestMethod.GET })
-	public ResponseEntity<String> conversionPost(@PathVariable String volumtid) {
-		System.out.println("ANS: GOT  REQUEST" + volumtid);
+    @RequestMapping(value = "/conversion/{volumtid}/pixel.jpg", method = {RequestMethod.POST, RequestMethod.GET})
+    public ResponseEntity<String> conversionPost(@PathVariable String volumtid) {
+        System.out.println("ANS: GOT  REQUEST" + volumtid);
 
-		return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-	}
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    }
 
 }

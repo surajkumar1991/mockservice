@@ -1,40 +1,40 @@
 package com.vuclip.ubs.subscription_service;
 
 public enum Country {
-	
-	MY("MY", "Malaysia","RM");
-	
-	private String ccode;
-	private String name;
-	private String currency;
-	
-	private Country(String ccode,String name, String currency){
-		this.setCcode(ccode);
-		this.setName(name);
-		this.setCurrency(currency);
-	}
 
-	public String getCcode() {
-		return ccode;
-	}
+    MY("MY", "Malaysia", "RM");
 
-	public void setCcode(String ccode) {
-		this.ccode = ccode;
-	}
+    private String ccode;
+    private String name;
+    private String currency;
 
-	public String getName() {
-		return name;
-	}
+    private Country(String ccode, String name, String currency) {
+        this.setCcode(ccode);
+        this.setName(name);
+        this.setCurrency(currency);
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getCcode() {
+        return ccode;
+    }
 
-	public String getCurrency() {
-		return currency;
-	}
+    public void setCcode(String ccode) {
+        this.ccode = ccode;
+    }
 
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 }

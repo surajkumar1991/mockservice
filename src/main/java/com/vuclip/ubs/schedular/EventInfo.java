@@ -1,19 +1,14 @@
 package com.vuclip.ubs.schedular;
 
-import java.math.BigInteger;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import java.math.BigInteger;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "logTime", "eventId", "eventType" })
+@JsonPropertyOrder({"logTime", "eventId", "eventType"})
 @Getter
 @Setter
 @ToString
@@ -21,11 +16,11 @@ import lombok.ToString;
 @AllArgsConstructor
 public class EventInfo {
 
-	@JsonProperty("logTime")
-	private BigInteger logTime;
-	@JsonProperty("eventId")
-	private String eventId;
-	@JsonProperty("eventType")
-	private String eventType;
+    @JsonProperty("logTime")
+    private BigInteger logTime;
+    @JsonProperty("eventId")
+    private String eventId;
+    @JsonProperty("eventType")
+    private String eventType;
 
 }

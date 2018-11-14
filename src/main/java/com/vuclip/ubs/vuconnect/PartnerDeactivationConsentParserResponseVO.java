@@ -1,14 +1,9 @@
 package com.vuclip.ubs.vuconnect;
 
 
-import java.math.BigInteger;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import java.math.BigInteger;
 
 @Getter
 @Setter
@@ -18,33 +13,33 @@ import lombok.ToString;
 @ToString
 public class PartnerDeactivationConsentParserResponseVO {
 
-   private boolean isBackButtonClicked;
-	
-	private String billingTransactionId;
-	
-	private String partnerTransactionId;
-	
-	private ResultVO resultVO;
-	
-	private String languageId;
-	
-	private Integer productId;
+    private boolean isBackButtonClicked;
 
-	private Integer partnerId;
-	
-	//do we need this here
-	private String userId;
-	
-	//do we need this here
-	private String msisdn;
-	
-	private ActivityResultType activityResultType;
+    private String billingTransactionId;
 
-	private String customerTransactionId;
-	
-	private BigInteger nextBillingDate;
-	
-	private BigInteger endDate;
-	
-	private String accessToken;
+    private String partnerTransactionId;
+
+    private ResultVO resultVO;
+
+    private String languageId;
+
+    private Integer productId;
+
+    private Integer partnerId;
+
+    //do we need this here
+    private String userId;
+
+    //do we need this here
+    private String msisdn;
+
+    private ActivityResultType activityResultType;
+
+    private String customerTransactionId;
+
+    private BigInteger nextBillingDate;
+
+    private BigInteger endDate;
+
+    private String accessToken;
 }

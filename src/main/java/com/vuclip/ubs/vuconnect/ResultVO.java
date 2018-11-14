@@ -3,16 +3,10 @@ package com.vuclip.ubs.vuconnect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "responseCode", "message", "status" })
+@JsonPropertyOrder({"responseCode", "message", "status"})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,10 +15,10 @@ import lombok.ToString;
 @ToString
 public class ResultVO {
 
-	@JsonProperty("responseCode")
-	private String responseCode;
-	@JsonProperty("message")
-	private String message;
-	@JsonProperty("status")
-	private String status;
+    @JsonProperty("responseCode")
+    private String responseCode;
+    @JsonProperty("message")
+    private String message;
+    @JsonProperty("status")
+    private String status;
 }

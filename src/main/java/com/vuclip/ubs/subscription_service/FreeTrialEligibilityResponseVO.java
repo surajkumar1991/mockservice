@@ -1,19 +1,16 @@
 package com.vuclip.ubs.subscription_service;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter@Setter
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class FreeTrialEligibilityResponseVO {
 
-	private boolean freeTrialEligibility;
+    private boolean freeTrialEligibility;
 
-	private Response response;
+    private Response response;
 
 }

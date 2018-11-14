@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class PaytmValidationHelper {
 
-	public void validateRequest(HttpServletRequest request) {
+    public void validateRequest(HttpServletRequest request) {
 
-	}
+    }
 }

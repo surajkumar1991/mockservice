@@ -1,20 +1,17 @@
 package com.vuclip.ubs.subscription_service;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter@Setter
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeactivateUserResponseVO  {
+public class DeactivateUserResponseVO {
 
-	private boolean successful;
-	private String message;
-	private String responseCode;
-	private SubscriptionStatusData status;
+    private boolean successful;
+    private String message;
+    private String responseCode;
+    private SubscriptionStatusData status;
 
 }

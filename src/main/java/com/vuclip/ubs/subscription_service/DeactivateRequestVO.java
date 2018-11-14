@@ -1,15 +1,9 @@
 package com.vuclip.ubs.subscription_service;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * @author Akash Kadam
- *
  */
 @Getter
 @Setter
@@ -19,30 +13,30 @@ import lombok.ToString;
 @NoArgsConstructor
 public class DeactivateRequestVO {
 
-	String userId;
+    String userId;
 
-	String msisdn;
+    String msisdn;
 
-	String productId;
+    String productId;
 
-	String partnerId;
+    String partnerId;
 
-	String activityId;
+    String activityId;
 
-	String actionId;
+    String actionId;
 
-	String transactionId;
+    String transactionId;
 
-	String transactionStateId;
+    String transactionStateId;
 
-	String closed;
+    String closed;
 
-	String itemId;
+    String itemId;
 
-	String itemTypeId;
+    String itemTypeId;
 
-	String mode;
+    String mode;
 
-	String countryCode;
+    String countryCode;
 
 }

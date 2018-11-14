@@ -1,13 +1,8 @@
 package com.vuclip.ubs.vuconnect;
 
-import java.util.Map;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -17,15 +12,15 @@ import lombok.ToString;
 @ToString
 public class PartnerActivationConsentResponseVO {
 
-	private String activationConsentUrl;
+    private String activationConsentUrl;
 
-	private String billingTransactionId;
+    private String billingTransactionId;
 
-	private String partnerTransactionId;
+    private String partnerTransactionId;
 
-	private ResultVO resultVO;
-	private String formData;
+    private ResultVO resultVO;
+    private String formData;
 
-	private Map<String, String> partnerSpecificValues;
+    private Map<String, String> partnerSpecificValues;
 
 }
