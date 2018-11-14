@@ -56,7 +56,7 @@ public class PayPalController {
         }
         logger.info(sb.toString());
        
-        PayPalAuthResponse response = ObjectMapperUtils.readValue("PaypalAuthResponse.json", PayPalAuthResponse.class);
+        PayPalAuthResponse response = ObjectMapperUtils.readValue("classpath:PaypalAuthResponse.json", PayPalAuthResponse.class);
 
         return response;
     }

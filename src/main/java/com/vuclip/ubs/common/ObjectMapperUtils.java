@@ -1,19 +1,22 @@
 package com.vuclip.ubs.common;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.util.ResourceUtils;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
 
 public class ObjectMapperUtils {
 
@@ -32,7 +35,7 @@ public class ObjectMapperUtils {
     public static <T> T readValue(String filepath, Class<T> returnType) {
         logger.debug("*** filepath: " + filepath);
         try {
-            File f = new File(filepath);
+            File f = ResourceUtils.getFile(filepath);
             logger.debug("Is File object is Null : " + (f == null) + "");
             return objectMapper.readValue(f, returnType);
         } catch (UnrecognizedPropertyException | JsonParseException e) {
