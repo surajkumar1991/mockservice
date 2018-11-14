@@ -1,32 +1,27 @@
 package com.vuclip.ubs.controller;
 
+import com.vuclip.ubs.common.ObjectMapperUtils;
+import com.vuclip.ubs.models.paypal.PayPalAuthResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Enumeration;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.vuclip.ubs.common.ObjectMapperUtils;
-import com.vuclip.ubs.models.paypal.PayPalAuthResponse;
+import java.util.Map;
 
 @RestController
 public class PayPalController {
 
     private Logger logger = LogManager.getLogger(PayPalController.class);
 
-    @RequestMapping(value = "paypal/v1/oauth2/token", method = {RequestMethod.GET,RequestMethod.POST}, produces = {"application/json"})
+    @RequestMapping(value = "paypal/v1/oauth2/token", method = {RequestMethod.GET, RequestMethod.POST}, produces = {"application/json"})
     public @ResponseBody
     PayPalAuthResponse paypalAuth(HttpServletRequest request) throws IOException {
-    	
-    	logger.info("PayPal oauth2 Request");
+
+        logger.info("PayPal oauth2 Request");
         Enumeration<String> headerNames = request.getHeaderNames();
 
         while (headerNames.hasMoreElements()) {
@@ -39,6 +34,16 @@ public class PayPalController {
             }
 
         }
+        
+
+        Map<String, String[]> parameters = request.getParameterMap();
+        for (String key : parameters.keySet()) {
+            logger.info("Key " + key);
+            for (String value : parameters.get(key)) {
+                logger.info("Value " + value);
+            }
+        }
+        
         StringBuilder sb = new StringBuilder();
         BufferedReader reader = request.getReader();
         try {
@@ -50,9 +55,9 @@ public class PayPalController {
             reader.close();
         }
         logger.info(sb.toString());
+       
+        PayPalAuthResponse response = ObjectMapperUtils.readValue("src/main/resources/json/PaypalAuthResponse.json", PayPalAuthResponse.class);
 
-        PayPalAuthResponse response= ObjectMapperUtils.readValue("src/main/resources/json/PaypalAuthResponse.json", PayPalAuthResponse.class);
-        
         return response;
     }
 
