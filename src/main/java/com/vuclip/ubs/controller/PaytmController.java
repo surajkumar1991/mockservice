@@ -16,10 +16,10 @@ import java.util.Map;
 
 @RestController("/partnerMock")
 public class PaytmController {
-    Logger logger = LogManager.getLogger(PaytmController.class);
+    private Logger logger = LogManager.getLogger(PaytmController.class);
 
     @Autowired(required = true)
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     @RequestMapping(value = "/oltp/HANDLER_INTERNAL/TXNSTATUS", method = {RequestMethod.GET}, produces = {
             "application/json"})

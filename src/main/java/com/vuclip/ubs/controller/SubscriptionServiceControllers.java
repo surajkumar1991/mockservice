@@ -15,10 +15,10 @@ import java.util.Map;
 @RestController
 public class SubscriptionServiceControllers {
 
-    Logger logger = LogManager.getLogger(SubscriptionServiceControllers.class);
+    private Logger logger = LogManager.getLogger(SubscriptionServiceControllers.class);
 
     @Autowired(required = true)
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     @RequestMapping(value = "/getUserStatus/{productId}", method = RequestMethod.GET, produces = "application/json")
     public SubscriptionStatusReponse sgetSubscriptionStatus(@PathVariable Integer productId,
