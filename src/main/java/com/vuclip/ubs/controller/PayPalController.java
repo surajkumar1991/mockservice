@@ -16,8 +16,8 @@ import java.util.Map;
 public class PayPalController {
 
 	private static String authResponse = "{ \"scope\": \"client_credentials\","
-			+ "  \"nonce\": \"client_credentials\"," + "  \"access_token\": \"dummyaccesstoken\","
-			+ "  \"token_type\": \"Bearer\"," + "  \"app_id\": \"APP-VIU\"," + "  \"expires_in\": 323333333398" + "}";
+			+ "  \"nonce\": \"client_credentials\"," + "  \"access_token\": \"A21AAGL2a1cmTnMRJmiIUouY7ZNKdlotCX1RhWeb3Rok_tV-hmoyfp0XWeG625kHNCAJTLUmdYDseBBNsIRgorFGcUVrajaxQ\","
+			+ "  \"token_type\": \"Bearer\"," + "  \"app_id\": \"APP-VIU\"," + "  \"expires_in\": 32999" + "}";
 	private Logger logger = LogManager.getLogger(PayPalController.class);
 
 	@RequestMapping(value = "paypal/v1/oauth2/token", method = { RequestMethod.GET, RequestMethod.POST }, produces = {
