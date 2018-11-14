@@ -5,9 +5,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication(scanBasePackages = {"com.vuclip.ubs", "com.vuclip.ubs.*", "com.vuclip.ubs.common",
-        "com.vuclip.ubs.config", "com.vuclip.ubs.controller", "com.vuclip.ubs.ss"})
-@ComponentScan(basePackages = "com.vuclip.ubs")
+@SpringBootApplication(scanBasePackages = {"com.vuclip.ubs.*"})
+@ComponentScan(basePackages = "com.vuclip.ubs.*")
 @EnableAutoConfiguration
 public class UBSMockApp {
 
