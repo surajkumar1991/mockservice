@@ -178,7 +178,7 @@ public class SubscriptionServiceControllers {
                 return response;
             }
         } catch (Exception e) {
-            logger.info("No REcord found");
+            logger.info("No REcord found" + e);
             return BlockUserResponseVO.builder().blockedUserData(null).response(new Response("SUCCESS", true, "200"))
                     .build();
 
@@ -199,7 +199,7 @@ public class SubscriptionServiceControllers {
                 return response;
             }
         } catch (Exception e) {
-            logger.info("No Record found");
+            logger.info("No Record found" + e);
             return BlockStatusResponseVO.builder().blockedUserData(null).blockSummary(StatusSummary.NOT_BLACKLISTED)
                     .build();
 
@@ -220,7 +220,7 @@ public class SubscriptionServiceControllers {
                 return response;
             }
         } catch (Exception e) {
-            logger.info("No Record found");
+            logger.info("No Record found" + e);
             return UnblockResponseVO.builder().response(new Response("FAILURE", true, "200")).build();
 
         }
@@ -239,7 +239,7 @@ public class SubscriptionServiceControllers {
                 return response;
             }
         } catch (Exception e) {
-            logger.info("Excpetion:" + e.getMessage());
+            logger.info("Excpetion:" + e);
             return FreeTrialEligibilityResponseVO.builder().freeTrialEligibility(true)
                     .response(new Response("faiure", false, "200")).build();
 
@@ -264,7 +264,7 @@ public class SubscriptionServiceControllers {
                 return response;
             }
         } catch (Exception e) {
-            logger.info("Excpetion:" + e.getMessage());
+            logger.info("Excpetion:" + e);
             return new SubscriptionStatusReponse(false, "Data is not valid", "FA004", null);
 
         }

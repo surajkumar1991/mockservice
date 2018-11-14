@@ -37,7 +37,7 @@ public class VuconnectControllers {
 
                 return response;
             } catch (EmptyResultDataAccessException e) {
-                logger.info("No REcord found");
+                logger.info("No REcord found" + e);
             }
         }
         String msisdn = partnerActivationConsentRequestVO.getMsisdn();
@@ -51,7 +51,7 @@ public class VuconnectControllers {
                 return response;
 
             } catch (EmptyResultDataAccessException e) {
-                logger.info("No REcord found");
+                logger.info("No REcord found" + e);
             }
         }
 
