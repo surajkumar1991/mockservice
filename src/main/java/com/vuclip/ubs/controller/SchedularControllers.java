@@ -17,9 +17,9 @@ import java.util.List;
 @RestController
 public class SchedularControllers {
     @Value("#{'${error.product.ids}'.split(',')}")
-    List<String> productIds;
+    private List<String> productIds;
     @Value("#{'${error.partner.ids}'.split(',')}")
-    List<String> partnerIds;
+    private List<String> partnerIds;
     private Logger logger = LogManager.getLogger(SchedularControllers.class);
 
     @RequestMapping(value = "/health", method = RequestMethod.GET)
@@ -33,11 +33,13 @@ public class SchedularControllers {
         logger.info("REQUEST FOR SCHEDULAR : " + json);
         SchedularRequest request = ObjectMapperUtils.readValueFromString(json, SchedularRequest.class);
 
-        if (request.getProductId() != null)
+        if (request.getProductId() != null) {
             logger.info("product id " + request.getProductId());
+        }
 
-        if (request.getPartnerId() != null)
+        if (request.getPartnerId() != null) {
             logger.info(" partner id " + request.getPartnerId());
+        }
 
         for (String productId : productIds) {
 

@@ -154,13 +154,13 @@ public class SubscriptionServiceControllers {
             List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
             if (respon.size() >= 1) {
                 Object jsonval = respon.get(0).get("json");
-                System.out.println(jsonval);
+                logger.info(jsonval);
                 DeactivateUserResponseVO response = ObjectMapperUtils.readValueFromString((String) jsonval,
                         DeactivateUserResponseVO.class);
                 return response;
             }
         } catch (Exception e) {
-            System.out.println("No REcord found");
+            logger.info("No REcord found");
 
         }
         return DeactivateUserResponseVO.builder().status(null).build();
@@ -172,13 +172,13 @@ public class SubscriptionServiceControllers {
             List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
             if (respon.size() >= 1) {
                 Object jsonval = respon.get(0).get("json");
-                System.out.println(jsonval);
+                logger.info(jsonval);
                 BlockUserResponseVO response = ObjectMapperUtils.readValueFromString((String) jsonval,
                         BlockUserResponseVO.class);
                 return response;
             }
         } catch (Exception e) {
-            System.out.println("No REcord found");
+            logger.info("No REcord found");
             return BlockUserResponseVO.builder().blockedUserData(null).response(new Response("SUCCESS", true, "200"))
                     .build();
 
@@ -193,13 +193,13 @@ public class SubscriptionServiceControllers {
             List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
             if (respon.size() >= 1) {
                 Object jsonval = respon.get(0).get("json");
-                System.out.println(jsonval);
+                logger.info(jsonval);
                 BlockStatusResponseVO response = ObjectMapperUtils.readValueFromString((String) jsonval,
                         BlockStatusResponseVO.class);
                 return response;
             }
         } catch (Exception e) {
-            System.out.println("No Record found");
+            logger.info("No Record found");
             return BlockStatusResponseVO.builder().blockedUserData(null).blockSummary(StatusSummary.NOT_BLACKLISTED)
                     .build();
 
@@ -214,13 +214,13 @@ public class SubscriptionServiceControllers {
             List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
             if (respon.size() >= 1) {
                 Object jsonval = respon.get(0).get("json");
-                System.out.println(jsonval);
+                logger.info(jsonval);
                 UnblockResponseVO response = ObjectMapperUtils.readValueFromString((String) jsonval,
                         UnblockResponseVO.class);
                 return response;
             }
         } catch (Exception e) {
-            System.out.println("No Record found");
+            logger.info("No Record found");
             return UnblockResponseVO.builder().response(new Response("FAILURE", true, "200")).build();
 
         }
@@ -256,7 +256,7 @@ public class SubscriptionServiceControllers {
             List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
             if (respon.size() >= 1) {
                 Object jsonval = respon.get(0).get("json");
-                System.out.println(jsonval);
+                logger.info(jsonval);
                 SubscriptionStatusReponse response = ObjectMapperUtils.readValueFromString((String) jsonval,
                         SubscriptionStatusReponse.class);
                 logger.info("RESPONSE " + response.toString());
