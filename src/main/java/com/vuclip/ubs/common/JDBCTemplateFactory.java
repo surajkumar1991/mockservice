@@ -24,7 +24,7 @@ public class JDBCTemplateFactory {
             ds.setUsername(dbUser);
             ds.setPassword(bPassword);
             jDBCTemplate = new JdbcTemplate(ds);
-            System.out.println("Connection created to: " + dbUrl);
+            logger.info("Connection created to: " + dbUrl);
         } catch (Exception e) {
             logger.info(e);
             logger.info("Exception in getting DBConnection: " + e.getMessage());

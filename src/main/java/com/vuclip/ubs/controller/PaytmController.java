@@ -86,7 +86,7 @@ public class PaytmController {
             }
         } catch (Exception e) {
             logger.info("Excpetion:" + e.getMessage());
-            e.printStackTrace();
+            logger.info(e);
         }
         return null;
     }
@@ -101,7 +101,7 @@ public class PaytmController {
             }
         } catch (Exception e) {
             logger.info("Excpetion:" + e.getMessage());
-            e.printStackTrace();
+            logger.info(e);
         }
         return null;
     }
@@ -117,10 +117,8 @@ public class PaytmController {
                 return (String) jsonval;
             }
         } catch (Exception e) {
-            logger.info("No Record found");
-            logger.info("Excpetion:" + e.getMessage());
-            e.printStackTrace();
-
+            logger.info("No Record found Excpetion:" + e.getMessage());
+            logger.info(e);
         }
         return null;
     }
