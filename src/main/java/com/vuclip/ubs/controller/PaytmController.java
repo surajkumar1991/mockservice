@@ -4,7 +4,6 @@ import com.vuclip.ubs.common.ObjectMapperUtils;
 import com.vuclip.ubs.models.paytm.PaytmRenewalResponse;
 import com.vuclip.ubs.models.paytm.PaytmStatusCheckRequestVO;
 import com.vuclip.ubs.models.paytm.PaytmStatusCheckResponseVO;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
