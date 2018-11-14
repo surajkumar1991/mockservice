@@ -30,7 +30,7 @@ public class PaytmChecksumUtils {
     public static final String TXNTYPE = "TXNTYPE";
     public static final String RESPMSG = "RESPMSG";
     public static final String REFUNDAMT = "REFUNDAMT";
-    static Logger logger = LogManager.getLogger(PaytmChecksumUtils.class);
+    private static Logger logger = LogManager.getLogger(PaytmChecksumUtils.class);
 
     public static TreeMap<String, String> getChecksumParametersMap(Map<String, String> parameters) {
         TreeMap<String, String> paramap = new TreeMap<>();
@@ -59,15 +59,13 @@ public class PaytmChecksumUtils {
 
     public static String getChecksum(TreeMap<String, String> parameters) {
 
-//		=getChecksumParametersMap(new HashMap<>());
-
         CheckSumServiceHelper checkSumServiceHelper = CheckSumServiceHelper.getCheckSumServiceHelper();
         String checkSum = null;
         try {
 
             checkSum = checkSumServiceHelper.genrateCheckSum("_MIo%_T%p3a3Ilri", parameters);
         } catch (Exception e) {
-            logger.info("=========================Exception while generating Paytm checksum");
+            logger.info("=========================Exception while generating Paytm checksum" + e);
         }
 
         return checkSum;
