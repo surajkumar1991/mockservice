@@ -160,7 +160,7 @@ public class SubscriptionServiceControllers {
                 return response;
             }
         } catch (Exception e) {
-            logger.info("No REcord found");
+            logger.info("No REcord found" + e);
 
         }
         return DeactivateUserResponseVO.builder().status(null).build();
