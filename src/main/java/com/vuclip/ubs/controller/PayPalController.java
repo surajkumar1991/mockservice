@@ -1,11 +1,21 @@
 package com.vuclip.ubs.controller;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.web.bind.annotation.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.vuclip.ubs.common.ObjectMapperUtils;
+import com.vuclip.ubs.models.paypal.PayPalAuthResponse;
 
 @RestController
 public class PayPalController {
@@ -14,7 +24,9 @@ public class PayPalController {
 
     @RequestMapping(value = "paypal/v1/oauth2/token", method = {RequestMethod.GET,RequestMethod.POST}, produces = {"application/json"})
     public @ResponseBody
-    String paypalAuth(HttpServletRequest request) {
+    PayPalAuthResponse paypalAuth(HttpServletRequest request) throws IOException {
+    	
+    	logger.info("PayPal oauth2 Request");
         Enumeration<String> headerNames = request.getHeaderNames();
 
         while (headerNames.hasMoreElements()) {
@@ -27,8 +39,21 @@ public class PayPalController {
             }
 
         }
+        StringBuilder sb = new StringBuilder();
+        BufferedReader reader = request.getReader();
+        try {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append('\n');
+            }
+        } finally {
+            reader.close();
+        }
+        logger.info(sb.toString());
 
-        return null;
+        PayPalAuthResponse response= ObjectMapperUtils.readValue("src/main/resources/json/PaypalAuthResponse.json", PayPalAuthResponse.class);
+        
+        return response;
     }
 
     @RequestMapping(value = "paypal/v1/payments/billing-agreements/{paymentToken}/agreement-execute", method = {RequestMethod.GET}, produces = {"application/json"})

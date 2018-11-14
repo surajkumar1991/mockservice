@@ -1,0 +1,8 @@
+{
+  "scope": "client_credentials",
+  "nonce": "client_credentials",
+  "access_token": "dummyaccesstoken",
+  "token_type": "Bearer",
+  "app_id": "APP-VIU",
+  "expires_in": 323333333398
+}
