@@ -14,7 +14,7 @@ import java.util.TreeMap;
 
 @RestController
 public class PaytmCheckSumController {
-    Logger logger = LogManager.getLogger(PaytmCheckSumController.class);
+    private Logger logger = LogManager.getLogger(PaytmCheckSumController.class);
 
     @RequestMapping(value = "/paytm/checkSum", method = {RequestMethod.POST})
     public ResponseEntity<TreeMap<String, String>> conversionPost(HttpServletRequest httpServletRequest) {

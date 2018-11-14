@@ -16,12 +16,11 @@ import java.util.List;
 
 @RestController
 public class SchedularControllers {
-    Logger logger = LogManager.getLogger(SchedularControllers.class);
-
     @Value("#{'${error.product.ids}'.split(',')}")
     List<String> productIds;
     @Value("#{'${error.partner.ids}'.split(',')}")
     List<String> partnerIds;
+    private Logger logger = LogManager.getLogger(SchedularControllers.class);
 
     @RequestMapping(value = "/health", method = RequestMethod.GET)
     public ResponseEntity<String> sendAdNotification() {

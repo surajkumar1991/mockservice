@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ConfigurationServiceControllers {
-    Logger logger = LogManager.getLogger(ConfigurationServiceControllers.class);
+    private Logger logger = LogManager.getLogger(ConfigurationServiceControllers.class);
 
     @RequestMapping(value = "/saveCountry", method = {RequestMethod.POST, RequestMethod.PUT,
             RequestMethod.DELETE}, consumes = "application/json")

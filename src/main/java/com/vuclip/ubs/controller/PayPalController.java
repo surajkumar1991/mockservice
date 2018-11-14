@@ -10,7 +10,7 @@ import java.util.Enumeration;
 @RestController
 public class PayPalController {
 
-    Logger logger = LogManager.getLogger(PayPalController.class);
+    private Logger logger = LogManager.getLogger(PayPalController.class);
 
     @RequestMapping(value = "paypal/v1/oauth2/token", method = {RequestMethod.GET}, produces = {"application/json"})
     public @ResponseBody
