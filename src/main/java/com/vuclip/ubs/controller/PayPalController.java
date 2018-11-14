@@ -64,6 +64,14 @@ public class PayPalController {
 		return response;
 	}
 
+	
+	@RequestMapping(value = "paypal/v1/payments/billing-agreements", method = {
+			RequestMethod.GET }, produces = { "application/json" })
+	public @ResponseBody String paypalBillingAggreements(@PathVariable String paymentToken) {
+		logger.info("Payment Token : " + paymentToken);
+		return null;
+	}
+	
 	@RequestMapping(value = "paypal/v1/payments/billing-agreements/{paymentToken}/agreement-execute", method = {
 			RequestMethod.GET }, produces = { "application/json" })
 	public @ResponseBody String paypalAgreementExecute(@PathVariable String paymentToken) {
