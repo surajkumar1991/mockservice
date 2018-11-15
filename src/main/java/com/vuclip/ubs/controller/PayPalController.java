@@ -88,8 +88,10 @@ public class PayPalController {
 			}
 			String responseJson=(String) jsonval;
 			responseJson=responseJson.replaceAll(JSON_REPLACE_TEXT, "EC-"+dBresponse.get(0).get("billing_type")+"-"+System.currentTimeMillis());
-			 response = ObjectMapperUtils.readValueFromString((String) responseJson, PaypalCreateAgreementResponse.class);
-				return new ResponseEntity<PaypalCreateAgreementResponse>(response, HttpStatus.CREATED);
+			 response = ObjectMapperUtils.readValueFromString( responseJson, PaypalCreateAgreementResponse.class);
+				logger.info("RESPONSE : "+responseJson) ;
+	
+			 return new ResponseEntity<PaypalCreateAgreementResponse>(response, HttpStatus.CREATED);
 
 		}
 		return new ResponseEntity<PaypalCreateAgreementResponse>(response, HttpStatus.BAD_REQUEST);
@@ -118,7 +120,8 @@ public class PayPalController {
 		}
 		String responseJson=(String) jsonval;
 		responseJson=responseJson.replaceAll(JSON_REPLACE_TEXT, "I-"+dBresponse.get(0).get("billing_type")+"-"+System.currentTimeMillis());
-		 response = ObjectMapperUtils.readValueFromString((String) jsonval, PaypalExecuteAgreementResponse.class);
+		logger.info("RESPONSE : "+responseJson) ;
+		response = ObjectMapperUtils.readValueFromString(responseJson, PaypalExecuteAgreementResponse.class);
 
 			return new ResponseEntity<PaypalExecuteAgreementResponse>(response, HttpStatus.CREATED);
 	}
