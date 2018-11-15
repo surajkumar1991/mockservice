@@ -23,6 +23,7 @@ import com.vuclip.ubs.common.ObjectMapperUtils;
 import com.vuclip.ubs.models.paypal.PayPalAuthResponse;
 import com.vuclip.ubs.models.paypal.PaypalCreateAgreementRequest;
 import com.vuclip.ubs.models.paypal.PaypalCreateAgreementResponse;
+import com.vuclip.ubs.models.paypals.PaypalExecuteAgreementResponse;
 import com.vuclip.ubs.utils.LogUtils;
 
 @RestController
@@ -98,16 +99,34 @@ public class PayPalController {
 
 	@RequestMapping(value = "paypal/v1/payments/billing-agreements/{paymentToken}/agreement-execute", method = {
 			RequestMethod.POST }, produces = { "application/json" })
-	public @ResponseBody String paypalAgreementExecute(@PathVariable String paymentToken) {
+	public @ResponseBody ResponseEntity<PaypalExecuteAgreementResponse> paypalAgreementExecute(@PathVariable String paymentToken) {
+		
+		logger.info("REQUEST for execute Agreement ");
 		logger.info("Payment Token : " + paymentToken);
-		return null;
+		Object jsonval = null;
+		PaypalExecuteAgreementResponse response=null;
+		try {
+			String query = "SELECT * FROM `paypal_execute_agreement` where `billing_type`='"+paymentToken.split("-")[1].toUpperCase()+"'";
+			logger.info("QUERY FOR FETCHING DATA " + query);
+			List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
+			if (respon.size() >= 1) {
+				jsonval = respon.get(0).get("json");
+				logger.info("Object " + jsonval);
+				logger.info("found record");
+			}
+		} catch (Exception e) {
+			logger.info("No Record found Excpetion:" + e);
+		}
+		 response = ObjectMapperUtils.readValueFromString((String) jsonval, PaypalExecuteAgreementResponse.class);
+
+			return new ResponseEntity<PaypalExecuteAgreementResponse>(response, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "paypal/v1/payments/billing-agreements/<agreementId>/cancel", method = {
 			RequestMethod.POST }, produces = { "application/json" })
-	public @ResponseBody String paypalAgreementCancle(@PathVariable String agreementId) {
+	public @ResponseBody ResponseEntity<String> paypalAgreementCancle(@PathVariable String agreementId) {
 		logger.info("agreementId  : " + agreementId);
-		return null;
+		return new ResponseEntity<>("NOT IMPLEMENTED",HttpStatus.NOT_IMPLEMENTED);
 	}
 
 }
