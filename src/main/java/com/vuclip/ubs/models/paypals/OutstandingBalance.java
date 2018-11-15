@@ -6,22 +6,22 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-"value"
+        "value"
 })
 public class OutstandingBalance {
 
-@JsonProperty("value")
-private String value;
+    @JsonProperty("value")
+    private String value;
 
-@JsonProperty("value")
-public String getValue() {
-return value;
-}
+    @JsonProperty("value")
+    public String getValue() {
+        return value;
+    }
 
-@JsonProperty("value")
-public void setValue(String value) {
-this.value = value;
-}
+    @JsonProperty("value")
+    public void setValue(String value) {
+        this.value = value;
+    }
 
 }
 

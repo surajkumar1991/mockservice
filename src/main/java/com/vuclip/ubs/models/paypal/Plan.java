@@ -1,20 +1,20 @@
-
 package com.vuclip.ubs.models.paypal;
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.util.List;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id",
-    "name",
-    "type",
-    "state",
-    "description",
-    "payment_definitions",
-    "merchant_preferences"
+        "id",
+        "name",
+        "type",
+        "state",
+        "description",
+        "payment_definitions",
+        "merchant_preferences"
 })
 public class Plan {
 
