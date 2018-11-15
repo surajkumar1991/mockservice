@@ -1,4 +1,3 @@
-
 package com.vuclip.ubs.models.paypal;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -7,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "setup_fee",
-    "cancel_url",
-    "return_url",
-    "auto_bill_amount",
-    "max_fail_attempts",
-    "initial_fail_amount_action"
+        "setup_fee",
+        "cancel_url",
+        "return_url",
+        "auto_bill_amount",
+        "max_fail_attempts",
+        "initial_fail_amount_action"
 })
 public class MerchantPreferences {
 

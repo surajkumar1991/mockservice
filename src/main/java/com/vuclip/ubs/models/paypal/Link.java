@@ -1,4 +1,3 @@
-
 package com.vuclip.ubs.models.paypal;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -7,9 +6,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "rel",
-    "href",
-    "method"
+        "rel",
+        "href",
+        "method"
 })
 public class Link {
 

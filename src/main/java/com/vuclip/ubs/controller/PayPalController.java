@@ -29,7 +29,7 @@ import com.vuclip.ubs.utils.LogUtils;
 @RestController
 public class PayPalController {
 
-	private static String replaceTokenStringTest = "REPLACETOKENSTRINGTEST";
+	private static String JSON_REPLACE_TEXT = "REPLACETOKENSTRINGTEST";
 	private Logger logger = LogManager.getLogger(PayPalController.class);
 	private LogUtils logs = new LogUtils();
 	@Autowired(required = true)
@@ -87,7 +87,7 @@ public class PayPalController {
 				logger.info("No Record found Excpetion:" + e);
 			}
 			String responseJson=(String) jsonval;
-			responseJson=responseJson.replaceAll(replaceTokenStringTest, "EC-"+dBresponse.get(0).get("billing_type")+"-"+System.currentTimeMillis());
+			responseJson=responseJson.replaceAll(JSON_REPLACE_TEXT, "EC-"+dBresponse.get(0).get("billing_type")+"-"+System.currentTimeMillis());
 			 response = ObjectMapperUtils.readValueFromString((String) responseJson, PaypalCreateAgreementResponse.class);
 				return new ResponseEntity<PaypalCreateAgreementResponse>(response, HttpStatus.CREATED);
 
@@ -117,8 +117,7 @@ public class PayPalController {
 			logger.info("No Record found Excpetion:" + e);
 		}
 		String responseJson=(String) jsonval;
-		responseJson=responseJson.replaceAll(replaceTokenStringTest, "I-"+dBresponse.get(0).get("billing_type")+"-"+System.currentTimeMillis());
-
+		responseJson=responseJson.replaceAll(JSON_REPLACE_TEXT, "I-"+dBresponse.get(0).get("billing_type")+"-"+System.currentTimeMillis());
 		 response = ObjectMapperUtils.readValueFromString((String) jsonval, PaypalExecuteAgreementResponse.class);
 
 			return new ResponseEntity<PaypalExecuteAgreementResponse>(response, HttpStatus.CREATED);

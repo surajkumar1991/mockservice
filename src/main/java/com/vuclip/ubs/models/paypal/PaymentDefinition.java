@@ -1,4 +1,3 @@
-
 package com.vuclip.ubs.models.paypal;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -7,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id",
-    "name",
-    "type",
-    "amount",
-    "cycles",
-    "frequency",
-    "frequency_interval"
+        "id",
+        "name",
+        "type",
+        "amount",
+        "cycles",
+        "frequency",
+        "frequency_interval"
 })
 public class PaymentDefinition {
 
