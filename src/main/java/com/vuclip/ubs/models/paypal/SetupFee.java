@@ -1,3 +1,4 @@
+
 package com.vuclip.ubs.models.paypal;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -6,34 +7,34 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-"currency",
-"value"
+    "value",
+    "currency"
 })
 public class SetupFee {
 
-@JsonProperty("currency")
-private String currency;
-@JsonProperty("value")
-private String value;
+    @JsonProperty("value")
+    private String value;
+    @JsonProperty("currency")
+    private String currency;
 
-@JsonProperty("currency")
-public String getCurrency() {
-return currency;
-}
+    @JsonProperty("value")
+    public String getValue() {
+        return value;
+    }
 
-@JsonProperty("currency")
-public void setCurrency(String currency) {
-this.currency = currency;
-}
+    @JsonProperty("value")
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-@JsonProperty("value")
-public String getValue() {
-return value;
-}
+    @JsonProperty("currency")
+    public String getCurrency() {
+        return currency;
+    }
 
-@JsonProperty("value")
-public void setValue(String value) {
-this.value = value;
-}
+    @JsonProperty("currency")
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 
 }

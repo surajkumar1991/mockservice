@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import lombok.ToString;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"scope", "nonce", "access_token", "token_type", "app_id", "expires_in"})
+@ToString
 public class PayPalAuthResponse {
 
     @JsonProperty("scope")

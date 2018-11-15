@@ -1,127 +1,100 @@
 package com.vuclip.ubs.controller;
 
-import com.vuclip.ubs.common.ObjectMapperUtils;
-import com.vuclip.ubs.models.paypal.PayPalAuthResponse;
-import com.vuclip.ubs.models.paypal.PaypalCreateAgreementRequest;
-import com.vuclip.ubs.models.paypal.PaypalCreateAgreementResponse;
-import com.vuclip.ubs.models.paytm.PaytmStatusCheckResponseVO;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
+import com.vuclip.ubs.common.ObjectMapperUtils;
+import com.vuclip.ubs.models.paypal.PayPalAuthResponse;
+import com.vuclip.ubs.models.paypal.PaypalCreateAgreementRequest;
+import com.vuclip.ubs.models.paypal.PaypalCreateAgreementResponse;
+import com.vuclip.ubs.utils.LogUtils;
 
 @RestController
 public class PayPalController {
 
-	private static String authResponse = "{ \"scope\": \"client_credentials\","
-			+ "  \"nonce\": \"client_credentials\"," + "  \"access_token\": \"A21AAGL2a1cmTnMRJmiIUouY7ZNKdlotCX1RhWeb3Rok_tV-hmoyfp0XWeG625kHNCAJTLUmdYDseBBNsIRgorFGcUVrajaxQ\","
-			+ "  \"token_type\": \"Bearer\"," + "  \"app_id\": \"APP-VIU\"," + "  \"expires_in\": 32999" + "}";
+	private static String replaceTokenStringTest = "REPLACETOKENSTRINGTEST";
 	private Logger logger = LogManager.getLogger(PayPalController.class);
-
-	  @Autowired(required = true)
-	    private JdbcTemplate jdbcTemplate;
+	private LogUtils logs = new LogUtils();
+	@Autowired(required = true)
+	private JdbcTemplate jdbcTemplate;
 
 	@RequestMapping(value = "paypal/v1/oauth2/token", method = { RequestMethod.GET, RequestMethod.POST }, produces = {
 			"application/json" })
 	public @ResponseBody PayPalAuthResponse paypalAuth(HttpServletRequest request) throws IOException {
 
 		logger.info("PayPal oauth2 Request");
-		Enumeration<String> headerNames = request.getHeaderNames();
+		logs.logHeader(request);
+		logs.logParamsAndBody(request);
 
-		while (headerNames.hasMoreElements()) {
-			String headerName = headerNames.nextElement();
-			logger.info("header name " + headerName);
-			Enumeration<String> headers = request.getHeaders(headerName);
-			while (headers.hasMoreElements()) {
-				String headerValue = headers.nextElement();
-				logger.info(headerValue);
-			}
-
-		}
-
-		Map<String, String[]> parameters = request.getParameterMap();
-		for (String key : parameters.keySet()) {
-			logger.info("Key " + key);
-			for (String value : parameters.get(key)) {
-				logger.info("Value " + value);
-			}
-		}
-
-		StringBuilder sb = new StringBuilder();
-		BufferedReader reader = request.getReader();
+		Object jsonval = null;
 		try {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				sb.append(line).append('\n');
+			String query = "SELECT * FROM `paypal_auth` where `key`='paypal_access_token'";
+			logger.info("QUERY FOR FETCHING DATA " + query);
+			List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
+			if (respon.size() >= 1) {
+				jsonval = respon.get(0).get("json");
+				logger.info("Object " + jsonval);
+				logger.info("found record");
 			}
-		} finally {
-			reader.close();
+		} catch (Exception e) {
+			logger.info("No Record found Excpetion:" + e);
 		}
-		logger.info(sb.toString());
-
-		PayPalAuthResponse response = ObjectMapperUtils.readValueFromString(authResponse,
-				PayPalAuthResponse.class);
+		PayPalAuthResponse response = ObjectMapperUtils.readValueFromString((String) jsonval, PayPalAuthResponse.class);
 
 		return response;
 	}
 
-	
-	@RequestMapping(value = "paypal/v1/payments/billing-agreements", method = {
-			RequestMethod.POST }, produces = { "application/json" })
-	
-	public @ResponseBody PaypalCreateAgreementResponse paypalBillingAggreements(@RequestBody PaypalCreateAgreementRequest requestBody) {
+	@RequestMapping(value = "paypal/v1/payments/billing-agreements", method = { RequestMethod.POST }, produces = {
+			"application/json" })
+
+	public @ResponseBody ResponseEntity<PaypalCreateAgreementResponse> paypalBillingAggreements(
+			@RequestBody PaypalCreateAgreementRequest requestBody) {
 		logger.info("Payment Token : " + requestBody);
-		
+
 		logger.info("REQUEST : " + requestBody.toString());
-        String id = requestBody.getPlan().getId();
-        if (id != null) {
-            String query = "SELECT * FROM paypal_billing where id='" + requestBody.getPlan().getId() + "' ";
-            PaypalCreateAgreementResponse record = getRecords(query);
-            logger.info("TXNSTATUS Response: " + record.toString());
+		String id = requestBody.getPlan().getId();
+		PaypalCreateAgreementResponse response=null;
+		if (id != null) {
+			Object jsonval = null;
+			List<Map<String, Object>> dBresponse=null;
+			try {
+				String query = "SELECT * FROM paypal_create_agreement where id='" + requestBody.getPlan().getId() + "' ";
+				logger.info("QUERY FOR FETCHING DATA " + query);
+				 dBresponse = jdbcTemplate.queryForList(query);
+				if (dBresponse.size() >= 1) {
+					jsonval = dBresponse.get(0).get("json");
+					logger.info("Object " + jsonval);
+					logger.info("found record");
+				}
+			} catch (Exception e) {
+				logger.info("No Record found Excpetion:" + e);
+			}
+			String responseJson=(String) jsonval;
+			
+			responseJson=responseJson.replaceAll(replaceTokenStringTest, "EC-"+dBresponse.get(0).get("billing_type")+"-"+System.currentTimeMillis());
+			 response = ObjectMapperUtils.readValueFromString((String) responseJson, PaypalCreateAgreementResponse.class);
+				return new ResponseEntity<PaypalCreateAgreementResponse>(response, HttpStatus.CREATED);
 
-            return record;
-        }
-		
-		return null;
+		}
+		return new ResponseEntity<PaypalCreateAgreementResponse>(response, HttpStatus.BAD_REQUEST);
+
 	}
-	 private PaypalCreateAgreementResponse getRecords(String query) {
-
-	        try {
-	            String record = getRecord(query);
-	            if (record != null) {
-	                return ObjectMapperUtils.readValueFromString(record, PaypalCreateAgreementResponse.class);
-	            }
-	        } catch (Exception e) {
-	            logger.info("Excpetion:" + e.getMessage());
-	            logger.info(e);
-	        }
-	        return null;
-	    }
-	 private String getRecord(String query) {
-	        try {
-	            logger.info("QUERY FOR FETCHING DATA " + query);
-	            List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
-	            if (respon.size() >= 1) {
-	                Object jsonval = respon.get(0).get("json");
-	                logger.info("Object " + jsonval);
-	                logger.info("found record");
-	                return (String) jsonval;
-	            }
-	        } catch (Exception e) {
-	            logger.info("No Record found Excpetion:" + e.getMessage());
-	            logger.info(e);
-	        }
-	        return null;
-	    }
 
 	@RequestMapping(value = "paypal/v1/payments/billing-agreements/{paymentToken}/agreement-execute", method = {
 			RequestMethod.POST }, produces = { "application/json" })
