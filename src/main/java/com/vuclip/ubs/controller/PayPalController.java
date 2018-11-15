@@ -87,7 +87,6 @@ public class PayPalController {
 				logger.info("No Record found Excpetion:" + e);
 			}
 			String responseJson=(String) jsonval;
-			
 			responseJson=responseJson.replaceAll(replaceTokenStringTest, "EC-"+dBresponse.get(0).get("billing_type")+"-"+System.currentTimeMillis());
 			 response = ObjectMapperUtils.readValueFromString((String) responseJson, PaypalCreateAgreementResponse.class);
 				return new ResponseEntity<PaypalCreateAgreementResponse>(response, HttpStatus.CREATED);
@@ -104,19 +103,22 @@ public class PayPalController {
 		logger.info("REQUEST for execute Agreement ");
 		logger.info("Payment Token : " + paymentToken);
 		Object jsonval = null;
+		List<Map<String, Object>> dBresponse=null;
 		PaypalExecuteAgreementResponse response=null;
 		try {
 			String query = "SELECT * FROM `paypal_execute_agreement` where `billing_type`='"+paymentToken.split("-")[1].toUpperCase()+"'";
 			logger.info("QUERY FOR FETCHING DATA " + query);
-			List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
-			if (respon.size() >= 1) {
-				jsonval = respon.get(0).get("json");
+			 dBresponse = jdbcTemplate.queryForList(query);
+			if (dBresponse.size() >= 1) {
+				jsonval = dBresponse.get(0).get("json");
 				logger.info("Object " + jsonval);
-				logger.info("found record");
 			}
 		} catch (Exception e) {
 			logger.info("No Record found Excpetion:" + e);
 		}
+		String responseJson=(String) jsonval;
+		responseJson=responseJson.replaceAll(replaceTokenStringTest, "I-"+dBresponse.get(0).get("billing_type")+"-"+System.currentTimeMillis());
+
 		 response = ObjectMapperUtils.readValueFromString((String) jsonval, PaypalExecuteAgreementResponse.class);
 
 			return new ResponseEntity<PaypalExecuteAgreementResponse>(response, HttpStatus.CREATED);
