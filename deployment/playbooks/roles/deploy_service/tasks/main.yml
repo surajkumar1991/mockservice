@@ -23,6 +23,11 @@
   shell: 'docker pull {{ docker_registry }}/{{project_name}}/{{ service_name }}:{{ image_tag_name }}'
   register: shell_result
 
+- name: 'create directory {{ service_war_dir }}'
+  file:
+    path: "{{ service_war_dir }}"
+    state: directory
+
 - name: 'create service startup and application.properties file for {{ service_name }}'
   template: src={{ item }} dest="{{ service_war_dir }}/{{ item | basename | regex_replace('.j2','') }}" mode=0755
   with_fileglob:
