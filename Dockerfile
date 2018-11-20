@@ -14,4 +14,4 @@ RUN mkdir temp
 
 ENTRYPOINT java $JAVA_OPTS -jar ./ubs-mock-services.jar
 
-EXPOSE 7007
+EXPOSE 8080
