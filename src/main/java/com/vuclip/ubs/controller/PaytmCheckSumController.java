@@ -31,7 +31,6 @@ public class PaytmCheckSumController {
                 parametersMap.put(key, value);
             }
         }
-        // logger.info(httpServletRequest.getReader().lines().collect(Collectors.joining()));
 
         logger.info("Initial parameters Map from Request " + parametersMap);
         TreeMap<String, String> newp = PaytmChecksumUtils.getChecksumParametersMap(parametersMap);
