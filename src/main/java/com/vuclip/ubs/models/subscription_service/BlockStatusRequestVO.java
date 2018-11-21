@@ -1,17 +1,10 @@
 package com.vuclip.ubs.models.subscription_service;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
+import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 
 @SuppressWarnings("deprecation")
@@ -36,7 +29,7 @@ public class BlockStatusRequestVO {
     @Min(value = 1, message = "partnerId must be positive Integer")
     private int partnerId;
 
-	@NotNull(message = "country can not be null")
+    @NotNull(message = "country can not be null")
     @NotBlank(message = "country can not be empty")
     private String country;
 

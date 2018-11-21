@@ -4,7 +4,6 @@ import com.vuclip.ubs.common.ObjectMapperUtils;
 import com.vuclip.ubs.models.paytm.PaytmRenewalResponse;
 import com.vuclip.ubs.models.paytm.PaytmStatusCheckRequestVO;
 import com.vuclip.ubs.models.paytm.PaytmStatusCheckResponseVO;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +16,10 @@ import java.util.Map;
 
 @RestController("/partnerMock")
 public class PaytmController {
-    Logger logger = LogManager.getLogger(PaytmController.class);
+    private Logger logger = LogManager.getLogger(PaytmController.class);
 
     @Autowired(required = true)
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     @RequestMapping(value = "/oltp/HANDLER_INTERNAL/TXNSTATUS", method = {RequestMethod.GET}, produces = {
             "application/json"})
@@ -87,7 +86,7 @@ public class PaytmController {
             }
         } catch (Exception e) {
             logger.info("Excpetion:" + e.getMessage());
-            e.printStackTrace();
+            logger.info(e);
         }
         return null;
     }
@@ -102,7 +101,7 @@ public class PaytmController {
             }
         } catch (Exception e) {
             logger.info("Excpetion:" + e.getMessage());
-            e.printStackTrace();
+            logger.info(e);
         }
         return null;
     }
@@ -118,10 +117,8 @@ public class PaytmController {
                 return (String) jsonval;
             }
         } catch (Exception e) {
-            logger.info("No Record found");
-            logger.info("Excpetion:" + e.getMessage());
-            e.printStackTrace();
-
+            logger.info("No Record found Excpetion:" + e.getMessage());
+            logger.info(e);
         }
         return null;
     }

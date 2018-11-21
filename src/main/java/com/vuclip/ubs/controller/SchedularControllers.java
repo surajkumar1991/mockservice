@@ -2,7 +2,6 @@ package com.vuclip.ubs.controller;
 
 import com.vuclip.ubs.common.ObjectMapperUtils;
 import com.vuclip.ubs.models.schedular.SchedularRequest;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,12 +16,11 @@ import java.util.List;
 
 @RestController
 public class SchedularControllers {
-    Logger logger = LogManager.getLogger(SchedularControllers.class);
-
     @Value("#{'${error.product.ids}'.split(',')}")
-    List<String> productIds;
+    private List<String> productIds;
     @Value("#{'${error.partner.ids}'.split(',')}")
-    List<String> partnerIds;
+    private List<String> partnerIds;
+    private Logger logger = LogManager.getLogger(SchedularControllers.class);
 
     @RequestMapping(value = "/health", method = RequestMethod.GET)
     public ResponseEntity<String> sendAdNotification() {
@@ -35,11 +33,13 @@ public class SchedularControllers {
         logger.info("REQUEST FOR SCHEDULAR : " + json);
         SchedularRequest request = ObjectMapperUtils.readValueFromString(json, SchedularRequest.class);
 
-        if (request.getProductId() != null)
+        if (request.getProductId() != null) {
             logger.info("product id " + request.getProductId());
+        }
 
-        if (request.getPartnerId() != null)
+        if (request.getPartnerId() != null) {
             logger.info(" partner id " + request.getPartnerId());
+        }
 
         for (String productId : productIds) {
 

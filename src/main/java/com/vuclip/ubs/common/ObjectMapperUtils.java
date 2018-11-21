@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.util.ResourceUtils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -32,18 +33,15 @@ public class ObjectMapperUtils {
     public static <T> T readValue(String filepath, Class<T> returnType) {
         logger.debug("*** filepath: " + filepath);
         try {
-            File f = new File(filepath);
+            File f = ResourceUtils.getFile(filepath);
             logger.debug("Is File object is Null : " + (f == null) + "");
             return objectMapper.readValue(f, returnType);
-        } catch (UnrecognizedPropertyException e) {
-            logger.info(e.getMessage());
-        } catch (JsonParseException e) {
-            logger.info(e.getMessage());
-
+        } catch (UnrecognizedPropertyException | JsonParseException e) {
+            logger.info(e);
         } catch (JsonMappingException e) {
-            logger.info(e.getMessage());
+            logger.info(e);
         } catch (IOException e) {
-            logger.info("IOException occurs ");
+            logger.info(e);
         }
 
         return null;
@@ -62,16 +60,16 @@ public class ObjectMapperUtils {
             return objectMapper.readValue(jsonString, returnType);
         } catch (UnrecognizedPropertyException e) {
             logger.info("UnrecognizedPropertyException occurs  in JSON " + jsonString);
-            logger.info(e.getMessage());
+            logger.info(e);
         } catch (JsonParseException e) {
             logger.info("JsonParseException occurs In JSON " + jsonString);
-            logger.info(e.getMessage());
+            logger.info(e);
         } catch (JsonMappingException e) {
             logger.info("JsonMappingException occurs In JSON" + jsonString);
-            logger.info(e.getMessage());
+            logger.info(e);
         } catch (IOException e) {
             logger.info("IOException occurs   " + jsonString);
-            logger.info(e.getMessage());
+            logger.info(e);
         }
 
         return null;
@@ -88,7 +86,7 @@ public class ObjectMapperUtils {
         try {
             s = objectMapper.writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            logger.info(e.getMessage());
+            logger.info(e);
         }
         return s;
     }
@@ -108,10 +106,10 @@ public class ObjectMapperUtils {
             objectMapper.writeValue(f, value);
             return true;
         } catch (JsonProcessingException e) {
-            logger.info(e.getMessage());
+            logger.info(e);
             return false;
         } catch (IOException e) {
-            logger.info(e.getMessage());
+            logger.info(e);
             return false;
         }
     }
@@ -132,8 +130,8 @@ public class ObjectMapperUtils {
             jaxbMarshaller.marshal(obj, sw);
             output = sw.toString();
         } catch (JAXBException jb) {
-            logger.info("Error occured while marshalling object to xml {}" + jb.getMessage());
-            logger.info(jb.getMessage());
+            logger.info("Error occured while marshalling object to xml {}" + jb);
+            logger.info(jb);
         }
 
         return output;

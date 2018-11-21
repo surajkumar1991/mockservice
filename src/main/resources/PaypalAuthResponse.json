@@ -1,0 +1,8 @@
+{
+  "scope": "demoscope",
+  "nonce": "demononce",
+  "access_token": "dummyaccesstoken",
+  "token_type": "Bearer",
+  "app_id": "APP-VIU",
+  "expires_in": 99995
+}
