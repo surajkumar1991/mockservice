@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@RestController("/paypal")
+@RestController
 public class PayPalController {
 
     private static String JSON_REPLACE_TEXT = "REPLACETOKENSTRINGTEST";
@@ -28,7 +28,7 @@ public class PayPalController {
     @Autowired(required = true)
     private JdbcTemplate jdbcTemplate;
 
-    @RequestMapping(value = "/v1/oauth2/token", method = {RequestMethod.GET, RequestMethod.POST}, produces = {
+    @RequestMapping(value = "/paypal/v1/oauth2/token", method = {RequestMethod.GET, RequestMethod.POST}, produces = {
             "application/json"})
     public @ResponseBody
     PayPalAuthResponse paypalAuth(HttpServletRequest request) throws IOException {
@@ -55,7 +55,7 @@ public class PayPalController {
         return response;
     }
 
-    @RequestMapping(value = "/v1/payments/billing-agreements", method = {RequestMethod.POST}, produces = {
+    @RequestMapping(value = "/paypal/v1/payments/billing-agreements", method = {RequestMethod.POST}, produces = {
             "application/json"})
 
     public @ResponseBody
@@ -93,7 +93,7 @@ public class PayPalController {
 
     }
 
-    @RequestMapping(value = "/v1/payments/billing-agreements/{paymentToken}/agreement-execute", method = {
+    @RequestMapping(value = "/paypal/v1/payments/billing-agreements/{paymentToken}/agreement-execute", method = {
             RequestMethod.POST}, produces = {"application/json"})
     public @ResponseBody
     ResponseEntity<PaypalExecuteAgreementResponse> paypalAgreementExecute(@PathVariable String paymentToken) {
@@ -122,7 +122,7 @@ public class PayPalController {
         return new ResponseEntity<PaypalExecuteAgreementResponse>(response, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/v1/payments/billing-agreements/<agreementId>/cancel", method = {
+    @RequestMapping(value = "/paypal/v1/payments/billing-agreements/<agreementId>/cancel", method = {
             RequestMethod.POST}, produces = {"application/json"})
     public @ResponseBody
     ResponseEntity<String> paypalAgreementCancle(@PathVariable String agreementId) {
