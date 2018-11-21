@@ -1,4 +1,3 @@
-spring_profiles_active: 'development'
 service_name: 'ubs-mock-services'
 service_war_dir: '/opt/ubs-mock-services'
 process_name: 'ubs-mock-services'
