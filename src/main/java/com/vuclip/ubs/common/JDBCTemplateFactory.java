@@ -7,16 +7,16 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 public class JDBCTemplateFactory {
 
-    private Logger logger = LogManager.getLogger(JDBCTemplateFactory.class);
+    private static Logger logger = LogManager.getLogger(JDBCTemplateFactory.class);
 
     private JDBCTemplateFactory() {
     }
 
-    public JdbcTemplate getDbConnection(String dbServer, String dbPort, String dbName, String dbUser,
-                                        String bPassword) {
+    public static JdbcTemplate getDbConnection(String dbServer, String dbPort, String dbName, String dbUser,
+                                               String bPassword) {
         JdbcTemplate jDBCTemplate = null;
         try {
-            String dbUrl = "jdbc:mysql://" + dbServer + ":" + dbPort + "/" + dbName + "";
+            String dbUrl = "jdbc:mysql://" + dbServer + ":" + dbPort + "/" + dbName + "?useSSL=false";
             logger.info("Databse URL: " + dbUrl);
             DriverManagerDataSource ds = new DriverManagerDataSource();
             ds.setDriverClassName("com.mysql.jdbc.Driver");
