@@ -1,16 +1,37 @@
 package com.vuclip.ubs.controller;
 
-import com.vuclip.ubs.common.ObjectMapperUtils;
-import com.vuclip.ubs.models.subscription_service.*;
+import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Map;
+import com.vuclip.ubs.common.ObjectMapperUtils;
+import com.vuclip.ubs.models.subscription_service.BlockStatusRequestVO;
+import com.vuclip.ubs.models.subscription_service.BlockStatusResponseVO;
+import com.vuclip.ubs.models.subscription_service.BlockUserRequestVO;
+import com.vuclip.ubs.models.subscription_service.BlockUserResponseVO;
+import com.vuclip.ubs.models.subscription_service.ConfirmRequestVO;
+import com.vuclip.ubs.models.subscription_service.ConfirmResponseVO;
+import com.vuclip.ubs.models.subscription_service.DeactivateRequestVO;
+import com.vuclip.ubs.models.subscription_service.DeactivateUserResponseVO;
+import com.vuclip.ubs.models.subscription_service.FreeTrialEligibilityRequestVO;
+import com.vuclip.ubs.models.subscription_service.FreeTrialEligibilityResponseVO;
+import com.vuclip.ubs.models.subscription_service.Response;
+import com.vuclip.ubs.models.subscription_service.StatusSummary;
+import com.vuclip.ubs.models.subscription_service.SubscriptionStatusReponse;
+import com.vuclip.ubs.models.subscription_service.UnblockRequestVO;
+import com.vuclip.ubs.models.subscription_service.UnblockResponseVO;
 
 @RestController
 public class SubscriptionServiceControllers {
@@ -41,6 +62,34 @@ public class SubscriptionServiceControllers {
         return new SubscriptionStatusReponse(false, "Data is not valid", "FA004", null);
 
     }
+    
+    @RequestMapping(value = "/confirm", method = RequestMethod.POST, produces = "application/json")
+	public ConfirmResponseVO confirm(@RequestBody ConfirmRequestVO confirmRequestVO) {
+		
+    	logger.info("Got request for update a subscription : {}", confirmRequestVO);
+		
+    	String userid = confirmRequestVO.getUserId();
+    	
+    	ConfirmResponseVO response = null;
+    	
+    	
+    	if (userid != null) {
+            String query = "SELECT * FROM confirm where user_id='" + userid + "'";
+            return getConfirmRecord(query);
+        }
+        
+        return new ConfirmResponseVO(false, "Data is not valid", "FA004", null);
+    	
+    																							
+//    	Object jsonval = "{\"successful\":true,\"message\":\"success\",\"responseCode\":\"200\",\"userStatus\":{\"userSubAuthKey\":null,\"userId\":\"1100000000\",\"msisdn\":null,\"subscriptionId\":6756,\"startDate\":1543478476420,\"endDate\":1543651276000,\"nextBillingDate\":1543564876000,\"lastChargeDate\":null,\"chargedPrice\":0.0,\"country\":\"IN\",\"partnerId\":1,\"subscriptionStatus\":\"ACT_INIT\",\"subscriptionValidityDays\":1,\"productId\":1,\"itemId\":0,\"itemTypeId\":0,\"subscriptionBillingCode\":\"b1\",\"chargedBillingCode\":\"b1\",\"customerTransactionId\":\"IM0WJ1USEMVRY\",\"renewalAllowed\":true,\"activationDate\":null,\"deactivationDate\":0,\"payload\":null,\"summary\":\"ACTIVATION_IN_PROGRESS\",\"mode\":null,\"paid\":false,\"userSource\":null,\"partnerName\":\"PayPal\",\"currency\":\"INR\",\"displayRenewalConsent\":false}}";
+//    	
+//    	
+//    	response = ObjectMapperUtils.readValueFromString((String) jsonval, ConfirmResponseVO.class);
+//        
+//    	
+//		logger.info("Update subscription response: {}", response);
+		//return response;
+	}
 
     @RequestMapping(value = "/check/freeTrialEligibility", method = RequestMethod.GET, produces = "application/json")
     public FreeTrialEligibilityResponseVO checkFreeTrialEligibility(
@@ -270,6 +319,27 @@ public class SubscriptionServiceControllers {
         }
         logger.info("User Status New User");
         return new SubscriptionStatusReponse(true, "success", "200", null);
+    }
+    
+    private ConfirmResponseVO getConfirmRecord(String query) {
+        try {
+            logger.info("QUERY FOR FETCHING DATA " + query);
+            List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
+            if (respon.size() >= 1) {
+                Object jsonval = respon.get(0).get("json");
+                logger.info(jsonval);
+                ConfirmResponseVO response = ObjectMapperUtils.readValueFromString((String) jsonval,
+                		ConfirmResponseVO.class);
+                logger.info("RESPONSE " + response.toString());
+
+                return response;
+            }
+        } catch (Exception e) {
+            logger.info("Excpetion:" + e);
+            return new ConfirmResponseVO(false, "Request Not Processed", "FA004", null);
+
+        }
+        return null;
     }
 
 
