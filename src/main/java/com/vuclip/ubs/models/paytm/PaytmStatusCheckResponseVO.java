@@ -3,10 +3,12 @@ package com.vuclip.ubs.models.paytm;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.ToString;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"MID", "TXNID", "STATUS", "ORDERID", "RESPMSG", "SUBS_ID", "TXNDATE", "TXNTYPE", "BANKNAME",
         "RESPCODE", "BANKTXNID", "TXNAMOUNT", "REFUNDAMT ", "GATEWAYNAME", "PAYMENTMODE"})
+@ToString
 public class PaytmStatusCheckResponseVO {
 
     @JsonProperty("MID")
