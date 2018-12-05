@@ -84,23 +84,26 @@ public class VuconnectControllers {
 		logger.info("ACTIVATION PARSER REQUEST : " +partnerActivationConsentParserRequestVO.toString());
 
 		String msisdn = partnerActivationConsentParserRequestVO.getMsisdn();
-		String billingTransactionId = partnerActivationConsentParserRequestVO.getBillingTransactionId();
+		String hashParam =null;
+		if (partnerActivationConsentParserRequestVO.getParameters()!=null)
+			hashParam = String.valueOf(partnerActivationConsentParserRequestVO.getParameters().get("hash"));
+	
 
-		PartnerActivationConsentParserResponseVO response =new PartnerActivationConsentParserResponseVO();
+		PartnerActivationConsentParserResponseVO response = null;
+		
+		if(msisdn==null && hashParam != null)
+			msisdn = hashParam;
 
 		if (msisdn != null) {
 			String query = "SELECT * FROM PartnerActivationConsentParser where user_id='" + msisdn + "'";
 			response = getPartnerActivationConsentParserRecord(query);
-
-			response.setBillingTransactionId(billingTransactionId);
-
 
 			logger.info("ACTIVATION PARSER RESPONSE : " +response.toString());
 
 			return response;
 		}
 
-		logger.info("ACTIVATION PARSER RESPONSE : " +response.toString());
+		logger.info("ACTIVATION PARSER RESPONSE : " +response);
 
 
 		return response;
