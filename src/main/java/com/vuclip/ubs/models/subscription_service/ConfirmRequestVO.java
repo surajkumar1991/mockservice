@@ -1,85 +1,81 @@
 package com.vuclip.ubs.models.subscription_service;
-import org.hibernate.validator.constraints.NotEmpty;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Builder
-@Getter@Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class ConfirmRequestVO {
 
-	
-	private String userId;
-	
-	private String msisdn;
 
-	@NotEmpty
-	private String productId;
+    private String userId;
 
-	@NotEmpty
-	private String partnerId;
-	
-	private String requestedBillingCode;
+    private String msisdn;
 
-	private String chargedBillingCode;
+    @NotEmpty
+    private String productId;
 
-	private String attemptedBillingCode;
+    @NotEmpty
+    private String partnerId;
 
-	private String mode;
-	
-	private String actionId;
+    private String requestedBillingCode;
 
-	private String activityId;
-	
-	private String transactionId;
+    private String chargedBillingCode;
 
-	private String transactionStateId;
+    private String attemptedBillingCode;
 
-	private String chargedPrice;
+    private String mode;
 
-	private String partnerTransactionId;
-	
-	private String itemId;
+    private String actionId;
 
-	private String itemTypeId;
+    private String activityId;
 
-	private String actionResult;
+    private String transactionId;
 
-	private String serviceId;
+    private String transactionStateId;
 
-	private String subscriptionId;
+    private String chargedPrice;
 
-	private String circleCode;
+    private String partnerTransactionId;
 
-	private String errorCode;
-	
-	private String errorDesc;
-	
-	private String delayed;
+    private String itemId;
 
-	private String closed;
-	
-	private String clientUserId;
-	
-	private String customerTransactionId;
-	
-	private String userPreferredLanguage;
-	
-	private String userSource;
-	
-	private Long nextBillingDate;
-	
-	private String countryCode;
-	
-	private String clientTransactionId;
-	
-	private String currency;
+    private String itemTypeId;
+
+    private String actionResult;
+
+    private String serviceId;
+
+    private String subscriptionId;
+
+    private String circleCode;
+
+    private String errorCode;
+
+    private String errorDesc;
+
+    private String delayed;
+
+    private String closed;
+
+    private String clientUserId;
+
+    private String customerTransactionId;
+
+    private String userPreferredLanguage;
+
+    private String userSource;
+
+    private Long nextBillingDate;
+
+    private String countryCode;
+
+    private String clientTransactionId;
+
+    private String currency;
 }
