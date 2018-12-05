@@ -9,7 +9,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.async.DeferredResult;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -40,7 +39,7 @@ public class VuconnectControllers {
 
                 return response;
             } catch (EmptyResultDataAccessException e) {
-                logger.info("No REcord found" + e);
+                logger.info("No Record found" + e);
             }
         }
         String msisdn = partnerActivationConsentRequestVO.getMsisdn();
@@ -54,7 +53,7 @@ public class VuconnectControllers {
                 return response;
 
             } catch (EmptyResultDataAccessException e) {
-                logger.info("No REcord found" + e);
+                logger.info("No Record found" + e);
             }
         }
 
@@ -77,48 +76,39 @@ public class VuconnectControllers {
 
         PartnerActivationConsentParserResponseVO response = null;
 
+        //update msisdn in case of without transaction key api hit
         if (msisdn == null && hashParam != null)
             msisdn = hashParam;
 
         if (msisdn != null) {
-            String query = "SELECT * FROM PartnerActivationConsentParser where user_id='" + msisdn + "'";
+            String query = "SELECT * FROM PartnerActivationConsentParser where msisdn='" + msisdn + "'";
             response = getPartnerActivationConsentParserRecord(query);
-
-            logger.info("ACTIVATION PARSER RESPONSE : " + response.toString());
-
-            return response;
         }
 
-        logger.info("ACTIVATION PARSER RESPONSE : " + response);
-
-
+        logger.info("ACTIVATION PARSER RESPONSE : " + response.toString());
         return response;
+
     }
 
     @RequestMapping(value = "/consent/deactivationConsent", method = {RequestMethod.POST}, produces = {
             MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
-    DeferredResult<PartnerDeactivationConsentResponseVO> processDeactivationConsent(
+    PartnerDeactivationConsentResponseVO processDeactivationConsent(
             @RequestBody @Valid PartnerDeactivationConsentRequestVO partnerDeactivationConsentRequestVO) {
         logger.info(partnerDeactivationConsentRequestVO.toString());
-
-        DeferredResult<PartnerDeactivationConsentResponseVO> deferredResult = new DeferredResult<>();
-
-        return deferredResult;
+        //NOT IMPLEMENTED
+        return null;
     }
 
     @RequestMapping(value = "/consent/deactivationConsentParser", method = {RequestMethod.POST}, produces = {
             MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
-    DeferredResult<PartnerDeactivationConsentParserResponseVO> processDeactivationConsentParser(
+    PartnerDeactivationConsentParserResponseVO processDeactivationConsentParser(
             @RequestBody @Valid PartnerDeactivationConsentParserRequestVO partnerDeactivationConsentParserRequestVO) {
         logger.info(partnerDeactivationConsentParserRequestVO.toString());
-
-        DeferredResult<PartnerDeactivationConsentParserResponseVO> deferredResult = new DeferredResult<>();
-
-        return deferredResult;
+        //NOT IMPLEMENTED
+        return null;
     }
-
 
     private PartnerActivationConsentParserResponseVO getPartnerActivationConsentParserRecord(String query) {
         try {
@@ -133,9 +123,8 @@ public class VuconnectControllers {
                 return response;
             }
         } catch (Exception e) {
-            logger.info("Excpetion:" + e);
+            logger.info("Exception:" + e);
             return null;
-
         }
         return null;
     }
