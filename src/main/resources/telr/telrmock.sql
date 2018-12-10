@@ -3,26 +3,25 @@
 USE ubs_mock_services;
 
 CREATE TABLE `telr_create_order` (
-  `key` VARCHAR(100) NOT NULL DEFAULT '',
+  `key` bigint(20) NOT NULL AUTO_INCREMENT,
   `json` json DEFAULT NULL,
-  `ivp_method` VARCHAR(45) DEFAULT NULL,
+  `ivp_method` varchar(45) DEFAULT NULL,
   UNIQUE KEY `order_id_UNIQUE` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `telr_delete_order` (
-  `id` VARCHAR(100) NOT NULL DEFAULT '',
-  `response` VARCHAR(10000) DEFAULT NULL,
-  `agrementId` VARCHAR(45) DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `response` varchar(10000) DEFAULT NULL,
+  `agrementId` varchar(45) DEFAULT NULL,
   UNIQUE KEY `order_id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `telr_refund` (
-  `id` VARCHAR(100) NOT NULL DEFAULT '',
-  `response` VARCHAR(1000) DEFAULT NULL,
-  `transactionref` VARCHAR(45) DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `response` varchar(1000) DEFAULT NULL,
+  `transactionref` varchar(45) DEFAULT NULL,
   UNIQUE KEY `order_id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 
 /************INSERTs ***********************/
