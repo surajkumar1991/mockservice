@@ -18,8 +18,8 @@ USE `ubs_mock_services`;
 
 -- Dumping structure for table ubs_mock_services.block
 CREATE TABLE IF NOT EXISTS `block` (
-  `user_id` varchar(45) NOT NULL,
-  `msisdn` varchar(45) NOT NULL,
+  `user_id` VARCHAR(45) NOT NULL,
+  `msisdn` VARCHAR(45) NOT NULL,
   `json` json NOT NULL,
   PRIMARY KEY (`user_id`,`msisdn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -41,8 +41,8 @@ INSERT INTO `block` (`user_id`, `msisdn`, `json`) VALUES
 
 -- Dumping structure for table ubs_mock_services.block_status
 CREATE TABLE IF NOT EXISTS `block_status` (
-  `user_id` varchar(45) NOT NULL,
-  `msisdn` varchar(45) NOT NULL,
+  `user_id` VARCHAR(45) NOT NULL,
+  `msisdn` VARCHAR(45) NOT NULL,
   `json` json NOT NULL,
   PRIMARY KEY (`user_id`,`msisdn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -69,14 +69,14 @@ INSERT INTO `block_status` (`user_id`, `msisdn`, `json`) VALUES
 
 -- Dumping structure for table ubs_mock_services.consent_data
 CREATE TABLE IF NOT EXISTS `consent_data` (
-  `user_id` varchar(45) NOT NULL,
-  `msisdn` varchar(45) NOT NULL,
-  `activationConsentUrl` varchar(455) DEFAULT NULL,
-  `billingTransactionId` varchar(455) DEFAULT NULL,
-  `partnerTransactionId` varchar(455) DEFAULT NULL,
-  `responseCode` varchar(455) DEFAULT NULL,
-  `message` varchar(455) DEFAULT NULL,
-  `status` varchar(455) DEFAULT NULL,
+  `user_id` VARCHAR(45) NOT NULL,
+  `msisdn` VARCHAR(45) NOT NULL,
+  `activationConsentUrl` VARCHAR(455) DEFAULT NULL,
+  `billingTransactionId` VARCHAR(455) DEFAULT NULL,
+  `partnerTransactionId` VARCHAR(455) DEFAULT NULL,
+  `responseCode` VARCHAR(455) DEFAULT NULL,
+  `message` VARCHAR(455) DEFAULT NULL,
+  `status` VARCHAR(455) DEFAULT NULL,
   PRIMARY KEY (`user_id`,`msisdn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -97,8 +97,8 @@ INSERT INTO `consent_data` (`user_id`, `msisdn`, `activationConsentUrl`, `billin
 
 -- Dumping structure for table ubs_mock_services.deactivate
 CREATE TABLE IF NOT EXISTS `deactivate` (
-  `user_id` varchar(45) NOT NULL,
-  `msisdn` varchar(45) NOT NULL,
+  `user_id` VARCHAR(45) NOT NULL,
+  `msisdn` VARCHAR(45) NOT NULL,
   `json` json NOT NULL,
   PRIMARY KEY (`user_id`,`msisdn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -119,9 +119,9 @@ INSERT INTO `deactivate` (`user_id`, `msisdn`, `json`) VALUES
 
 -- Dumping structure for table ubs_mock_services.free_trial_history
 CREATE TABLE IF NOT EXISTS `free_trial_history` (
-  `user_id` varchar(45) NOT NULL,
-  `subscription_id` bigint(20) DEFAULT NULL,
-  `msisdn` varchar(45) NOT NULL,
+  `user_id` VARCHAR(45) NOT NULL,
+  `subscription_id` BIGINT(20) DEFAULT NULL,
+  `msisdn` VARCHAR(45) NOT NULL,
   `json` json DEFAULT NULL,
   PRIMARY KEY (`user_id`,`msisdn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -134,7 +134,7 @@ INSERT INTO `free_trial_history` (`user_id`, `subscription_id`, `msisdn`, `json`
 
 -- Dumping structure for table ubs_mock_services.paypal_auth
 CREATE TABLE IF NOT EXISTS `paypal_auth` (
-  `key` varchar(100) NOT NULL DEFAULT '',
+  `key` VARCHAR(100) NOT NULL DEFAULT '',
   `json` json DEFAULT NULL,
   UNIQUE KEY `order_id_UNIQUE` (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -147,9 +147,9 @@ INSERT INTO `paypal_auth` (`key`, `json`) VALUES
 
 -- Dumping structure for table ubs_mock_services.paypal_create_agreement
 CREATE TABLE IF NOT EXISTS `paypal_create_agreement` (
-  `billing_id` varchar(100) NOT NULL DEFAULT '',
-  `billing_type` varchar(100) NOT NULL DEFAULT '',
-  `id` varchar(100) NOT NULL DEFAULT '',
+  `billing_id` VARCHAR(100) NOT NULL DEFAULT '',
+  `billing_type` VARCHAR(100) NOT NULL DEFAULT '',
+  `id` VARCHAR(100) NOT NULL DEFAULT '',
   `json` json DEFAULT NULL,
   PRIMARY KEY (`billing_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -164,7 +164,7 @@ INSERT INTO `paypal_create_agreement` (`billing_id`, `billing_type`, `id`, `json
 
 -- Dumping structure for table ubs_mock_services.paypal_execute_agreement
 CREATE TABLE IF NOT EXISTS `paypal_execute_agreement` (
-  `billing_Type` varchar(100) NOT NULL DEFAULT '',
+  `billing_Type` VARCHAR(100) NOT NULL DEFAULT '',
   `json` json DEFAULT NULL,
   PRIMARY KEY (`billing_Type`),
   UNIQUE KEY `user_id_UNIQUE` (`billing_Type`)
@@ -180,8 +180,8 @@ INSERT INTO `paypal_execute_agreement` (`billing_Type`, `json`) VALUES
 
 -- Dumping structure for table ubs_mock_services.paytm_renewal
 CREATE TABLE IF NOT EXISTS `paytm_renewal` (
-  `user_id` varchar(100) NOT NULL,
-  `order_id` varchar(100) NOT NULL,
+  `user_id` VARCHAR(100) NOT NULL,
+  `order_id` VARCHAR(100) NOT NULL,
   `json` json DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `order_id_UNIQUE` (`order_id`),
@@ -196,8 +196,8 @@ INSERT INTO `paytm_renewal` (`user_id`, `order_id`, `json`) VALUES
 
 -- Dumping structure for table ubs_mock_services.paytm_status
 CREATE TABLE IF NOT EXISTS `paytm_status` (
-  `user_id` varchar(100) NOT NULL,
-  `order_id` varchar(100) NOT NULL,
+  `user_id` VARCHAR(100) NOT NULL,
+  `order_id` VARCHAR(100) NOT NULL,
   `json` json DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `order_id_UNIQUE` (`order_id`),
@@ -215,8 +215,8 @@ INSERT INTO `paytm_status` (`user_id`, `order_id`, `json`) VALUES
 
 -- Dumping structure for table ubs_mock_services.unblock
 CREATE TABLE IF NOT EXISTS `unblock` (
-  `user_id` varchar(45) NOT NULL,
-  `msisdn` varchar(45) NOT NULL,
+  `user_id` VARCHAR(45) NOT NULL,
+  `msisdn` VARCHAR(45) NOT NULL,
   `json` json NOT NULL,
   PRIMARY KEY (`user_id`,`msisdn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -230,9 +230,9 @@ INSERT INTO `unblock` (`user_id`, `msisdn`, `json`) VALUES
 
 -- Dumping structure for table ubs_mock_services.user_subscription
 CREATE TABLE IF NOT EXISTS `user_subscription` (
-  `user_id` varchar(45) NOT NULL,
-  `subscription_id` bigint(20) DEFAULT NULL,
-  `msisdn` varchar(45) NOT NULL,
+  `user_id` VARCHAR(45) NOT NULL,
+  `subscription_id` BIGINT(20) DEFAULT NULL,
+  `msisdn` VARCHAR(45) NOT NULL,
   `json` json DEFAULT NULL,
   PRIMARY KEY (`user_id`,`msisdn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -259,10 +259,10 @@ USE `ubs_test_data_service`;
 
 -- Dumping structure for table ubs_test_data_service.paypal_step_immediate_notification
 CREATE TABLE IF NOT EXISTS `paypal_step_immediate_notification` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `userId` varchar(50) NOT NULL,
-  `eventType` varchar(150) NOT NULL,
-  `state` varchar(50) NOT NULL DEFAULT '',
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `userId` VARCHAR(50) NOT NULL,
+  `eventType` VARCHAR(150) NOT NULL,
+  `state` VARCHAR(50) NOT NULL DEFAULT '',
   `jsonData` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
@@ -281,10 +281,10 @@ INSERT INTO `paypal_step_immediate_notification` (`id`, `userId`, `eventType`, `
 
 -- Dumping structure for table ubs_test_data_service.paypal_step_notification
 CREATE TABLE IF NOT EXISTS `paypal_step_notification` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `userId` varchar(50) NOT NULL,
-  `eventType` varchar(150) NOT NULL,
-  `state` varchar(50) NOT NULL DEFAULT '',
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `userId` VARCHAR(50) NOT NULL,
+  `eventType` VARCHAR(150) NOT NULL,
+  `state` VARCHAR(50) NOT NULL DEFAULT '',
   `jsonData` mediumtext,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
@@ -301,18 +301,18 @@ INSERT INTO `paypal_step_notification` (`id`, `userId`, `eventType`, `state`, `j
 
 -- Dumping structure for table ubs_test_data_service.paypal_step_sync_validation
 CREATE TABLE IF NOT EXISTS `paypal_step_sync_validation` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `userId` varchar(45) DEFAULT NULL,
-  `msisdn` varchar(50) DEFAULT NULL,
-  `chargedPrice` varchar(50) DEFAULT NULL,
-  `chargedBillingCode` varchar(50) DEFAULT NULL,
-  `partnerId` varchar(50) DEFAULT NULL,
-  `productId` varchar(50) DEFAULT NULL,
-  `subscriptionBillingCode` varchar(50) DEFAULT NULL,
-  `subscriptionStatus` varchar(50) DEFAULT NULL,
-  `validityDays` varchar(50) DEFAULT NULL,
-  `summary` varchar(45) DEFAULT NULL,
-  `validityNBD` varchar(45) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `userId` VARCHAR(45) DEFAULT NULL,
+  `msisdn` VARCHAR(50) DEFAULT NULL,
+  `chargedPrice` VARCHAR(50) DEFAULT NULL,
+  `chargedBillingCode` VARCHAR(50) DEFAULT NULL,
+  `partnerId` VARCHAR(50) DEFAULT NULL,
+  `productId` VARCHAR(50) DEFAULT NULL,
+  `subscriptionBillingCode` VARCHAR(50) DEFAULT NULL,
+  `subscriptionStatus` VARCHAR(50) DEFAULT NULL,
+  `validityDays` VARCHAR(50) DEFAULT NULL,
+  `summary` VARCHAR(45) DEFAULT NULL,
+  `validityNBD` VARCHAR(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
@@ -324,43 +324,43 @@ INSERT INTO `paypal_step_sync_validation` (`id`, `userId`, `msisdn`, `chargedPri
 
 -- Dumping structure for table ubs_test_data_service.paytm_step_callback
 CREATE TABLE IF NOT EXISTS `paytm_step_callback` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `ORDERID` varchar(55) NOT NULL,
-  `productName` varchar(55) NOT NULL,
-  `productSource` varchar(55) NOT NULL,
-  `BANKNAME` varchar(55) DEFAULT NULL,
-  `BANKTXNID` varchar(55) DEFAULT NULL,
-  `CHECKSUMHASH` varchar(55) DEFAULT NULL,
-  `CURRENCY` varchar(55) DEFAULT NULL,
-  `GATEWAYNAME` varchar(55) DEFAULT NULL,
-  `MID` varchar(55) DEFAULT NULL,
-  `PAYMENTMODE` varchar(55) DEFAULT NULL,
-  `RESPCODE` varchar(55) DEFAULT NULL,
-  `RESPMSG` varchar(55) DEFAULT NULL,
-  `STATUS` varchar(55) DEFAULT NULL,
-  `SUBS_ID` varchar(55) DEFAULT NULL,
-  `TXNAMOUNT` varchar(55) DEFAULT NULL,
-  `TXNDATE` varchar(55) DEFAULT NULL,
-  `TXNID` varchar(55) DEFAULT NULL,
-  `appid` varchar(55) DEFAULT NULL,
-  `appver` varchar(55) DEFAULT NULL,
-  `carrierid` varchar(55) DEFAULT NULL,
-  `ccode` varchar(55) DEFAULT NULL,
-  `devicecountry` varchar(55) DEFAULT NULL,
-  `devicetimezone` varchar(55) DEFAULT NULL,
-  `geo` varchar(55) DEFAULT NULL,
-  `iid` varchar(55) DEFAULT NULL,
-  `languageid` varchar(55) DEFAULT NULL,
-  `paysource` varchar(55) DEFAULT NULL,
-  `platform` varchar(55) DEFAULT NULL,
-  `platformid` varchar(55) DEFAULT NULL,
-  `platformname` varchar(55) DEFAULT NULL,
-  `platformtype` varchar(55) DEFAULT NULL,
-  `regionid` varchar(55) DEFAULT NULL,
-  `userid` varchar(55) DEFAULT NULL,
-  `ver` varchar(55) DEFAULT NULL,
-  `vuserid` varchar(55) DEFAULT NULL,
-  `billingTransactionId` varchar(45) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `ORDERID` VARCHAR(55) NOT NULL,
+  `productName` VARCHAR(55) NOT NULL,
+  `productSource` VARCHAR(55) NOT NULL,
+  `BANKNAME` VARCHAR(55) DEFAULT NULL,
+  `BANKTXNID` VARCHAR(55) DEFAULT NULL,
+  `CHECKSUMHASH` VARCHAR(55) DEFAULT NULL,
+  `CURRENCY` VARCHAR(55) DEFAULT NULL,
+  `GATEWAYNAME` VARCHAR(55) DEFAULT NULL,
+  `MID` VARCHAR(55) DEFAULT NULL,
+  `PAYMENTMODE` VARCHAR(55) DEFAULT NULL,
+  `RESPCODE` VARCHAR(55) DEFAULT NULL,
+  `RESPMSG` VARCHAR(55) DEFAULT NULL,
+  `STATUS` VARCHAR(55) DEFAULT NULL,
+  `SUBS_ID` VARCHAR(55) DEFAULT NULL,
+  `TXNAMOUNT` VARCHAR(55) DEFAULT NULL,
+  `TXNDATE` VARCHAR(55) DEFAULT NULL,
+  `TXNID` VARCHAR(55) DEFAULT NULL,
+  `appid` VARCHAR(55) DEFAULT NULL,
+  `appver` VARCHAR(55) DEFAULT NULL,
+  `carrierid` VARCHAR(55) DEFAULT NULL,
+  `ccode` VARCHAR(55) DEFAULT NULL,
+  `devicecountry` VARCHAR(55) DEFAULT NULL,
+  `devicetimezone` VARCHAR(55) DEFAULT NULL,
+  `geo` VARCHAR(55) DEFAULT NULL,
+  `iid` VARCHAR(55) DEFAULT NULL,
+  `languageid` VARCHAR(55) DEFAULT NULL,
+  `paysource` VARCHAR(55) DEFAULT NULL,
+  `platform` VARCHAR(55) DEFAULT NULL,
+  `platformid` VARCHAR(55) DEFAULT NULL,
+  `platformname` VARCHAR(55) DEFAULT NULL,
+  `platformtype` VARCHAR(55) DEFAULT NULL,
+  `regionid` VARCHAR(55) DEFAULT NULL,
+  `userid` VARCHAR(55) DEFAULT NULL,
+  `ver` VARCHAR(55) DEFAULT NULL,
+  `vuserid` VARCHAR(55) DEFAULT NULL,
+  `billingTransactionId` VARCHAR(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `productSource_UNIQUE` (`productSource`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
@@ -375,46 +375,46 @@ INSERT INTO `paytm_step_callback` (`id`, `ORDERID`, `productName`, `productSourc
 
 -- Dumping structure for table ubs_test_data_service.paytm_step_notification
 CREATE TABLE IF NOT EXISTS `paytm_step_notification` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `ORDERID` varchar(55) NOT NULL,
-  `productName` varchar(55) NOT NULL,
-  `productSource` varchar(55) NOT NULL,
-  `BANKNAME` varchar(55) DEFAULT NULL,
-  `CUSTID` varchar(20) DEFAULT NULL,
-  `MERC_UNQ_REF` varchar(20) DEFAULT NULL,
-  `TXNDATETIME` varchar(20) DEFAULT NULL,
-  `BANKTXNID` varchar(55) DEFAULT NULL,
-  `CHECKSUMHASH` varchar(55) DEFAULT NULL,
-  `CURRENCY` varchar(55) DEFAULT NULL,
-  `GATEWAYNAME` varchar(55) DEFAULT NULL,
-  `MID` varchar(55) DEFAULT NULL,
-  `PAYMENTMODE` varchar(55) DEFAULT NULL,
-  `RESPCODE` varchar(55) DEFAULT NULL,
-  `RESPMSG` varchar(55) DEFAULT NULL,
-  `STATUS` varchar(55) DEFAULT NULL,
-  `SUBS_ID` varchar(55) DEFAULT NULL,
-  `TXNAMOUNT` varchar(55) DEFAULT NULL,
-  `TXNDATE` varchar(55) DEFAULT NULL,
-  `TXNID` varchar(55) DEFAULT NULL,
-  `appid` varchar(55) DEFAULT NULL,
-  `appver` varchar(55) DEFAULT NULL,
-  `carrierid` varchar(55) DEFAULT NULL,
-  `ccode` varchar(55) DEFAULT NULL,
-  `devicecountry` varchar(55) DEFAULT NULL,
-  `devicetimezone` varchar(55) DEFAULT NULL,
-  `geo` varchar(55) DEFAULT NULL,
-  `iid` varchar(55) DEFAULT NULL,
-  `languageid` varchar(55) DEFAULT NULL,
-  `paysource` varchar(55) DEFAULT NULL,
-  `platform` varchar(55) DEFAULT NULL,
-  `platformid` varchar(55) DEFAULT NULL,
-  `platformname` varchar(55) DEFAULT NULL,
-  `platformtype` varchar(55) DEFAULT NULL,
-  `regionid` varchar(55) DEFAULT NULL,
-  `userid` varchar(55) DEFAULT NULL,
-  `ver` varchar(55) DEFAULT NULL,
-  `vuserid` varchar(55) DEFAULT NULL,
-  `billingTransactionId` varchar(45) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `ORDERID` VARCHAR(55) NOT NULL,
+  `productName` VARCHAR(55) NOT NULL,
+  `productSource` VARCHAR(55) NOT NULL,
+  `BANKNAME` VARCHAR(55) DEFAULT NULL,
+  `CUSTID` VARCHAR(20) DEFAULT NULL,
+  `MERC_UNQ_REF` VARCHAR(20) DEFAULT NULL,
+  `TXNDATETIME` VARCHAR(20) DEFAULT NULL,
+  `BANKTXNID` VARCHAR(55) DEFAULT NULL,
+  `CHECKSUMHASH` VARCHAR(55) DEFAULT NULL,
+  `CURRENCY` VARCHAR(55) DEFAULT NULL,
+  `GATEWAYNAME` VARCHAR(55) DEFAULT NULL,
+  `MID` VARCHAR(55) DEFAULT NULL,
+  `PAYMENTMODE` VARCHAR(55) DEFAULT NULL,
+  `RESPCODE` VARCHAR(55) DEFAULT NULL,
+  `RESPMSG` VARCHAR(55) DEFAULT NULL,
+  `STATUS` VARCHAR(55) DEFAULT NULL,
+  `SUBS_ID` VARCHAR(55) DEFAULT NULL,
+  `TXNAMOUNT` VARCHAR(55) DEFAULT NULL,
+  `TXNDATE` VARCHAR(55) DEFAULT NULL,
+  `TXNID` VARCHAR(55) DEFAULT NULL,
+  `appid` VARCHAR(55) DEFAULT NULL,
+  `appver` VARCHAR(55) DEFAULT NULL,
+  `carrierid` VARCHAR(55) DEFAULT NULL,
+  `ccode` VARCHAR(55) DEFAULT NULL,
+  `devicecountry` VARCHAR(55) DEFAULT NULL,
+  `devicetimezone` VARCHAR(55) DEFAULT NULL,
+  `geo` VARCHAR(55) DEFAULT NULL,
+  `iid` VARCHAR(55) DEFAULT NULL,
+  `languageid` VARCHAR(55) DEFAULT NULL,
+  `paysource` VARCHAR(55) DEFAULT NULL,
+  `platform` VARCHAR(55) DEFAULT NULL,
+  `platformid` VARCHAR(55) DEFAULT NULL,
+  `platformname` VARCHAR(55) DEFAULT NULL,
+  `platformtype` VARCHAR(55) DEFAULT NULL,
+  `regionid` VARCHAR(55) DEFAULT NULL,
+  `userid` VARCHAR(55) DEFAULT NULL,
+  `ver` VARCHAR(55) DEFAULT NULL,
+  `vuserid` VARCHAR(55) DEFAULT NULL,
+  `billingTransactionId` VARCHAR(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `productSource_UNIQUE` (`productSource`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
@@ -430,9 +430,9 @@ INSERT INTO `paytm_step_notification` (`id`, `ORDERID`, `productName`, `productS
 
 -- Dumping structure for table ubs_test_data_service.save_country_config
 CREATE TABLE IF NOT EXISTS `save_country_config` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `serviceName` varchar(55) DEFAULT '',
-  `partnerConfigName` varchar(55) DEFAULT '',
+  `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `serviceName` VARCHAR(55) DEFAULT '',
+  `partnerConfigName` VARCHAR(55) DEFAULT '',
   `json` json DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
@@ -443,9 +443,9 @@ CREATE TABLE IF NOT EXISTS `save_country_config` (
 
 -- Dumping structure for table ubs_test_data_service.save_partner_config
 CREATE TABLE IF NOT EXISTS `save_partner_config` (
-  `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
-  `serviceName` varchar(55) DEFAULT '',
-  `partnerConfigName` varchar(55) DEFAULT '',
+  `id` BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `serviceName` VARCHAR(55) DEFAULT '',
+  `partnerConfigName` VARCHAR(55) DEFAULT '',
   `json` json DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
@@ -458,9 +458,9 @@ INSERT INTO `save_partner_config` (`id`, `serviceName`, `partnerConfigName`, `js
 
 -- Dumping structure for table ubs_test_data_service.save_product_config
 CREATE TABLE IF NOT EXISTS `save_product_config` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `serviceName` varchar(55) DEFAULT '',
-  `partnerConfigName` varchar(55) DEFAULT '',
+  `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `serviceName` VARCHAR(55) DEFAULT '',
+  `partnerConfigName` VARCHAR(55) DEFAULT '',
   `json` json DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
@@ -473,32 +473,32 @@ INSERT INTO `save_product_config` (`id`, `serviceName`, `partnerConfigName`, `js
 
 -- Dumping structure for table ubs_test_data_service.step_activity_event
 CREATE TABLE IF NOT EXISTS `step_activity_event` (
-  `id` bigint(50) NOT NULL AUTO_INCREMENT,
-  `productName` varchar(45) NOT NULL,
-  `productSource` varchar(145) NOT NULL DEFAULT '',
-  `userId` varchar(55) NOT NULL DEFAULT '',
-  `msisdn` varchar(55) DEFAULT NULL,
-  `subscriptionId` varchar(120) DEFAULT NULL,
-  `transactionId` varchar(155) DEFAULT NULL,
-  `activity` varchar(155) DEFAULT NULL,
-  `action` varchar(155) DEFAULT NULL,
-  `transactionState` varchar(155) DEFAULT NULL,
-  `closed` varchar(11) DEFAULT NULL,
-  `targetState` varchar(100) DEFAULT NULL,
-  `actionResult` varchar(155) DEFAULT NULL,
-  `delayed` varchar(255) DEFAULT NULL,
-  `requestedBillingCode` varchar(50) DEFAULT NULL,
-  `requestedPrice` varchar(50) DEFAULT NULL,
-  `attemptedBillingCode` varchar(50) DEFAULT NULL,
-  `attemptedPrice` varchar(155) DEFAULT NULL,
-  `adNetworkParams` varchar(255) DEFAULT NULL,
-  `dirtNetworkParams` varchar(245) DEFAULT NULL,
-  `clientTransactionId` varchar(100) DEFAULT NULL,
-  `errorCode` varchar(100) DEFAULT NULL,
-  `errorDesc` varchar(100) DEFAULT NULL,
-  `clientUserId` varchar(100) DEFAULT NULL,
-  `partnerTransactionId` varchar(100) DEFAULT NULL,
-  `serviceId` varchar(100) DEFAULT NULL,
+  `id` BIGINT(50) NOT NULL AUTO_INCREMENT,
+  `productName` VARCHAR(45) NOT NULL,
+  `productSource` VARCHAR(145) NOT NULL DEFAULT '',
+  `userId` VARCHAR(55) NOT NULL DEFAULT '',
+  `msisdn` VARCHAR(55) DEFAULT NULL,
+  `subscriptionId` VARCHAR(120) DEFAULT NULL,
+  `transactionId` VARCHAR(155) DEFAULT NULL,
+  `activity` VARCHAR(155) DEFAULT NULL,
+  `action` VARCHAR(155) DEFAULT NULL,
+  `transactionState` VARCHAR(155) DEFAULT NULL,
+  `closed` VARCHAR(11) DEFAULT NULL,
+  `targetState` VARCHAR(100) DEFAULT NULL,
+  `actionResult` VARCHAR(155) DEFAULT NULL,
+  `delayed` VARCHAR(255) DEFAULT NULL,
+  `requestedBillingCode` VARCHAR(50) DEFAULT NULL,
+  `requestedPrice` VARCHAR(50) DEFAULT NULL,
+  `attemptedBillingCode` VARCHAR(50) DEFAULT NULL,
+  `attemptedPrice` VARCHAR(155) DEFAULT NULL,
+  `adNetworkParams` VARCHAR(255) DEFAULT NULL,
+  `dirtNetworkParams` VARCHAR(245) DEFAULT NULL,
+  `clientTransactionId` VARCHAR(100) DEFAULT NULL,
+  `errorCode` VARCHAR(100) DEFAULT NULL,
+  `errorDesc` VARCHAR(100) DEFAULT NULL,
+  `clientUserId` VARCHAR(100) DEFAULT NULL,
+  `partnerTransactionId` VARCHAR(100) DEFAULT NULL,
+  `serviceId` VARCHAR(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1;
 
@@ -588,31 +588,31 @@ INSERT INTO `step_activity_event` (`id`, `productName`, `productSource`, `userId
 
 -- Dumping structure for table ubs_test_data_service.step_charge_user
 CREATE TABLE IF NOT EXISTS `step_charge_user` (
-  `productName` varchar(55) NOT NULL,
-  `productSource` varchar(55) NOT NULL,
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `userId` varchar(55) NOT NULL,
-  `msisdn` varchar(55) NOT NULL,
-  `billingCode` varchar(55) DEFAULT NULL,
-  `circleCode` varchar(55) DEFAULT NULL,
-  `orderId` varchar(45) NOT NULL,
-  `chargeDescription` varchar(55) DEFAULT NULL,
-  `partnerToken` varchar(55) DEFAULT NULL,
-  `headerRefCode` varchar(55) DEFAULT NULL,
-  `itemId` varchar(55) DEFAULT NULL,
-  `itemTypeId` varchar(55) DEFAULT NULL,
-  `callBackUrl` varchar(255) DEFAULT NULL,
-  `consentPageImageUrl` varchar(255) DEFAULT NULL,
-  `consentPageNoUrl` varchar(255) DEFAULT NULL,
-  `mode` varchar(55) DEFAULT NULL,
-  `dirtNetworkParams` varchar(55) DEFAULT NULL,
-  `source` varchar(55) DEFAULT NULL,
-  `availFreeTrial` varchar(55) DEFAULT NULL,
-  `deviceType` varchar(55) DEFAULT NULL,
-  `adult` varchar(55) DEFAULT NULL,
-  `languageId` varchar(45) NOT NULL,
-  `microSiteId` varchar(45) NOT NULL,
-  `clientRequestInfo` varchar(45) NOT NULL,
+  `productName` VARCHAR(55) NOT NULL,
+  `productSource` VARCHAR(55) NOT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `userId` VARCHAR(55) NOT NULL,
+  `msisdn` VARCHAR(55) NOT NULL,
+  `billingCode` VARCHAR(55) DEFAULT NULL,
+  `circleCode` VARCHAR(55) DEFAULT NULL,
+  `orderId` VARCHAR(45) NOT NULL,
+  `chargeDescription` VARCHAR(55) DEFAULT NULL,
+  `partnerToken` VARCHAR(55) DEFAULT NULL,
+  `headerRefCode` VARCHAR(55) DEFAULT NULL,
+  `itemId` VARCHAR(55) DEFAULT NULL,
+  `itemTypeId` VARCHAR(55) DEFAULT NULL,
+  `callBackUrl` VARCHAR(255) DEFAULT NULL,
+  `consentPageImageUrl` VARCHAR(255) DEFAULT NULL,
+  `consentPageNoUrl` VARCHAR(255) DEFAULT NULL,
+  `mode` VARCHAR(55) DEFAULT NULL,
+  `dirtNetworkParams` VARCHAR(55) DEFAULT NULL,
+  `source` VARCHAR(55) DEFAULT NULL,
+  `availFreeTrial` VARCHAR(55) DEFAULT NULL,
+  `deviceType` VARCHAR(55) DEFAULT NULL,
+  `adult` VARCHAR(55) DEFAULT NULL,
+  `languageId` VARCHAR(45) NOT NULL,
+  `microSiteId` VARCHAR(45) NOT NULL,
+  `clientRequestInfo` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `userId_UNIQUE` (`userId`),
   UNIQUE KEY `msisdn_UNIQUE` (`msisdn`)
@@ -639,17 +639,17 @@ INSERT INTO `step_charge_user` (`productName`, `productSource`, `id`, `userId`, 
 
 -- Dumping structure for table ubs_test_data_service.step_create_scheduled_activity_service
 CREATE TABLE IF NOT EXISTS `step_create_scheduled_activity_service` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `msisdn` varchar(45) NOT NULL,
-  `countryCode` varchar(45) DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL,
-  `attempNumber` varchar(45) DEFAULT NULL,
-  `isEligible` varchar(45) DEFAULT NULL,
-  `userId` varchar(45) NOT NULL,
-  `date` varchar(55) DEFAULT NULL,
-  `subscriptionId` varchar(45) DEFAULT NULL,
-  `tableName` varchar(45) DEFAULT NULL,
-  `enable` varchar(45) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `msisdn` VARCHAR(45) NOT NULL,
+  `countryCode` VARCHAR(45) DEFAULT NULL,
+  `status` VARCHAR(45) DEFAULT NULL,
+  `attempNumber` VARCHAR(45) DEFAULT NULL,
+  `isEligible` VARCHAR(45) DEFAULT NULL,
+  `userId` VARCHAR(45) NOT NULL,
+  `date` VARCHAR(55) DEFAULT NULL,
+  `subscriptionId` VARCHAR(45) DEFAULT NULL,
+  `tableName` VARCHAR(45) DEFAULT NULL,
+  `enable` VARCHAR(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `msisdn_UNIQUE` (`msisdn`),
@@ -664,18 +664,18 @@ INSERT INTO `step_create_scheduled_activity_service` (`id`, `msisdn`, `countryCo
 
 -- Dumping structure for table ubs_test_data_service.step_create_talend_entry
 CREATE TABLE IF NOT EXISTS `step_create_talend_entry` (
-  `ubsTransactionId` varchar(500) NOT NULL,
-  `partnerTransactionId` varchar(500) DEFAULT NULL,
-  `msisdn` varchar(20) DEFAULT NULL,
-  `userId` varchar(45) DEFAULT NULL,
-  `billingCode` varchar(45) DEFAULT NULL,
-  `activityType` varchar(500) DEFAULT NULL,
-  `productId` varchar(20) DEFAULT NULL,
-  `partnerId` varchar(20) DEFAULT NULL,
-  `countryCode` varchar(45) DEFAULT NULL,
-  `accessMode` varchar(40) DEFAULT NULL,
-  `createDate` varchar(50) NOT NULL,
-  `lastUpdateDate` varchar(50) NOT NULL,
+  `ubsTransactionId` VARCHAR(500) NOT NULL,
+  `partnerTransactionId` VARCHAR(500) DEFAULT NULL,
+  `msisdn` VARCHAR(20) DEFAULT NULL,
+  `userId` VARCHAR(45) DEFAULT NULL,
+  `billingCode` VARCHAR(45) DEFAULT NULL,
+  `activityType` VARCHAR(500) DEFAULT NULL,
+  `productId` VARCHAR(20) DEFAULT NULL,
+  `partnerId` VARCHAR(20) DEFAULT NULL,
+  `countryCode` VARCHAR(45) DEFAULT NULL,
+  `accessMode` VARCHAR(40) DEFAULT NULL,
+  `createDate` VARCHAR(50) NOT NULL,
+  `lastUpdateDate` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`ubsTransactionId`(255))
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -697,38 +697,38 @@ INSERT INTO `step_create_talend_entry` (`ubsTransactionId`, `partnerTransactionI
 
 -- Dumping structure for table ubs_test_data_service.step_create_user_subscription
 CREATE TABLE IF NOT EXISTS `step_create_user_subscription` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `productName` varchar(45) NOT NULL,
-  `productSource` varchar(145) NOT NULL DEFAULT '',
-  `userId` varchar(255) DEFAULT NULL,
-  `msisdn` varchar(45) DEFAULT NULL,
-  `subscriptionId` varchar(20) NOT NULL,
-  `productId` varchar(11) DEFAULT NULL,
-  `partnerId` varchar(11) DEFAULT NULL,
-  `createdOn` varchar(50) DEFAULT NULL,
-  `lastUpdatedOn` varchar(50) DEFAULT NULL,
-  `activationDate` varchar(50) DEFAULT NULL,
-  `startDate` varchar(50) DEFAULT NULL,
-  `endDate` varchar(50) DEFAULT NULL,
-  `deactivationDate` varchar(50) DEFAULT NULL,
-  `nextBillingDate` varchar(50) DEFAULT NULL,
-  `lastChargeDate` varchar(50) DEFAULT NULL,
-  `chargedBillingCode` varchar(45) DEFAULT NULL,
-  `subscriptionBillingCode` varchar(45) DEFAULT NULL,
-  `chargedPrice` double DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL,
-  `circleCode` varchar(255) DEFAULT NULL,
-  `customerTransactionId` varchar(45) DEFAULT NULL,
-  `itemId` varchar(11) DEFAULT NULL,
-  `itemTypeId` varchar(11) DEFAULT NULL,
-  `mode` varchar(45) DEFAULT NULL,
-  `paid` varchar(20) DEFAULT NULL,
-  `renewalAllowed` varchar(20) DEFAULT NULL,
-  `subscriptionStatus` varchar(255) DEFAULT NULL,
-  `validityDays` varchar(11) DEFAULT NULL,
-  `userPrefferedLanguage` varchar(255) DEFAULT NULL,
-  `userSource` varchar(45) DEFAULT NULL,
-  `currency` varchar(255) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `productName` VARCHAR(45) NOT NULL,
+  `productSource` VARCHAR(145) NOT NULL DEFAULT '',
+  `userId` VARCHAR(255) DEFAULT NULL,
+  `msisdn` VARCHAR(45) DEFAULT NULL,
+  `subscriptionId` VARCHAR(20) NOT NULL,
+  `productId` VARCHAR(11) DEFAULT NULL,
+  `partnerId` VARCHAR(11) DEFAULT NULL,
+  `createdOn` VARCHAR(50) DEFAULT NULL,
+  `lastUpdatedOn` VARCHAR(50) DEFAULT NULL,
+  `activationDate` VARCHAR(50) DEFAULT NULL,
+  `startDate` VARCHAR(50) DEFAULT NULL,
+  `endDate` VARCHAR(50) DEFAULT NULL,
+  `deactivationDate` VARCHAR(50) DEFAULT NULL,
+  `nextBillingDate` VARCHAR(50) DEFAULT NULL,
+  `lastChargeDate` VARCHAR(50) DEFAULT NULL,
+  `chargedBillingCode` VARCHAR(45) DEFAULT NULL,
+  `subscriptionBillingCode` VARCHAR(45) DEFAULT NULL,
+  `chargedPrice` DOUBLE DEFAULT NULL,
+  `country` VARCHAR(255) DEFAULT NULL,
+  `circleCode` VARCHAR(255) DEFAULT NULL,
+  `customerTransactionId` VARCHAR(45) DEFAULT NULL,
+  `itemId` VARCHAR(11) DEFAULT NULL,
+  `itemTypeId` VARCHAR(11) DEFAULT NULL,
+  `mode` VARCHAR(45) DEFAULT NULL,
+  `paid` VARCHAR(20) DEFAULT NULL,
+  `renewalAllowed` VARCHAR(20) DEFAULT NULL,
+  `subscriptionStatus` VARCHAR(255) DEFAULT NULL,
+  `validityDays` VARCHAR(11) DEFAULT NULL,
+  `userPrefferedLanguage` VARCHAR(255) DEFAULT NULL,
+  `userSource` VARCHAR(45) DEFAULT NULL,
+  `currency` VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=latin1;
 
@@ -851,19 +851,19 @@ INSERT INTO `step_create_user_subscription` (`id`, `productName`, `productSource
 
 -- Dumping structure for table ubs_test_data_service.step_free_trial_history
 CREATE TABLE IF NOT EXISTS `step_free_trial_history` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `productName` varchar(100) DEFAULT NULL,
-  `productSource` varchar(100) DEFAULT NULL,
-  `userId` varchar(255) DEFAULT NULL,
-  `msisdn` varchar(255) DEFAULT NULL,
-  `createdOn` varchar(90) DEFAULT NULL,
-  `lastUpdatedOn` varchar(90) DEFAULT NULL,
-  `availedFreeTrialCount` varchar(20) DEFAULT NULL,
-  `lastFreeTrialBillingCode` varchar(255) DEFAULT NULL,
-  `lastFreeTrialDate` varchar(90) DEFAULT NULL,
-  `partnerId` varchar(20) DEFAULT NULL,
-  `productId` varchar(20) DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `productName` VARCHAR(100) DEFAULT NULL,
+  `productSource` VARCHAR(100) DEFAULT NULL,
+  `userId` VARCHAR(255) DEFAULT NULL,
+  `msisdn` VARCHAR(255) DEFAULT NULL,
+  `createdOn` VARCHAR(90) DEFAULT NULL,
+  `lastUpdatedOn` VARCHAR(90) DEFAULT NULL,
+  `availedFreeTrialCount` VARCHAR(20) DEFAULT NULL,
+  `lastFreeTrialBillingCode` VARCHAR(255) DEFAULT NULL,
+  `lastFreeTrialDate` VARCHAR(90) DEFAULT NULL,
+  `partnerId` VARCHAR(20) DEFAULT NULL,
+  `productId` VARCHAR(20) DEFAULT NULL,
+  `country` VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
@@ -876,15 +876,15 @@ INSERT INTO `step_free_trial_history` (`id`, `productName`, `productSource`, `us
 
 -- Dumping structure for table ubs_test_data_service.step_validation_ad_network
 CREATE TABLE IF NOT EXISTS `step_validation_ad_network` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `adNotificationstatus` varchar(255) DEFAULT NULL,
-  `churnAdNotificationStatus` varchar(255) DEFAULT NULL,
-  `churnAdNetworkTransactionId` varchar(255) DEFAULT NULL,
-  `churnRetryCount` varchar(50) DEFAULT NULL,
-  `msisdn` varchar(255) NOT NULL,
-  `userId` varchar(255) NOT NULL,
-  `retryCount` varchar(50) DEFAULT NULL,
-  `userSource` varchar(255) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `adNotificationstatus` VARCHAR(255) DEFAULT NULL,
+  `churnAdNotificationStatus` VARCHAR(255) DEFAULT NULL,
+  `churnAdNetworkTransactionId` VARCHAR(255) DEFAULT NULL,
+  `churnRetryCount` VARCHAR(50) DEFAULT NULL,
+  `msisdn` VARCHAR(255) NOT NULL,
+  `userId` VARCHAR(255) NOT NULL,
+  `retryCount` VARCHAR(50) DEFAULT NULL,
+  `userSource` VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `msisdn_UNIQUE` (`msisdn`),
   UNIQUE KEY `userId_UNIQUE` (`userId`)
@@ -900,13 +900,13 @@ INSERT INTO `step_validation_ad_network` (`id`, `adNotificationstatus`, `churnAd
 
 -- Dumping structure for table ubs_test_data_service.step_validation_get_user_status
 CREATE TABLE IF NOT EXISTS `step_validation_get_user_status` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `userId` varchar(45) DEFAULT NULL,
-  `msisdn` varchar(50) DEFAULT NULL,
-  `successful` varchar(50) DEFAULT NULL,
-  `message` varchar(50) DEFAULT NULL,
-  `responseCode` varchar(50) DEFAULT NULL,
-  `summary` varchar(45) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `userId` VARCHAR(45) DEFAULT NULL,
+  `msisdn` VARCHAR(50) DEFAULT NULL,
+  `successful` VARCHAR(50) DEFAULT NULL,
+  `message` VARCHAR(50) DEFAULT NULL,
+  `responseCode` VARCHAR(50) DEFAULT NULL,
+  `summary` VARCHAR(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
@@ -923,16 +923,16 @@ INSERT INTO `step_validation_get_user_status` (`id`, `userId`, `msisdn`, `succes
 
 -- Dumping structure for table ubs_test_data_service.step_validation_scheduled_activity_service
 CREATE TABLE IF NOT EXISTS `step_validation_scheduled_activity_service` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `msisdn` varchar(45) NOT NULL,
-  `countryCode` varchar(45) DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL,
-  `attempNumber` varchar(45) DEFAULT NULL,
-  `isEligible` varchar(45) DEFAULT NULL,
-  `userId` varchar(45) NOT NULL,
-  `date` varchar(55) DEFAULT NULL,
-  `subscriptionId` varchar(45) DEFAULT NULL,
-  `tableName` varchar(45) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `msisdn` VARCHAR(45) NOT NULL,
+  `countryCode` VARCHAR(45) DEFAULT NULL,
+  `status` VARCHAR(45) DEFAULT NULL,
+  `attempNumber` VARCHAR(45) DEFAULT NULL,
+  `isEligible` VARCHAR(45) DEFAULT NULL,
+  `userId` VARCHAR(45) NOT NULL,
+  `date` VARCHAR(55) DEFAULT NULL,
+  `subscriptionId` VARCHAR(45) DEFAULT NULL,
+  `tableName` VARCHAR(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
@@ -949,17 +949,17 @@ INSERT INTO `step_validation_scheduled_activity_service` (`id`, `msisdn`, `count
 
 -- Dumping structure for table ubs_test_data_service.step_validation_user_subscription
 CREATE TABLE IF NOT EXISTS `step_validation_user_subscription` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `userId` varchar(45) DEFAULT NULL,
-  `msisdn` varchar(50) DEFAULT NULL,
-  `chargedPrice` varchar(50) DEFAULT NULL,
-  `chargedBillingCode` varchar(50) DEFAULT NULL,
-  `partnerId` varchar(50) DEFAULT NULL,
-  `productId` varchar(50) DEFAULT NULL,
-  `subscriptionBillingCode` varchar(50) DEFAULT NULL,
-  `subscriptionStatus` varchar(50) DEFAULT NULL,
-  `validityDays` varchar(50) DEFAULT NULL,
-  `summary` varchar(45) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `userId` VARCHAR(45) DEFAULT NULL,
+  `msisdn` VARCHAR(50) DEFAULT NULL,
+  `chargedPrice` VARCHAR(50) DEFAULT NULL,
+  `chargedBillingCode` VARCHAR(50) DEFAULT NULL,
+  `partnerId` VARCHAR(50) DEFAULT NULL,
+  `productId` VARCHAR(50) DEFAULT NULL,
+  `subscriptionBillingCode` VARCHAR(50) DEFAULT NULL,
+  `subscriptionStatus` VARCHAR(50) DEFAULT NULL,
+  `validityDays` VARCHAR(50) DEFAULT NULL,
+  `summary` VARCHAR(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
