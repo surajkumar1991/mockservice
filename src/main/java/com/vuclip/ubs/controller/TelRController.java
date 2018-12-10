@@ -25,9 +25,11 @@ public class TelRController {
     String response(WebRequest requestBody) {
       try{
 
-        logger.info("Request Body ------------->: " + requestBody.getParameter("ivp_method"));
+        logger.info("Request Parameter" + requestBody.getParameter("ivp_method"));
 
-       }catch(Exception e){}
+       }catch(Exception e){
+          logger.info("No Record found Excpetion:" + e);
+      }
 
         Object jsonval = null;
             List<Map<String, Object>> dBresponse = null;
