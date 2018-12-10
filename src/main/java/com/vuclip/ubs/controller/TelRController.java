@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+
 import java.util.List;
 import java.util.Map;
 
@@ -20,52 +21,51 @@ public class TelRController {
     private LogUtils logs = new LogUtils();
     @Autowired(required = true)
     private JdbcTemplate jdbcTemplate;
+
     @RequestMapping(value = "telr/gateway/order.json", method = {RequestMethod.POST})
     public @ResponseBody
     String response(WebRequest requestBody) {
-      try{
+        try {
+            logger.info("Request Parameter" + requestBody.getParameter("ivp_method"));
 
-        logger.info("Request Parameter" + requestBody.getParameter("ivp_method"));
-
-       }catch(Exception e){
-          logger.info("No Record found Excpetion:" + e);
-      }
+        } catch (Exception e) {
+            logger.info("No Record found Excpetion:" + e);
+        }
 
         Object jsonval = null;
-            List<Map<String, Object>> dBresponse = null;
-            try {
-                String query = "SELECT * FROM telr_create_order where ivp_method ='"+ requestBody.getParameter("ivp_method")+"'";
-                logger.info("QUERY FOR FETCHING DATA " + query);
-                dBresponse = jdbcTemplate.queryForList(query);
-                logger.info("Resposne"+dBresponse);
-                if (dBresponse.size() >= 1) {
-                    jsonval = dBresponse.get(0).get("json");
-                    logger.info("Object " + jsonval);
-                    logger.info("found record");
-                }
-            } catch (Exception e) {
-                logger.info("No Record found Excpetion:" + e);
+        List<Map<String, Object>> dBresponse = null;
+        try {
+            String query = "SELECT * FROM telr_create_order where ivp_method ='" + requestBody.getParameter("ivp_method") + "'";
+            logger.info("QUERY FOR FETCHING DATA " + query);
+            dBresponse = jdbcTemplate.queryForList(query);
+            logger.info("Resposne" + dBresponse);
+            if (dBresponse.size() >= 1) {
+                jsonval = dBresponse.get(0).get("json");
+                logger.info("Object " + jsonval);
+                logger.info("found record");
             }
-            String responseJson = (String) jsonval;
+        } catch (Exception e) {
+            logger.info("No Record found Excpetion:" + e);
+        }
+        String responseJson = (String) jsonval;
 
-            logger.info("RESPONSE : " + responseJson);
+        logger.info("RESPONSE : " + responseJson);
 
-            return responseJson;
+        return responseJson;
 
-      }
+    }
 
 
     @RequestMapping(value = "telr/tools/api/xml/agreement/{agreement_id}", method = {RequestMethod.DELETE}, produces = {MediaType.APPLICATION_XML_VALUE})
     public @ResponseBody
     String response(@PathVariable("agreement_id") String agreement_id) {
-
         Object jsonval = null;
         List<Map<String, Object>> dBresponse = null;
         try {
-            String query = "SELECT * FROM telr_delete_order where agrementId ='"+agreement_id +"'";
+            String query = "SELECT * FROM telr_delete_order where agrementId ='" + agreement_id + "'";
             logger.info("QUERY FOR FETCHING DATA " + query);
             dBresponse = jdbcTemplate.queryForList(query);
-            logger.info("Resposne"+dBresponse);
+            logger.info("Resposne" + dBresponse);
             if (dBresponse.size() >= 1) {
                 jsonval = dBresponse.get(0).get("response");
                 logger.info("Object " + jsonval);
@@ -75,12 +75,8 @@ public class TelRController {
             logger.info("No Record found Excpetion:" + e);
         }
         String response = (String) jsonval;
-
         logger.info("RESPONSE : " + response);
-
-
         return response;
-
     }
 
     @RequestMapping(value = "telr/gateway/remote.html", method = {RequestMethod.POST}, produces = {MediaType.TEXT_HTML_VALUE})
@@ -88,14 +84,14 @@ public class TelRController {
     String responseRefund(WebRequest request) {
 
 
-        logger.debug("Transaction Reference ---->"+request.getParameter("tran_ref"));
+        logger.debug("Transaction Reference ---->" + request.getParameter("tran_ref"));
         Object jsonval = null;
         List<Map<String, Object>> dBresponse = null;
         try {
-            String query = "SELECT * FROM telr_refund where transactionref ='"+request.getParameter("tran_ref") +"'";
+            String query = "SELECT * FROM telr_refund where transactionref ='" + request.getParameter("tran_ref") + "'";
             logger.info("QUERY FOR FETCHING DATA " + query);
             dBresponse = jdbcTemplate.queryForList(query);
-            logger.info("Resposne"+dBresponse);
+            logger.info("Resposne" + dBresponse);
             if (dBresponse.size() >= 1) {
                 jsonval = dBresponse.get(0).get("response");
                 logger.info("Object " + jsonval);
@@ -105,17 +101,7 @@ public class TelRController {
             logger.info("No Record found Excpetion:" + e);
         }
         String response = (String) jsonval;
-
         logger.info("RESPONSE : " + response);
-
-
         return response;
-
     }
-
-
-
-
-
-
 }
