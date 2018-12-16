@@ -22,7 +22,7 @@ public class TelRController {
     @Autowired(required = true)
     private JdbcTemplate jdbcTemplate;
 
-    @RequestMapping(value = "telr/gateway/order.json", method = {RequestMethod.POST})
+    @RequestMapping(value = "telr/gateway/order.json", method = {RequestMethod.POST} , produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
     String response(WebRequest requestBody) {
         try {
