@@ -129,4 +129,103 @@ public class VuconnectControllers {
         return null;
     }
 
+
+
+    @RequestMapping(value = "/otp/generate", method = {RequestMethod.POST}, produces = {
+             MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody
+    String response(
+            @RequestBody  GenerateOtpResquestVO request) {
+
+        logger.debug(request);
+
+        String response = null;
+
+        Object jsonval = null;
+        try {
+            String query = "SELECT * FROM `otp_pg_generate` where `userId`='"+request.getUserId()+"'";
+            logger.info("QUERY FOR FETCHING DATA " + query);
+
+            List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
+            if (respon.size() >= 1) {
+                jsonval = respon.get(0).get("response");
+                logger.info("Object " + jsonval);
+                logger.info("found record");
+            }
+        } catch (Exception e) {
+            logger.info("No Record found Excpetion:" + e);
+        }
+
+         response= (String)jsonval;
+        response = response.replaceAll("BILLINGTXNID",request.getBillingTransactionId());
+
+        return response;
+    }
+
+
+
+    @RequestMapping(value = "/otp/verify", method = {RequestMethod.POST}, produces = {
+            MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody
+    String response(
+            @RequestBody  VerifyOtpResquestVO request) {
+
+        logger.debug(request);
+
+        String response = null;
+
+        Object jsonval = null;
+        try {
+            String query = "SELECT * FROM `otp_pg_verify` where `otpTransactionId`='"+request.getOtpTransactionId()+"'";
+            logger.info("QUERY FOR FETCHING DATA " + query);
+
+            List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
+            if (respon.size() >= 1) {
+                jsonval = respon.get(0).get("response");
+                logger.info("Object " + jsonval);
+                logger.info("found record");
+            }
+        } catch (Exception e) {
+            logger.info("No Record found Excpetion:" + e);
+        }
+
+        response= (String)jsonval;
+        response= response.replaceAll("CURRENTDATE",""+System.currentTimeMillis()+"");
+
+
+        return response;
+    }
+
+
+    @RequestMapping(value = "/otp/regenerate", method = {RequestMethod.POST}, produces = {
+            MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody
+    String response(
+            @RequestBody  ResendOtpResquestVO request) {
+
+        logger.debug(request);
+
+        String response = null;
+
+        Object jsonval = null;
+        try {
+            String query = "SELECT * FROM `otp_pg_regenerate` where `otpTransactionId`='"+request.getOtpTransactionId()+"'";
+            logger.info("QUERY FOR FETCHING DATA " + query);
+
+            List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
+            if (respon.size() >= 1) {
+                jsonval = respon.get(0).get("response");
+                logger.info("Object " + jsonval);
+                logger.info("found record");
+            }
+        } catch (Exception e) {
+            logger.info("No Record found Excpetion:" + e);
+        }
+
+        response= (String)jsonval;
+
+        return response;
+    }
+
+
 }
