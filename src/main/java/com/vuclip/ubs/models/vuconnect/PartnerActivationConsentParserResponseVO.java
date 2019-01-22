@@ -40,8 +40,6 @@ public class PartnerActivationConsentParserResponseVO {
 
     private String accessToken;
 
-    private String billingCode;
-
     private String chargedBillingCode;
 
     private boolean isFreeTrialActivation;
