@@ -79,6 +79,29 @@ public class TelRController {
         return response;
     }
 
+    @RequestMapping(value = "telr/tools/api/xml/agreement/{agreement_id}/history", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_XML_VALUE})
+    public @ResponseBody
+    String responseHistory(@PathVariable("agreement_id") String agreement_id) {
+        Object jsonval = null;
+        List<Map<String, Object>> dBresponse = null;
+        try {
+            String query = "SELECT * FROM telr_check_status where agrementId ='" + agreement_id + "'";
+            logger.info("QUERY FOR FETCHING DATA " + query);
+            dBresponse = jdbcTemplate.queryForList(query);
+            logger.info("Resposne" + dBresponse);
+            if (dBresponse.size() >= 1) {
+                jsonval = dBresponse.get(0).get("response");
+                logger.info("Object " + jsonval);
+                logger.info("found record");
+            }
+        } catch (Exception e) {
+            logger.info("No Record found Excpetion:" + e);
+        }
+        String response = (String) jsonval;
+        logger.info("RESPONSE : " + response);
+        return response;
+    }
+    
     @RequestMapping(value = "telr/gateway/remote.html", method = {RequestMethod.POST}, produces = {MediaType.TEXT_HTML_VALUE})
     public @ResponseBody
     String responseRefund(WebRequest request) {
