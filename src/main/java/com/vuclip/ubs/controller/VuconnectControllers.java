@@ -174,6 +174,8 @@ public class VuconnectControllers {
 
         String response = null;
 
+
+
         Object jsonval = null;
         try {
             String query = "SELECT * FROM `otp_pg_verify` where `otpTransactionId`='"+request.getOtpTransactionId()+"'";
