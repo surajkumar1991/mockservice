@@ -1,0 +1,16 @@
+pipelineType: maven
+serviceName: ubs-mock-services
+isCiDeploymentEnabled: true
+isQaAutomationEnabled: false
+isSystemTestEnabled: false
+systemTestRepoName: na
+qaAutomationTestRepoName: na
+qualityGateName: UbsMockServices
+pomFilePath: pom.xml
+systemTestBranchName: na
+qaAutomationTestBranchName: na
+dockerRegistry: https://us.gcr.io
+googleCloudCredentialName: gcr:ppp-prod
+googleCloudProjectName: ppp-prod
+systemTestRunCommand: na
+recipients: cc:premium.automation@vuclip.com, cc:unified.billing@vuclip.com, cc:rahul.sahu@vuclip.com

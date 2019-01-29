@@ -1,20 +1,25 @@
 package com.vuclip.ubs.common;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.util.ResourceUtils;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
 
 public class ObjectMapperUtils {
+
+    private static Logger logger = LogManager.getLogger(ObjectMapperUtils.class);
+
     private static ObjectMapper objectMapper = new ObjectMapper();
 
     /**
@@ -26,24 +31,17 @@ public class ObjectMapperUtils {
      * @return
      */
     public static <T> T readValue(String filepath, Class<T> returnType) {
-        System.out.println("*** filepath: " + filepath);
+        logger.debug("*** filepath: " + filepath);
         try {
-            File f = new File(filepath);
-            System.out.println("Is File object is Null : " + (f == null) + "");
+            File f = ResourceUtils.getFile(filepath);
+            logger.debug("Is File object is Null : " + (f == null) + "");
             return objectMapper.readValue(f, returnType);
-        } catch (UnrecognizedPropertyException e) {
-            System.out.println("UnrecognizedPropertyException occurs : In JSON  ");
-            System.out.println(e.getMessage());
-        } catch (JsonParseException e) {
-            System.out.println("JsonParseException occurs ");
-            System.out.println(e.getMessage());
+        } catch (UnrecognizedPropertyException | JsonParseException e) {
+            logger.info(e);
         } catch (JsonMappingException e) {
-            System.out.println("JsonMappingException occurs ");
-            System.out.println(e.getMessage());
+            logger.info(e);
         } catch (IOException e) {
-
-            System.out.println("IOException occurs ");
-            System.out.println(e.getMessage());
+            logger.info(e);
         }
 
         return null;
@@ -61,18 +59,17 @@ public class ObjectMapperUtils {
         try {
             return objectMapper.readValue(jsonString, returnType);
         } catch (UnrecognizedPropertyException e) {
-            System.out.println("UnrecognizedPropertyException occurs  in JSON " + jsonString);
-            System.out.println(e.getMessage());
+            logger.info("UnrecognizedPropertyException occurs  in JSON " + jsonString);
+            logger.info(e);
         } catch (JsonParseException e) {
-            System.out.println("JsonParseException occurs In JSON " + jsonString);
-            System.out.println(e.getMessage());
+            logger.info("JsonParseException occurs In JSON " + jsonString);
+            logger.info(e);
         } catch (JsonMappingException e) {
-            System.out.println("JsonMappingException occurs In JSON" + jsonString);
-            System.out.println(e.getMessage());
+            logger.info("JsonMappingException occurs In JSON" + jsonString);
+            logger.info(e);
         } catch (IOException e) {
-
-            System.out.println("IOException occurs   " + jsonString);
-            System.out.println(e.getMessage());
+            logger.info("IOException occurs   " + jsonString);
+            logger.info(e);
         }
 
         return null;
@@ -89,7 +86,7 @@ public class ObjectMapperUtils {
         try {
             s = objectMapper.writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            System.out.println(e.getMessage());
+            logger.info(e);
         }
         return s;
     }
@@ -103,16 +100,16 @@ public class ObjectMapperUtils {
 
         File f = new File(filepath);
 
-        System.out.println("Is File object is Null : " + (f == null) + "");
+        logger.info("Is File object is Null : " + (f == null) + "");
         try {
 
             objectMapper.writeValue(f, value);
             return true;
         } catch (JsonProcessingException e) {
-            System.out.println(e.getMessage());
+            logger.info(e);
             return false;
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.info(e);
             return false;
         }
     }
@@ -133,7 +130,8 @@ public class ObjectMapperUtils {
             jaxbMarshaller.marshal(obj, sw);
             output = sw.toString();
         } catch (JAXBException jb) {
-            System.out.println("Error occured while marshalling object to xml {}" + jb.getMessage());
+            logger.info("Error occured while marshalling object to xml {}" + jb);
+            logger.info(jb);
         }
 
         return output;

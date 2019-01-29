@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+serviceName={{ service_name }}
+processName={{ process_name }}
+serviceWar={{ service_war_dir | default('/opt/${serviceName}') }}
+
+springConfigLocation={{ spring_config_location_dir | default('/opt/appConfig/application.properties') }}
+servicePort={{ service_port | default('8080') }}
+exposePort={{ expose_port | default('8080') }}
+imageTagName={{ image_tag_name | default('develop') }}
+dockerRegistry={{ docker_registry | default('us.gcr.io') }}
+projectName={{ project_name | default('ppp-prod') }}
+
+dockerNetwork={{ docker_network }}
+docker run -d --name ${processName} -p ${exposePort}:${servicePort} ${dockerNetwork} -v "${serviceWar}":/opt/appConfig -e JAVA_OPTS=" -server -Djava.io.tmpdir=${serviceWar}/temp -Dspring.config.location=${springConfigLocation}" ${dockerRegistry}/${projectName}/${serviceName}:${imageTagName}
