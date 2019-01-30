@@ -206,9 +206,7 @@ public class VuconnectControllers {
             @RequestBody  ResendOtpResquestVO request) {
 
         logger.debug(request);
-
         String response = null;
-
         Object jsonval = null;
         try {
             String query = "SELECT * FROM `otp_pg_regenerate` where `otpTransactionId`='"+request.getOtpTransactionId()+"'";
