@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 /**
  * The CodapayController class: Accepts requests for init txn, checkStatus, paymentStatus
+ *
  * @author kirangohokar
  */
 @Log4j2
@@ -46,9 +47,9 @@ public class CodapayController {
             initResult = CodapayInitResult.builder().resultDesc(errors).build();
             return ResponseEntity.badRequest().body(initResult);
         } else {
-           initResult = service.processInitTxn(request);
-           log.info("CodaPay init txn result : {}", initResult);
-           return ResponseEntity.ok(initResult);
+            initResult = service.processInitTxn(request);
+            log.info("CodaPay init txn result : {}", initResult);
+            return ResponseEntity.ok(initResult);
         }
     }
 
@@ -85,6 +86,6 @@ public class CodapayController {
     }
 
     private String stringifyErrors(List<FieldError> fieldErrors) {
-        return fieldErrors.stream().map(e -> e.getField() + " : "+ e.getDefaultMessage()).collect(Collectors.joining(", "));
+        return fieldErrors.stream().map(e -> e.getField() + " : " + e.getDefaultMessage()).collect(Collectors.joining(", "));
     }
 }

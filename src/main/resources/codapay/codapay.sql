@@ -1,7 +1,7 @@
 CREATE TABLE `codapay_txn` (
-  `txn_type` varchar(100) NOT NULL,
-  `api_key` varchar(250) DEFAULT NULL,
-  `json` varchar(500) DEFAULT NULL,
+  `txn_type` VARCHAR(100) NOT NULL,
+  `api_key` VARCHAR(250) DEFAULT NULL,
+  `json` VARCHAR(500) DEFAULT NULL,
   PRIMARY KEY (`txn_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

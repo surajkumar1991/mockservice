@@ -11,12 +11,12 @@ import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-"nextBillingDate"
+        "nextBillingDate"
 })
 public class AdditionalParams {
 
-@JsonProperty("nextBillingDate")
-private String nextBillingDate;
+    @JsonProperty("nextBillingDate")
+    private String nextBillingDate;
 
 
 }

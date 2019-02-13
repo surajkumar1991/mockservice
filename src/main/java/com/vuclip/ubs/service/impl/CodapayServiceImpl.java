@@ -18,6 +18,7 @@ import java.util.*;
 
 /**
  * The CodaPay service implementation class: Handles the business logic for CodaPay.
+ *
  * @author kirangohokar
  */
 @Log4j2
@@ -32,7 +33,7 @@ public class CodapayServiceImpl implements CodapayService {
         CodapayInitResult result = null;
         Object jsonval = null;
         try {
-            String query = "SELECT * FROM `codapay_txn` where `txn_type`='codapay_init_txn' and `api_key`='"+ request.getApiKey() +"'";
+            String query = "SELECT * FROM `codapay_txn` where `txn_type`='codapay_init_txn' and `api_key`='" + request.getApiKey() + "'";
             log.info("QUERY FOR FETCHING DATA " + query);
             List<Map<String, Object>> response = jdbcTemplate.queryForList(query);
             if (!CollectionUtils.isEmpty(response)) {
@@ -42,7 +43,7 @@ public class CodapayServiceImpl implements CodapayService {
                 result = ObjectMapperUtils.getXmlObjectMapper().readValue((String) jsonval, CodapayInitResult.class);
             }
         } catch (Exception e) {
-            log.error("No Record found. Exception Occurred: {}" , e);
+            log.error("No Record found. Exception Occurred: {}", e);
             return CodapayInitResult.builder().resultDesc("No Record found. " + e.getMessage()).build();
         }
         return result;
@@ -54,7 +55,7 @@ public class CodapayServiceImpl implements CodapayService {
         CodapayCheckStatusResponse response = null;
         Object jsonval = null;
         try {
-            String query = "SELECT * FROM `codapay_txn` where `txn_type`='codapay_check_status' and `api_key`='"+ request.getSubscriptionRequest().getApiKey() +"'";
+            String query = "SELECT * FROM `codapay_txn` where `txn_type`='codapay_check_status' and `api_key`='" + request.getSubscriptionRequest().getApiKey() + "'";
             log.info("QUERY FOR FETCHING DATA " + query);
             List<Map<String, Object>> result = jdbcTemplate.queryForList(query);
             if (!CollectionUtils.isEmpty(result)) {
@@ -63,7 +64,7 @@ public class CodapayServiceImpl implements CodapayService {
                 log.info("found record");
             }
         } catch (Exception e) {
-            log.error("No Record found exception: {}",  e.getMessage());
+            log.error("No Record found exception: {}", e.getMessage());
             response = CodapayCheckStatusResponse.builder().subscriptionResult(CodapayCheckStatusResponse.SubscriptionResult.builder().resultCode(355).resultDesc(e.getMessage()).build()).build();
             return response;
         }
@@ -83,7 +84,7 @@ public class CodapayServiceImpl implements CodapayService {
         CodapayInquiryPaymentResult response = null;
         Object jsonval = null;
         try {
-            String query = "SELECT * FROM `codapay_txn` where `txn_type`='codapay_inquiry_payment_result' and `api_key`='"+ request.getApiKey() +"'";
+            String query = "SELECT * FROM `codapay_txn` where `txn_type`='codapay_inquiry_payment_result' and `api_key`='" + request.getApiKey() + "'";
             log.info("QUERY FOR FETCHING DATA " + query);
             List<Map<String, Object>> result = jdbcTemplate.queryForList(query);
             if (!CollectionUtils.isEmpty(result)) {
@@ -95,7 +96,7 @@ public class CodapayServiceImpl implements CodapayService {
             if (response != null)
                 response.setTxnId(request.getTxnId());
         } catch (Exception e) {
-            log.error("No Record found exception: {}",  e.getMessage());
+            log.error("No Record found exception: {}", e.getMessage());
             response = CodapayInquiryPaymentResult.builder().resultCode(355).resultDesc(e.getMessage()).build();
             return response;
         }

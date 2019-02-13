@@ -22,7 +22,7 @@ public class TelRController {
     @Autowired(required = true)
     private JdbcTemplate jdbcTemplate;
 
-    @RequestMapping(value = "telr/gateway/order.json", method = {RequestMethod.POST} , produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "telr/gateway/order.json", method = {RequestMethod.POST}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
     String response(WebRequest requestBody) {
         try {
@@ -101,7 +101,7 @@ public class TelRController {
         logger.info("RESPONSE : " + response);
         return response;
     }
-    
+
     @RequestMapping(value = "telr/gateway/remote.html", method = {RequestMethod.POST}, produces = {MediaType.TEXT_HTML_VALUE})
     public @ResponseBody
     String responseRefund(WebRequest request) {

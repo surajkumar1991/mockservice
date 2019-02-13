@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 @NoArgsConstructor
 @AllArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType( name = "", propOrder = {"resultCode","txnId","resultDesc"})
+@XmlType(name = "", propOrder = {"resultCode", "txnId", "resultDesc"})
 @JacksonXmlRootElement(localName = "initResult")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CodapayInitResult {

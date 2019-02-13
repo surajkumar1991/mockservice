@@ -13,6 +13,7 @@ import com.vuclip.ubs.models.codapay.status.CodapayInquiryPaymentResult;
 public interface CodapayService {
     /**
      * Process the CodaPay init txn request by generating unique txnId.
+     *
      * @param request
      * @return
      */
