@@ -2,9 +2,12 @@ package com.vuclip.ubs.common;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.util.ResourceUtils;
@@ -21,6 +24,9 @@ public class ObjectMapperUtils {
     private static Logger logger = LogManager.getLogger(ObjectMapperUtils.class);
 
     private static ObjectMapper objectMapper = new ObjectMapper();
+
+    private static ObjectMapper xmlObjectMapper = new XmlMapper().registerModule(new JaxbAnnotationModule())
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     /**
      * Json file to java pojo conversion
@@ -135,5 +141,9 @@ public class ObjectMapperUtils {
         }
 
         return output;
+    }
+
+    public static ObjectMapper getXmlObjectMapper() {
+        return xmlObjectMapper;
     }
 }
