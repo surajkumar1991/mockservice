@@ -2,6 +2,10 @@ package com.vuclip.ubs.controller;
 
 import com.vuclip.ubs.models.codapay.init.CodapayInitRequest;
 import com.vuclip.ubs.models.codapay.init.CodapayInitResult;
+import com.vuclip.ubs.models.codapay.status.CodapayCheckStatusRequest;
+import com.vuclip.ubs.models.codapay.status.CodapayCheckStatusResponse;
+import com.vuclip.ubs.models.codapay.status.CodapayInquiryPaymentRequest;
+import com.vuclip.ubs.models.codapay.status.CodapayInquiryPaymentResult;
 import com.vuclip.ubs.service.CodapayService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +47,40 @@ public class CodapayController {
             return ResponseEntity.badRequest().body(initResult);
         } else {
            initResult = service.processInitTxn(request);
+           log.info("CodaPay init txn result : {}", initResult);
            return ResponseEntity.ok(initResult);
+        }
+    }
+
+    @PostMapping(value = "/checkSubsStatus.json", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<CodapayCheckStatusResponse> processCheckStatus(@RequestBody @Valid CodapayCheckStatusRequest request, BindingResult result) {
+        log.info("Got the request for Codapay check status : {}", request);
+        CodapayCheckStatusResponse response = null;
+
+        if (result.hasErrors()) {
+            String errors = stringifyErrors(result.getFieldErrors());
+            log.error("Errors in {} : {}", result.getObjectName(), errors);
+            response = CodapayCheckStatusResponse.builder().subscriptionResult(CodapayCheckStatusResponse.SubscriptionResult.builder().resultCode(355).resultDesc(errors).build()).build();
+            return ResponseEntity.badRequest().body(response);
+        } else {
+            response = service.getStatus(request);
+            log.info("Check status response : {}", response);
+            return ResponseEntity.ok(response);
+        }
+    }
+
+    @PostMapping(value = "/inquiryPaymentResult.xml", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<CodapayInquiryPaymentResult> processInquiryPayment(@RequestBody @Valid CodapayInquiryPaymentRequest request, BindingResult result) {
+        log.info("Got the request for Codapay inquiry payment : {}", request);
+        CodapayInquiryPaymentResult response = null;
+        if (result.hasErrors()) {
+            String errors = stringifyErrors(result.getFieldErrors());
+            log.error("Errors in {} : {}", result.getObjectName(), errors);
+            response = CodapayInquiryPaymentResult.builder().resultDesc(errors).build();
+            return ResponseEntity.badRequest().body(response);
+        } else {
+            response = service.getInquiryPaymentResult(request);
+            return ResponseEntity.ok(response);
         }
     }
 
