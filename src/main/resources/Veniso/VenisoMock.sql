@@ -1,7 +1,7 @@
 CREATE TABLE `veniso_direct_api` (
-  `id` int(11) NOT NULL,
-  `action` varchar(45) NOT NULL,
-  `msisdn` varchar(45) NOT NULL,
+  `id` INT(11) NOT NULL,
+  `action` VARCHAR(45) NOT NULL,
+  `msisdn` VARCHAR(45) NOT NULL,
   `response` json NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -15,14 +15,14 @@ INSERT INTO `ubs_mock_services`.`veniso_direct_api` (`id`, `action`, `msisdn`, `
 
 
 CREATE TABLE `veniso_redirect_api` (
-  `id` int(11) NOT NULL,
-  `action` varchar(45) NOT NULL,
-  `htxnid` varchar(45) NOT NULL,
-  `msisdn` varchar(45) NOT NULL,
-  `atxnid` varchar(45) NOT NULL,
-  `status` varchar(45) NOT NULL,
-  `chargedamount` varchar(45) NOT NULL,
-  `rurl` varchar(100) NOT NULL,
+  `id` INT(11) NOT NULL,
+  `action` VARCHAR(45) NOT NULL,
+  `htxnid` VARCHAR(45) NOT NULL,
+  `msisdn` VARCHAR(45) NOT NULL,
+  `atxnid` VARCHAR(45) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  `chargedamount` VARCHAR(45) NOT NULL,
+  `rurl` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

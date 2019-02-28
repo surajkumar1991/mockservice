@@ -1,32 +1,22 @@
 package com.vuclip.ubs.controller;
 
+import com.vuclip.ubs.models.veniso.VenisoDirectAPIRequestVO;
+import com.vuclip.ubs.utils.VenisoHashUtils;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.vuclip.ubs.models.veniso.VenisoDirectAPIRequestVO;
-import com.vuclip.ubs.service.VenisoService;
-import com.vuclip.ubs.utils.LogUtils;
-import com.vuclip.ubs.utils.VenisoHashUtils;
-
-import org.apache.http.client.utils.URIBuilder;
 
 /**
  * The VenisoController class: Accepts requests for Activation, Deactivation, OTP Gen, OTP verify
@@ -37,107 +27,103 @@ import org.apache.http.client.utils.URIBuilder;
 @RestController
 public class VenisoController {
 
-	private Logger logger = LogManager.getLogger(VenisoController.class);
-	
-	@Autowired(required = true)
-	private JdbcTemplate jdbcTemplate;
+    String venisoSecretKey = "vuclip12vuclip12";
+    private Logger logger = LogManager.getLogger(VenisoController.class);
+    @Autowired(required = true)
+    private JdbcTemplate jdbcTemplate;
 
-	String venisoSecretKey = "vuclip12vuclip12";
+    @RequestMapping(value = "/api/v3", method = {RequestMethod.POST}, produces = {
+            "application/json"}, consumes = {"application/json"})
+    public @ResponseBody
+    ResponseEntity<Object> response(@RequestBody VenisoDirectAPIRequestVO requestBody) {
 
+        Object jsonval = null;
+        List<Map<String, Object>> dBresponse = null;
+        String msisdn = null;
+        String action = null;
+        try {
 
+            logger.info("Request Parameter : " + requestBody.toString());
 
-	@RequestMapping(value = "/api/v3", method = {RequestMethod.POST}, produces = {
-	"application/json"}, consumes = { "application/json" } )
-	public @ResponseBody
-	ResponseEntity<Object> response(@RequestBody VenisoDirectAPIRequestVO requestBody) {
+            msisdn = (null == requestBody.getMsisdn()) ? requestBody.getTxnid() : requestBody.getMsisdn();
 
-		Object jsonval = null;
-		List<Map<String, Object>> dBresponse = null;
-		String msisdn = null;
-		String action = null;
-		try {
+            action = requestBody.getAction();
 
-			logger.info("Request Parameter : " + requestBody.toString());
+            String query = "SELECT * FROM veniso_direct_api where action ='" + action + "' and msisdn = '" + msisdn + "'";
+            logger.info("QUERY FOR FETCHING DATA " + query);
+            dBresponse = jdbcTemplate.queryForList(query);
+            logger.info("Resposne" + dBresponse);
+            if (dBresponse.size() >= 1) {
+                jsonval = dBresponse.get(0).get("response");
+                logger.info("Object " + jsonval);
+                logger.info("found record");
+            }
+        } catch (Exception e) {
+            logger.info("No Record found Excpetion:" + e);
+        }
+        String responseJson = (String) jsonval;
 
-			msisdn = (null==requestBody.getMsisdn()) ? requestBody.getTxnid() : requestBody.getMsisdn();
+        logger.info("RESPONSE : " + responseJson);
 
-			action = requestBody.getAction();
+        return ResponseEntity.ok(jsonval);
 
-			String query = "SELECT * FROM veniso_direct_api where action ='" + action + "' and msisdn = '" + msisdn + "'";
-			logger.info("QUERY FOR FETCHING DATA " + query);
-			dBresponse = jdbcTemplate.queryForList(query);
-			logger.info("Resposne" + dBresponse);
-			if (dBresponse.size() >= 1) {
-				jsonval = dBresponse.get(0).get("response");
-				logger.info("Object " + jsonval);
-				logger.info("found record");
-			}
-		} catch (Exception e) {
-			logger.info("No Record found Excpetion:" + e);
-		}
-		String responseJson = (String) jsonval;
+    }
 
-		logger.info("RESPONSE : " + responseJson);
+    @RequestMapping(value = "/api/v3", method = {RequestMethod.GET})
+    public @ResponseBody
+    void getResponse(@RequestParam("hash") String requestBody, HttpServletResponse httpServletResponse) {
+        String rurl = null;
+        List<Map<String, Object>> dBresponse = null;
+        Map<String, String> paramMap = new LinkedHashMap<String, String>();
+        StringBuilder hashMessageString = new StringBuilder();
+        String htxnid = null;
+        String action = null;
+        String hashValue = "";
+        try {
+            requestBody = URLEncoder.encode(requestBody, StandardCharsets.UTF_8.name());
+            logger.info("Request Hash Parameter : " + requestBody);
 
-		return ResponseEntity.ok(jsonval);
+            String hash = VenisoHashUtils.decrypt(venisoSecretKey, requestBody);
+            String[] resultData = hash.split("\\|");
+            action = resultData[0];
+            htxnid = resultData[1];
 
-	}
+            String query = "SELECT * FROM veniso_redirect_api where action ='" + action + "' and htxnid = '" + htxnid + "'";
+            logger.info("QUERY FOR FETCHING DATA " + query);
+            dBresponse = jdbcTemplate.queryForList(query);
+            logger.info("Resposne" + dBresponse);
+            if (dBresponse.size() >= 1) {
 
-	@RequestMapping(value = "/api/v3", method = {RequestMethod.GET} )
-	public @ResponseBody
-	void getResponse(@RequestParam("hash") String requestBody,HttpServletResponse httpServletResponse) {
-		String rurl = null;
-		List<Map<String, Object>> dBresponse = null;
-		Map<String, String> paramMap = new LinkedHashMap<String, String>();
-		StringBuilder hashMessageString=new StringBuilder();
-		String htxnid = null;
-		String action = null;
-		String hashValue="";
-		try {
-			requestBody = URLEncoder.encode(requestBody, StandardCharsets.UTF_8.name());
-			logger.info("Request Hash Parameter : " + requestBody);
+                paramMap.put("msisdn", dBresponse.get(0).get("msisdn").toString());
+                paramMap.put("atxnid", dBresponse.get(0).get("atxnid").toString());
+                paramMap.put("status", dBresponse.get(0).get("status").toString());
+                paramMap.put("chargedamount", dBresponse.get(0).get("chargedamount").toString());
 
-			String hash = VenisoHashUtils.decrypt(venisoSecretKey, requestBody);
-			String [] resultData=hash.split("\\|");
-			action =resultData[0];
-			htxnid=resultData[1];
+                paramMap.forEach((consentKey, consentValue) -> hashMessageString.append(consentValue).append("|"));
 
-			String query = "SELECT * FROM veniso_redirect_api where action ='" + action + "' and htxnid = '" + htxnid + "'";
-			logger.info("QUERY FOR FETCHING DATA " + query);
-			dBresponse = jdbcTemplate.queryForList(query);
-			logger.info("Resposne" + dBresponse);
-			if (dBresponse.size() >= 1) {
+                logger.info("Map Value : " + hashMessageString.toString());
 
-				paramMap.put("msisdn", dBresponse.get(0).get("msisdn").toString());
-				paramMap.put("atxnid", dBresponse.get(0).get("atxnid").toString());
-				paramMap.put("status", dBresponse.get(0).get("status").toString());
-				paramMap.put("chargedamount", dBresponse.get(0).get("chargedamount").toString());
+                hashValue = VenisoHashUtils.encrypt(venisoSecretKey, hashMessageString.toString());
 
-				paramMap.forEach((consentKey,consentValue)->hashMessageString.append(consentValue).append("|"));
+                logger.info("Hash Value : " + hashValue);
 
-				logger.info("Map Value : " + hashMessageString.toString());
+                rurl = resultData[5];
 
-				hashValue=VenisoHashUtils.encrypt(venisoSecretKey,hashMessageString.toString());
+                URIBuilder builder = new URIBuilder();
+                builder.setPath(rurl);
+                builder.addParameter("hash", hashValue);
 
-				logger.info("Hash Value : " + hashValue);
+                URL url = builder.build().toURL();
 
-				rurl = resultData[5];
+                logger.info("Redirection URL :" + url);
 
-				URIBuilder builder = new URIBuilder();
-				builder.setPath(rurl);
-				builder.addParameter("hash",hashValue);
-
-				URL url = builder.build().toURL();
-
-				logger.info("Redirection URL :" + url);
-
-				httpServletResponse.sendRedirect(url.toString()); 
+                httpServletResponse.sendRedirect(url.toString());
 //				httpServletResponse.setHeader("Location", url.toString());
 //				httpServletResponse.setStatus(302);
-			}
-		} catch (Exception e) {
-			logger.info("No Record found Excpetion:" + e);
-		}
+            }
+        } catch (Exception e) {
+            logger.info("No Record found Excpetion:" + e);
+        }
 
-	}
+    }
 }
