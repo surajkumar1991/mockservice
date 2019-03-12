@@ -56,6 +56,7 @@ public class EcentricServiceImpl implements EcentricPaymentGatewayService {
             addCardResponse.setToken(token);
             addCardResponse.setTransactionStatus(TransactionStatusType.SUCCESS);
             addCardResponse.setResponseDetail(responseDetail);
+            log.info("Add Card Response: {}", addCardResponse);
             return addCardResponse;
         } else {
             log.info("Invalid ecentric Card Number or Merchant Id");
