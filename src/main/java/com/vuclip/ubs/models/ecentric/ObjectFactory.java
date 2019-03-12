@@ -113,15 +113,6 @@ public class ObjectFactory {
 
 
 
-
-    /**
-     * Create an instance of {@link UserCard }
-     * 
-     */
-    public UserCard createUserCard() {
-        return new UserCard();
-    }
-
     /**
      * Create an instance of {@link AuthorizeResponse }
      * 
@@ -594,14 +585,7 @@ public class ObjectFactory {
 
 
   
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.ecentricswitch.co.za/paymentgateway/v1", name = "MaskedCardNumber", scope = UserCard.class)
-    public JAXBElement<String> createUserCardMaskedCardNumber(String value) {
-        return new JAXBElement<String>(_UserCardMaskedCardNumber_QNAME, String.class, UserCard.class, value);
-    }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
