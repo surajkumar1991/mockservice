@@ -2,6 +2,7 @@
 package com.vuclip.ubs.models.ecentric;
 
 import lombok.Builder;
+import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -38,6 +39,7 @@ import javax.xml.bind.annotation.XmlType;
     "responseDetail"
 })
 @XmlRootElement(name = "AddCardResponse")
+@ToString
 public class AddCardResponse {
 
     @XmlElement(name = "Token", required = true)
