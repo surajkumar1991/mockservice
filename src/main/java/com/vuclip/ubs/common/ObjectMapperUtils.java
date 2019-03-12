@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 
-
 public class ObjectMapperUtils {
 
     private static Logger logger = LogManager.getLogger(ObjectMapperUtils.class);
@@ -147,6 +146,4 @@ public class ObjectMapperUtils {
     public static ObjectMapper getXmlObjectMapper() {
         return xmlObjectMapper;
     }
-
-
 }
