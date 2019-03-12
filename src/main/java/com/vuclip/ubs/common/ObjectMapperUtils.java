@@ -18,6 +18,13 @@ import javax.xml.bind.Marshaller;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import java.io.StringReader;
+
+
 
 public class ObjectMapperUtils {
 
@@ -145,5 +152,25 @@ public class ObjectMapperUtils {
 
     public static ObjectMapper getXmlObjectMapper() {
         return xmlObjectMapper;
+    }
+
+
+    /**
+     *
+     * @param xmlStr
+     * @return
+     */
+    public static Document convertStringToDocument(String xmlStr) {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+        try
+        {
+            builder = factory.newDocumentBuilder();
+            Document xmlDoc = builder.parse( new InputSource( new StringReader( xmlStr ) ) );
+            return xmlDoc;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
