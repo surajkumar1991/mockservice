@@ -116,7 +116,7 @@ public class EcentricController {
     public VoidResponse initVoid(@RequestPayload VoidRequest request) {
         VoidResponse voidResponse = null;
         if (request != null || !request.getMerchantID().isEmpty()) {
-            log.info("Received Ecentric Payment Request");
+            log.info("Received Ecentric Void Request");
             return ecentricService.initVoidRequest(request);
         }
         else{
