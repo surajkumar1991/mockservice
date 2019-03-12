@@ -1,7 +1,7 @@
 package com.vuclip.ubs.config;
 
-import java.io.IOException;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -24,14 +24,19 @@ import com.vuclip.ubs.interceptor.MessageHeaderInterceptor;
 public class EcentricWebServiceConfig extends WsConfigurerAdapter {
 
     @Value("${xsdlocation:classpath:ecentric.xsd}")
-    Resource rs;
+    private Resource rs;
 
+    /**
+     *
+     * @param interceptors
+     */
     @Override
     public void addInterceptors(List<EndpointInterceptor> interceptors) {
         interceptors.add(new MessageHeaderInterceptor());
     }
 
     /**
+     *
      * @param context
      * @return
      */
@@ -52,10 +57,11 @@ public class EcentricWebServiceConfig extends WsConfigurerAdapter {
         return new SimpleXsdSchema(rs);
     }
 
+
     /**
+     *
      * @param addCardSchema
      * @return
-     * @throws IOException
      */
     @Bean(name = "AddCardRequest")
     public DefaultWsdl11Definition defaultAddCardRequestDefinition(XsdSchema addCardSchema) {
@@ -71,7 +77,6 @@ public class EcentricWebServiceConfig extends WsConfigurerAdapter {
      *
      * @param secure3DLookupSchema
      * @return
-     * @throws IOException
      */
     @Bean(name = "Secure3DLookupRequest")
     public DefaultWsdl11Definition defaultSecure3dLookUpRequestDef(XsdSchema secure3DLookupSchema) {
@@ -88,7 +93,6 @@ public class EcentricWebServiceConfig extends WsConfigurerAdapter {
      *
      * @param authorizeSchema
      * @return
-     * @throws IOException
      */
     @Bean(name = "AuthorizeRequest")
     public DefaultWsdl11Definition defaulAuthorizeRequestDef(XsdSchema authorizeSchema)  {
@@ -104,7 +108,6 @@ public class EcentricWebServiceConfig extends WsConfigurerAdapter {
      *
      * @param voidSchema
      * @return
-     * @throws IOException
      */
     @Bean(name = "VoidRequest")
     public DefaultWsdl11Definition defaulVoidRequestDef(XsdSchema voidSchema)  {
@@ -120,7 +123,6 @@ public class EcentricWebServiceConfig extends WsConfigurerAdapter {
      *
      * @param paymentSchema
      * @return
-     * @throws IOException
      */
     @Bean(name = "PaymentRequest")
     public DefaultWsdl11Definition defaulPaymentRequestDef(XsdSchema paymentSchema) {
