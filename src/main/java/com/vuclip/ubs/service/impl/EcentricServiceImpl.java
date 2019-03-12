@@ -64,7 +64,7 @@ public class EcentricServiceImpl implements EcentricPaymentGatewayService {
 	@Override
 	public Secure3DLookupResponse secure3DLookup(Secure3DLookupRequest parameters) {
 		if (parameters.getMerchantID().equalsIgnoreCase(merchantId)
-				&& parameters.getTransactionID().equalsIgnoreCase(transactionId)) {
+				&& !parameters.getTransactionID().equalsIgnoreCase(transactionId)) {
 			return ecentricResponse.populateSecure3DLookUpResponse(parameters, "SUCCESS");
 		} else {
 			log.info("Invalid ecentric Merchant Id or Token number");
@@ -75,7 +75,7 @@ public class EcentricServiceImpl implements EcentricPaymentGatewayService {
 	@Override
 	public AuthorizeResponse authorize(AuthorizeRequest parameters) {
 		if (parameters.getMerchantID().equalsIgnoreCase(merchantId)
-				&& parameters.getTransactionID().equalsIgnoreCase(transactionId)
+				&& !parameters.getTransactionID().equalsIgnoreCase(transactionId)
 				&& parameters.getCard().getValue().getToken().getValue().equalsIgnoreCase(token)) {
 			return ecentricResponse.populateAuthorizeResponse(parameters, "SUCCESS");
 		} else {
@@ -87,7 +87,7 @@ public class EcentricServiceImpl implements EcentricPaymentGatewayService {
 	@Override
 	public PaymentResponse payment(PaymentRequest parameters) {
 		if (parameters.getMerchantID().equalsIgnoreCase(merchantId)
-				&& parameters.getTransactionID().equalsIgnoreCase(transactionId)
+				&& !parameters.getTransactionID().equalsIgnoreCase(transactionId)
 				&& parameters.getCard().getValue().getToken().getValue().equalsIgnoreCase(token)) {
 			return ecentricResponse.populatePaymentResponse(parameters, "SUCCESS");
 		} else {
@@ -99,7 +99,7 @@ public class EcentricServiceImpl implements EcentricPaymentGatewayService {
 	@Override
 	public VoidResponse initVoidRequest(VoidRequest parameters) {
 		if (parameters.getMerchantID().equalsIgnoreCase(merchantId)
-				&& parameters.getTransactionID().equalsIgnoreCase(transactionId)) {
+				&& !parameters.getTransactionID().equalsIgnoreCase(transactionId)) {
 			return ecentricResponse.populateVoidResponse(parameters, "SUCCESS");
 		} else {
 			log.info("Invalid ecentric Merchant Id or Token number");

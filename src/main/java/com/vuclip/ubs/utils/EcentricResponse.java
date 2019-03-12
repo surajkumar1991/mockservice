@@ -61,7 +61,7 @@ public class EcentricResponse {
         responseDetail.setSource("ECS");
         responseDetail.setCode("VF");
 
-        if (!secure3DLookupRequest.getTransactionID().equalsIgnoreCase(transactionId)) {
+        if (secure3DLookupRequest.getTransactionID().equalsIgnoreCase(transactionId)) {
             responseDetail.setDescription("Validation fault. Duplicate TransactionID");
             responseDetail.setClientMessage("The transaction failed.");
         } else if (!secure3DLookupRequest.getMerchantID().equalsIgnoreCase(merchantId)) {
@@ -88,7 +88,7 @@ public class EcentricResponse {
                     .createSecure3DLookupResponseAcsUrl("https://sandbox.ecentric.co.za/MockACSUrl/ACSUrl.aspx");
             JAXBElement<String> createPayLoad = factory
                     .createSecure3DLookupResponsePAReqPayload("**** TEST PAYLOAD ***");
-            secure3DLookupResponse.setTransactionID(transactionId);
+            secure3DLookupResponse.setTransactionID(secure3DLookupReqParams.getTransactionID());
             secure3DLookupResponse.setTransactionDateTime(generateXmlGeorDate());
             secure3DLookupResponse.setSaleReconID(saleReconID);
             secure3DLookupResponse.setReconID(reconId);
@@ -101,7 +101,7 @@ public class EcentricResponse {
         } else {
             JAXBElement<String> errorCreateAcsurl = factory.createSecure3DLookupResponseAcsUrl("true");
             JAXBElement<String> errorCreatePayLoad = factory.createSecure3DLookupResponsePAReqPayload("true");
-            secure3DLookupResponse.setTransactionID(transactionId);
+            secure3DLookupResponse.setTransactionID(secure3DLookupReqParams.getTransactionID());
             secure3DLookupResponse.setTransactionDateTime(generateXmlGeorDate());
             secure3DLookupResponse.setSaleReconID(saleReconID);
             secure3DLookupResponse.setReconID(reconId);
@@ -136,7 +136,7 @@ public class EcentricResponse {
         ResponseDetail responseDetail = new ResponseDetail();
         responseDetail.setSource("ECS");
 
-        if (!request.getTransactionID().equalsIgnoreCase(transactionId)) {
+        if (request.getTransactionID().equalsIgnoreCase(transactionId)) {
             responseDetail.setCode("VF");
             responseDetail.setDescription("Validation fault. Duplicate TransactionID");
             responseDetail.setClientMessage("The transaction failed.");
@@ -154,11 +154,11 @@ public class EcentricResponse {
     }
 
     /**
-     * @param paymentRequestParams
+     * @param authorizeRequestParams
      * @param responseStatus
      * @return
      */
-    public AuthorizeResponse populateAuthorizeResponse(AuthorizeRequest paymentRequestParams, String responseStatus) {
+    public AuthorizeResponse populateAuthorizeResponse(AuthorizeRequest authorizeRequestParams, String responseStatus) {
         AuthorizeResponse authorizeResponse = new AuthorizeResponse();
         ResponseDetail responseDetail = new ResponseDetail();
         ObjectFactory factory = new ObjectFactory();
@@ -166,7 +166,7 @@ public class EcentricResponse {
         JAXBElement<String> authCode = factory.createPaymentResponseAuthCode(AUTHCODE);
         if (responseStatus.equalsIgnoreCase("SUCCESS")) {
             JAXBElement<Long> authAmount = factory.createPaymentResponseAuthAmount(2095L);
-            authorizeResponse.setTransactionID(transactionId);
+            authorizeResponse.setTransactionID(authorizeRequestParams.getTransactionID());
             authorizeResponse.setTransactionDateTime(generateXmlGeorDate());
             authorizeResponse.setSaleReconID(saleReconID);
             authorizeResponse.setReconID(reconId);
@@ -177,13 +177,13 @@ public class EcentricResponse {
         } else {
             JAXBElement<Long> authAmount = factory.createPaymentResponseAuthAmount(0L);
             authAmount.setNil(true);
-            authorizeResponse.setTransactionID(transactionId);
+            authorizeResponse.setTransactionID(authorizeRequestParams.getTransactionID());
             authorizeResponse.setTransactionDateTime(generateXmlGeorDate());
             authorizeResponse.setSaleReconID(saleReconID);
             authorizeResponse.setReconID(reconId);
             authorizeResponse.setAuthAmount(authAmount);
             authorizeResponse.setTransactionStatus(TransactionStatusType.FAILURE);
-            authorizeResponse.setResponseDetail(setInvalidAuthoriseRespDetails(paymentRequestParams));
+            authorizeResponse.setResponseDetail(setInvalidAuthoriseRespDetails(authorizeRequestParams));
         }
         return authorizeResponse;
     }
@@ -195,7 +195,7 @@ public class EcentricResponse {
     public ResponseDetail setInvalidPaymentRespDetails(PaymentRequest request) {
         ResponseDetail responseDetail = new ResponseDetail();
         responseDetail.setSource("ECS");
-        if (!request.getTransactionID().equalsIgnoreCase(transactionId)) {
+        if (request.getTransactionID().equalsIgnoreCase(transactionId)) {
             responseDetail.setCode("VF");
             responseDetail.setDescription("Validation fault. Duplicate TransactionID");
             responseDetail.setClientMessage("The transaction failed.");
@@ -224,7 +224,7 @@ public class EcentricResponse {
         JAXBElement<String> authCode = factory.createPaymentResponseAuthCode(AUTHCODE);
         if (responseStatus.equalsIgnoreCase("SUCCESS")) {
             JAXBElement<Long> authAmount = factory.createPaymentResponseAuthAmount(2095L);
-            paymentResponse.setTransactionID(transactionId);
+            paymentResponse.setTransactionID(paymentRequestParams.getTransactionID());
             paymentResponse.setTransactionDateTime(generateXmlGeorDate());
             paymentResponse.setSaleReconID(saleReconID);
             paymentResponse.setReconID(reconId);
@@ -235,7 +235,7 @@ public class EcentricResponse {
         } else {
             JAXBElement<Long> authAmount = factory.createPaymentResponseAuthAmount(0L);
             authAmount.setNil(true);
-            paymentResponse.setTransactionID(transactionId);
+            paymentResponse.setTransactionID(paymentRequestParams.getTransactionID());
             paymentResponse.setTransactionDateTime(generateXmlGeorDate());
             paymentResponse.setSaleReconID(saleReconID);
             paymentResponse.setReconID(reconId);
@@ -254,7 +254,7 @@ public class EcentricResponse {
         ResponseDetail responseDetail = new ResponseDetail();
         responseDetail.setSource("ECS");
         responseDetail.setCode("VF");
-        if (!request.getTransactionID().equalsIgnoreCase(transactionId)) {
+        if (request.getTransactionID().equalsIgnoreCase(transactionId)) {
             responseDetail.setDescription("Validation fault. Duplicate TransactionID");
             responseDetail.setClientMessage("The transaction failed.");
         } else if (!request.getMerchantID().equalsIgnoreCase(merchantId)) {
@@ -269,14 +269,14 @@ public class EcentricResponse {
         ObjectFactory factory = new ObjectFactory();
         JAXBElement<String> saleReconID = factory.createVoidRequestSaleReconID("true");
         if (responseStatus.equalsIgnoreCase("SUCCESS")) {
-            voidResponse.setTransactionID(transactionId);
+            voidResponse.setTransactionID(voidRequestParams.getTransactionID());
             voidResponse.setTransactionDateTime(generateXmlGeorDate());
             voidResponse.setSaleReconID(saleReconID);
             voidResponse.setReconID(reconId);
             voidResponse.setTransactionStatus(TransactionStatusType.SUCCESS);
             voidResponse.setResponseDetail(setAuthoriseResponseDetails(responseDetail));
         } else {
-            voidResponse.setTransactionID(transactionId);
+            voidResponse.setTransactionID(voidRequestParams.getTransactionID());
             voidResponse.setTransactionDateTime(generateXmlGeorDate());
             voidResponse.setSaleReconID(saleReconID);
             voidResponse.setReconID(reconId);
