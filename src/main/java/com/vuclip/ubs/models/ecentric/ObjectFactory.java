@@ -32,19 +32,12 @@ public class ObjectFactory {
     private final static QName _TransactionStatusType_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "TransactionStatusType");
     private final static QName _BankAccountType_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "BankAccountType");
     private final static QName _Address_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "Address");
-    private final static QName _Account_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "Account");
     private final static QName _MessageDateTime_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "MessageDateTime");
     private final static QName _ResponseDetail_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "ResponseDetail");
-    private final static QName _AccountDetailAccountholderName_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "AccountholderName");
-    private final static QName _AccountDetailAccountNumber_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "AccountNumber");
-    private final static QName _AccountDetailBranchCode_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "BranchCode");
-    private final static QName _AccountDetailAccountType_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "AccountType");
-    private final static QName _AccountDetailBank_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "Bank");
     private final static QName _MessageHeaderChannel_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "Channel");
     private final static QName _CreateMasterPassTransactionRequestMobilePhone_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "MobilePhone");
     private final static QName _CreateMasterPassTransactionRequestOrderNumber_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "OrderNumber");
     private final static QName _CreateMasterPassTransactionRequestTransactionDateTime_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "TransactionDateTime");
-   
     private final static QName _CreateMasterPassTransactionRequestCurrencyCode_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "CurrencyCode");
     private final static QName _RefundResponseSaleReconID_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "SaleReconID");
     private final static QName _RefundResponseAuthCode_QNAME = new QName("http://www.ecentricswitch.co.za/paymentgateway/v1", "AuthCode");
@@ -89,13 +82,7 @@ public class ObjectFactory {
     public ObjectFactory() {
     }
 
-    /**
-     * Create an instance of {@link AccountDetail }
-     * 
-     */
-    public AccountDetail createAccountDetail() {
-        return new AccountDetail();
-    }
+
 
     /**
      * Create an instance of {@link AddCardResponse }
@@ -300,14 +287,6 @@ public class ObjectFactory {
         return new JAXBElement<Address>(_Address_QNAME, Address.class, null, value);
     }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AccountDetail }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.ecentricswitch.co.za/paymentgateway/v1", name = "Account")
-    public JAXBElement<AccountDetail> createAccount(AccountDetail value) {
-        return new JAXBElement<AccountDetail>(_Account_QNAME, AccountDetail.class, null, value);
-    }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link XMLGregorianCalendar }{@code >}}
@@ -327,51 +306,7 @@ public class ObjectFactory {
         return new JAXBElement<ResponseDetail>(_ResponseDetail_QNAME, ResponseDetail.class, null, value);
     }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.ecentricswitch.co.za/paymentgateway/v1", name = "AccountholderName", scope = AccountDetail.class)
-    public JAXBElement<String> createAccountDetailAccountholderName(String value) {
-        return new JAXBElement<String>(_AccountDetailAccountholderName_QNAME, String.class, AccountDetail.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.ecentricswitch.co.za/paymentgateway/v1", name = "AccountNumber", scope = AccountDetail.class)
-    public JAXBElement<String> createAccountDetailAccountNumber(String value) {
-        return new JAXBElement<String>(_AccountDetailAccountNumber_QNAME, String.class, AccountDetail.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.ecentricswitch.co.za/paymentgateway/v1", name = "BranchCode", scope = AccountDetail.class)
-    public JAXBElement<String> createAccountDetailBranchCode(String value) {
-        return new JAXBElement<String>(_AccountDetailBranchCode_QNAME, String.class, AccountDetail.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.ecentricswitch.co.za/paymentgateway/v1", name = "AccountType", scope = AccountDetail.class)
-    public JAXBElement<String> createAccountDetailAccountType(String value) {
-        return new JAXBElement<String>(_AccountDetailAccountType_QNAME, String.class, AccountDetail.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.ecentricswitch.co.za/paymentgateway/v1", name = "Bank", scope = AccountDetail.class)
-    public JAXBElement<String> createAccountDetailBank(String value) {
-        return new JAXBElement<String>(_AccountDetailBank_QNAME, String.class, AccountDetail.class, value);
-    }
-
+   
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
@@ -399,9 +334,7 @@ public class ObjectFactory {
         return new JAXBElement<XMLGregorianCalendar>(_MessageDateTime_QNAME, XMLGregorianCalendar.class, MessageHeader.class, value);
     }
 
-   
-
-
+ 
 
 
     /**
