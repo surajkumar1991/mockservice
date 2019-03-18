@@ -20,8 +20,10 @@ public class EcentricResponse {
     private static final String TXN_FAILED_MSG="The transaction failed.";
 
     private static final String AUTHCODE = "894048";
-    @Value("${ecentricMerchantId}")
-    private String merchantId;
+    /*@Value("${ecentricMerchantId}")*/
+
+    private final static String MERCHANT_ID ="FB84B3E7-22BE-4DD5-ACB8-A594DD2E6F60";
+    
     @Value("${ecentricToken}")
     private String token;
     @Value("${ecentricTransactionId}")
@@ -70,7 +72,7 @@ public class EcentricResponse {
         if (secure3DLookupRequest.getTransactionID().equalsIgnoreCase(transactionId)) {
             responseDetail.setDescription(DUPLICATE_TXN);
             responseDetail.setClientMessage(TXN_FAILED_MSG);
-        } else if (!secure3DLookupRequest.getMerchantID().equalsIgnoreCase(merchantId)) {
+        } else if (!secure3DLookupRequest.getMerchantID().equalsIgnoreCase(MERCHANT_ID)) {
             responseDetail.setDescription(MERCH_AUTH_FAILED);
 
         }
@@ -146,7 +148,7 @@ public class EcentricResponse {
             responseDetail.setCode("VF");
             responseDetail.setDescription(DUPLICATE_TXN);
             responseDetail.setClientMessage(TXN_FAILED_MSG);
-        } else if (!request.getMerchantID().equalsIgnoreCase(merchantId)) {
+        } else if (!request.getMerchantID().equalsIgnoreCase(MERCHANT_ID)) {
             responseDetail.setCode("VF");
             responseDetail.setDescription(MERCH_AUTH_FAILED);
 
@@ -205,7 +207,7 @@ public class EcentricResponse {
             responseDetail.setCode("VF");
             responseDetail.setDescription(DUPLICATE_TXN);
             responseDetail.setClientMessage(TXN_FAILED_MSG);
-        } else if (!request.getMerchantID().equalsIgnoreCase(merchantId)) {
+        } else if (!request.getMerchantID().equalsIgnoreCase(MERCHANT_ID)) {
             responseDetail.setCode("VF");
             responseDetail.setDescription(MERCH_AUTH_FAILED);
 
@@ -263,7 +265,7 @@ public class EcentricResponse {
         if (request.getTransactionID().equalsIgnoreCase(transactionId)) {
             responseDetail.setDescription(DUPLICATE_TXN);
             responseDetail.setClientMessage(TXN_FAILED_MSG);
-        } else if (!request.getMerchantID().equalsIgnoreCase(merchantId)) {
+        } else if (!request.getMerchantID().equalsIgnoreCase(MERCHANT_ID)) {
             responseDetail.setDescription(MERCH_AUTH_FAILED);
         }
         return responseDetail;
