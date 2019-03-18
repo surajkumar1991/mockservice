@@ -53,7 +53,7 @@
             <AppenderRef ref="Console"/>
         </AsyncLogger>
 
-        <AsyncRoot level="info">
+        <AsyncRoot level="debug">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="DebugRollingFile"/>
         </AsyncRoot>
