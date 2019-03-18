@@ -15,7 +15,11 @@ import java.util.GregorianCalendar;
 @Log4j2
 public class EcentricResponse {
 
-    private final static String AUTHCODE = "894048";
+    private static final String MERCH_AUTH_FAILED="Validation fault. Merchant authentication failed";
+    private static final String DUPLICATE_TXN="Validation fault. Duplicate TransactionID";
+    private static final String TXN_FAILED_MSG="The transaction failed.";
+
+    private static final String AUTHCODE = "894048";
     @Value("${ecentricMerchantId}")
     private String merchantId;
     @Value("${ecentricToken}")
@@ -32,10 +36,12 @@ public class EcentricResponse {
         ResponseDetail responseDetail = new ResponseDetail();
         responseDetail.setSource("ECS");
         responseDetail.setCode("VF");
-        if (!addCardRequestParams.getCard().getCardNumber().getValue().equalsIgnoreCase(cardNumber))
+        if (!addCardRequestParams.getCard().getCardNumber().getValue().equalsIgnoreCase(cardNumber)) {
             responseDetail.setDescription("Validation fault. The Card Number is invalid");
-        else
-            responseDetail.setDescription("Validation fault. Merchant authentication failed");
+        }
+        else {
+            responseDetail.setDescription(MERCH_AUTH_FAILED);
+        }
         return responseDetail;
     }
 
@@ -62,10 +68,10 @@ public class EcentricResponse {
         responseDetail.setCode("VF");
 
         if (secure3DLookupRequest.getTransactionID().equalsIgnoreCase(transactionId)) {
-            responseDetail.setDescription("Validation fault. Duplicate TransactionID");
-            responseDetail.setClientMessage("The transaction failed.");
+            responseDetail.setDescription(DUPLICATE_TXN);
+            responseDetail.setClientMessage(TXN_FAILED_MSG);
         } else if (!secure3DLookupRequest.getMerchantID().equalsIgnoreCase(merchantId)) {
-            responseDetail.setDescription("Validation fault. Merchant authentication failed");
+            responseDetail.setDescription(MERCH_AUTH_FAILED);
 
         }
 
@@ -138,11 +144,11 @@ public class EcentricResponse {
 
         if (request.getTransactionID().equalsIgnoreCase(transactionId)) {
             responseDetail.setCode("VF");
-            responseDetail.setDescription("Validation fault. Duplicate TransactionID");
-            responseDetail.setClientMessage("The transaction failed.");
+            responseDetail.setDescription(DUPLICATE_TXN);
+            responseDetail.setClientMessage(TXN_FAILED_MSG);
         } else if (!request.getMerchantID().equalsIgnoreCase(merchantId)) {
             responseDetail.setCode("VF");
-            responseDetail.setDescription("Validation fault. Merchant authentication failed");
+            responseDetail.setDescription(MERCH_AUTH_FAILED);
 
         } else if (!request.getCard().getValue().getToken().getValue().equalsIgnoreCase(token)) {
             responseDetail.setCode("SE");
@@ -164,7 +170,7 @@ public class EcentricResponse {
         ObjectFactory factory = new ObjectFactory();
         JAXBElement<String> saleReconID = factory.createSecure3DLookupResponseSaleReconID("true");
         JAXBElement<String> authCode = factory.createPaymentResponseAuthCode(AUTHCODE);
-        if (responseStatus.equalsIgnoreCase("SUCCESS")) {
+        if ("SUCCESS".equalsIgnoreCase(responseStatus)) {
             JAXBElement<Long> authAmount = factory.createPaymentResponseAuthAmount(2095L);
             authorizeResponse.setTransactionID(authorizeRequestParams.getTransactionID());
             authorizeResponse.setTransactionDateTime(generateXmlGeorDate());
@@ -197,11 +203,11 @@ public class EcentricResponse {
         responseDetail.setSource("ECS");
         if (request.getTransactionID().equalsIgnoreCase(transactionId)) {
             responseDetail.setCode("VF");
-            responseDetail.setDescription("Validation fault. Duplicate TransactionID");
-            responseDetail.setClientMessage("The transaction failed.");
+            responseDetail.setDescription(DUPLICATE_TXN);
+            responseDetail.setClientMessage(TXN_FAILED_MSG);
         } else if (!request.getMerchantID().equalsIgnoreCase(merchantId)) {
             responseDetail.setCode("VF");
-            responseDetail.setDescription("Validation fault. Merchant authentication failed");
+            responseDetail.setDescription(MERCH_AUTH_FAILED);
 
         } else if (!request.getCard().getValue().getToken().getValue().equalsIgnoreCase(token)) {
             responseDetail.setCode("IE");
@@ -255,10 +261,10 @@ public class EcentricResponse {
         responseDetail.setSource("ECS");
         responseDetail.setCode("VF");
         if (request.getTransactionID().equalsIgnoreCase(transactionId)) {
-            responseDetail.setDescription("Validation fault. Duplicate TransactionID");
-            responseDetail.setClientMessage("The transaction failed.");
+            responseDetail.setDescription(DUPLICATE_TXN);
+            responseDetail.setClientMessage(TXN_FAILED_MSG);
         } else if (!request.getMerchantID().equalsIgnoreCase(merchantId)) {
-            responseDetail.setDescription("Validation fault. Merchant authentication failed");
+            responseDetail.setDescription(MERCH_AUTH_FAILED);
         }
         return responseDetail;
     }
@@ -268,7 +274,7 @@ public class EcentricResponse {
         ResponseDetail responseDetail = new ResponseDetail();
         ObjectFactory factory = new ObjectFactory();
         JAXBElement<String> saleReconID = factory.createVoidRequestSaleReconID("true");
-        if (responseStatus.equalsIgnoreCase("SUCCESS")) {
+        if ("SUCCESS".equalsIgnoreCase(responseStatus)) {
             voidResponse.setTransactionID(voidRequestParams.getTransactionID());
             voidResponse.setTransactionDateTime(generateXmlGeorDate());
             voidResponse.setSaleReconID(saleReconID);
@@ -293,8 +299,7 @@ public class EcentricResponse {
             xgcal = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
             return xgcal;
         } catch (DatatypeConfigurationException e) {
-            log.error(e.getMessage());
-            e.printStackTrace();
+            log.info(e);
         }
         return xgcal;
     }

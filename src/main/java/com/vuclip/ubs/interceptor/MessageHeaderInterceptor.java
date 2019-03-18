@@ -48,7 +48,7 @@ public class MessageHeaderInterceptor implements EndpointInterceptor {
 
     @Override
     public void afterCompletion(MessageContext messageContext, Object endpoint, Exception ex) throws Exception {
-
+    //Do nothing because dont want to added anything in response after completion
     }
 
 

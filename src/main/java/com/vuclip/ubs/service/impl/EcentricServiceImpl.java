@@ -29,7 +29,11 @@ import lombok.extern.log4j.Log4j2;
 public class EcentricServiceImpl implements EcentricPaymentGatewayService {
 
 	@Autowired
-	EcentricResponse ecentricResponse;
+	private EcentricResponse ecentricResponse;
+
+	private static final String SUCCESS_RESP_STATUS ="SUCCESS";
+	private static final String FAILURE_RESP_STATUS ="FAILURE";
+	private static final String INVALID_CARD_LOG="Invalid ecentric Card Number or Merchant Id";
 
 	@Value("${ecentricMerchantId}")
 	private String merchantId;
@@ -54,7 +58,7 @@ public class EcentricServiceImpl implements EcentricPaymentGatewayService {
 			log.info("Add Card Response: {}", addCardResponse);
 			return addCardResponse;
 		} else {
-			log.info("Invalid ecentric Card Number or Merchant Id");
+			log.info(INVALID_CARD_LOG);
 			addCardResponse.setTransactionStatus(TransactionStatusType.FAILURE);
 			addCardResponse.setResponseDetail(ecentricResponse.setErrorResponseInvalidCard(parameters, cardNumber));
 			return addCardResponse;
@@ -65,10 +69,10 @@ public class EcentricServiceImpl implements EcentricPaymentGatewayService {
 	public Secure3DLookupResponse secure3DLookup(Secure3DLookupRequest parameters) {
 		if (parameters.getMerchantID().equalsIgnoreCase(merchantId)
 				&& !parameters.getTransactionID().equalsIgnoreCase(transactionId)) {
-			return ecentricResponse.populateSecure3DLookUpResponse(parameters, "SUCCESS");
+			return ecentricResponse.populateSecure3DLookUpResponse(parameters, SUCCESS_RESP_STATUS);
 		} else {
-			log.info("Invalid ecentric Merchant Id or Token number");
-			return ecentricResponse.populateSecure3DLookUpResponse(parameters, "FAILURE");
+			log.info(INVALID_CARD_LOG);
+			return ecentricResponse.populateSecure3DLookUpResponse(parameters, FAILURE_RESP_STATUS);
 		}
 	}
 
@@ -77,10 +81,10 @@ public class EcentricServiceImpl implements EcentricPaymentGatewayService {
 		if (parameters.getMerchantID().equalsIgnoreCase(merchantId)
 				&& !parameters.getTransactionID().equalsIgnoreCase(transactionId)
 				&& parameters.getCard().getValue().getToken().getValue().equalsIgnoreCase(token)) {
-			return ecentricResponse.populateAuthorizeResponse(parameters, "SUCCESS");
+			return ecentricResponse.populateAuthorizeResponse(parameters, SUCCESS_RESP_STATUS);
 		} else {
-			log.info("Invalid ecentric Merchant Id or Token number");
-			return ecentricResponse.populateAuthorizeResponse(parameters, "FAILURE");
+			log.info(INVALID_CARD_LOG);
+			return ecentricResponse.populateAuthorizeResponse(parameters, FAILURE_RESP_STATUS);
 		}
 	}
 
@@ -89,10 +93,10 @@ public class EcentricServiceImpl implements EcentricPaymentGatewayService {
 		if (parameters.getMerchantID().equalsIgnoreCase(merchantId)
 				&& !parameters.getTransactionID().equalsIgnoreCase(transactionId)
 				&& parameters.getCard().getValue().getToken().getValue().equalsIgnoreCase(token)) {
-			return ecentricResponse.populatePaymentResponse(parameters, "SUCCESS");
+			return ecentricResponse.populatePaymentResponse(parameters, SUCCESS_RESP_STATUS);
 		} else {
-			log.info("Invalid ecentric Merchant Id or Token number");
-			return ecentricResponse.populatePaymentResponse(parameters, "FAILURE");
+			log.info(INVALID_CARD_LOG);
+			return ecentricResponse.populatePaymentResponse(parameters, FAILURE_RESP_STATUS);
 		}
 	}
 
@@ -100,10 +104,10 @@ public class EcentricServiceImpl implements EcentricPaymentGatewayService {
 	public VoidResponse initVoidRequest(VoidRequest parameters) {
 		if (parameters.getMerchantID().equalsIgnoreCase(merchantId)
 				&& !parameters.getTransactionID().equalsIgnoreCase(transactionId)) {
-			return ecentricResponse.populateVoidResponse(parameters, "SUCCESS");
+			return ecentricResponse.populateVoidResponse(parameters, SUCCESS_RESP_STATUS);
 		} else {
-			log.info("Invalid ecentric Merchant Id or Token number");
-			return ecentricResponse.populateVoidResponse(parameters, "FAILURE");
+			log.info(INVALID_CARD_LOG);
+			return ecentricResponse.populateVoidResponse(parameters, FAILURE_RESP_STATUS);
 		}
 	}
 

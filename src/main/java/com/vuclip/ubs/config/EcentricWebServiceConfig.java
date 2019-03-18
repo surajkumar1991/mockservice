@@ -23,6 +23,9 @@ import com.vuclip.ubs.interceptor.MessageHeaderInterceptor;
 @Configuration
 public class EcentricWebServiceConfig extends WsConfigurerAdapter {
 
+    private static final String API_URL_MAPPING="/paymentgateway/v1";
+    private static final String TARGET_NS="http://www.ecentricswitch.co.za/paymentgateway/v1";
+
     @Value("${xsdlocation:classpath:ecentric.xsd}")
     private Resource rs;
 
@@ -45,7 +48,7 @@ public class EcentricWebServiceConfig extends WsConfigurerAdapter {
         MessageDispatcherServlet messageDispatcherServlet = new MessageDispatcherServlet();
         messageDispatcherServlet.setApplicationContext(context);
         messageDispatcherServlet.setTransformWsdlLocations(true);
-        return new ServletRegistrationBean(messageDispatcherServlet, "/paymentgateway/v1");
+        return new ServletRegistrationBean(messageDispatcherServlet, API_URL_MAPPING);
     }
 
 
@@ -67,8 +70,8 @@ public class EcentricWebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition defaultAddCardRequestDefinition(XsdSchema addCardSchema) {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
         definition.setPortTypeName("AddCardRequest");
-        definition.setTargetNamespace("http://www.ecentricswitch.co.za/paymentgateway/v1");
-        definition.setLocationUri("/paymentgateway/v1");
+        definition.setTargetNamespace(TARGET_NS);
+        definition.setLocationUri(API_URL_MAPPING);
         definition.setSchema(addCardSchema);
         return definition;
     }
@@ -82,8 +85,8 @@ public class EcentricWebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition defaultSecure3dLookUpRequestDef(XsdSchema secure3DLookupSchema) {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
         definition.setPortTypeName("Secure3DLookupRequest");
-        definition.setTargetNamespace("http://www.ecentricswitch.co.za/paymentgateway/v1");
-        definition.setLocationUri("/paymentgateway/v1");
+        definition.setTargetNamespace(TARGET_NS);
+        definition.setLocationUri(API_URL_MAPPING);
         definition.setSchema(secure3DLookupSchema);
         return definition;
     }
@@ -98,8 +101,8 @@ public class EcentricWebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition defaulAuthorizeRequestDef(XsdSchema authorizeSchema)  {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
         definition.setPortTypeName("AuthorizeRequest");
-        definition.setTargetNamespace("http://www.ecentricswitch.co.za/paymentgateway/v1");
-        definition.setLocationUri("/paymentgateway/v1");
+        definition.setTargetNamespace(TARGET_NS);
+        definition.setLocationUri(API_URL_MAPPING);
         definition.setSchema(authorizeSchema);
         return definition;
     }
@@ -113,8 +116,8 @@ public class EcentricWebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition defaulVoidRequestDef(XsdSchema voidSchema)  {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
         definition.setPortTypeName("VoidRequest");
-        definition.setTargetNamespace("http://www.ecentricswitch.co.za/paymentgateway/v1");
-        definition.setLocationUri("/paymentgateway/v1");
+        definition.setTargetNamespace(TARGET_NS);
+        definition.setLocationUri(API_URL_MAPPING);
         definition.setSchema(voidSchema);
         return definition;
     }
@@ -128,8 +131,8 @@ public class EcentricWebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition defaulPaymentRequestDef(XsdSchema paymentSchema) {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
         definition.setPortTypeName("PaymentRequest");
-        definition.setTargetNamespace("http://www.ecentricswitch.co.za/paymentgateway/v1");
-        definition.setLocationUri("/paymentgateway/v1");
+        definition.setTargetNamespace(TARGET_NS);
+        definition.setLocationUri(API_URL_MAPPING);
         definition.setSchema(paymentSchema);
         return definition;
     }

@@ -27,7 +27,7 @@ public class EcentricController {
 	private static final String NAMESPACE = "http://www.ecentricswitch.co.za/paymentgateway/v1";
 
 	@Autowired
-	EcentricPaymentGatewayService ecentricService;
+	private EcentricPaymentGatewayService ecentricService;
 
 	/**
 	 *
