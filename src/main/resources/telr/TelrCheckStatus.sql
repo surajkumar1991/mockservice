@@ -1,7 +1,7 @@
 CREATE TABLE ubs_mock_services.`telr_check_status` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `response` varchar(10000) DEFAULT NULL,
-  `agrementId` varchar(45) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `response` VARCHAR(10000) DEFAULT NULL,
+  `agrementId` VARCHAR(45) DEFAULT NULL,
   UNIQUE KEY `order_id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 

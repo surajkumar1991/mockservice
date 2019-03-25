@@ -3,6 +3,8 @@
 serviceName={{ service_name }}
 processName={{ process_name }}
 serviceWar={{ service_war_dir | default('/opt/${serviceName}') }}
+hostLogDir={{ host_log_dir | default('/opt/logs/ubs-mock-services') }}
+serviceLogDir={{ service_log_dir | default('/opt/ubs-mock-services/ubs-mock-services') }}
 
 springConfigLocation={{ spring_config_location_dir | default('/opt/appConfig/application.properties') }}
 servicePort={{ service_port | default('8080') }}
@@ -12,4 +14,4 @@ dockerRegistry={{ docker_registry | default('us.gcr.io') }}
 projectName={{ project_name | default('ppp-prod') }}
 
 dockerNetwork={{ docker_network }}
-docker run -d --name ${processName} -p ${exposePort}:${servicePort} ${dockerNetwork} -v "${serviceWar}":/opt/appConfig -e JAVA_OPTS=" -server -Djava.io.tmpdir=${serviceWar}/temp -Dspring.config.location=${springConfigLocation}" ${dockerRegistry}/${projectName}/${serviceName}:${imageTagName}
+docker run -d --name ${processName} -p ${exposePort}:${servicePort} ${dockerNetwork} -v "${hostLogDir}":"${serviceLogDir}" -v "${serviceWar}":/opt/appConfig -e JAVA_OPTS=" -server -Djava.io.tmpdir=${serviceWar}/temp -Dspring.config.location=${springConfigLocation}" ${dockerRegistry}/${projectName}/${serviceName}:${imageTagName}

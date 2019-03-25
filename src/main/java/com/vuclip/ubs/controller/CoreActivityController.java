@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,7 @@ public class CoreActivityController {
 
         Object jsonval = null;
         try {
-            String query = "SELECT * FROM `otp_cas_initialize` where `userId`='"+request.getUserChargingInfo().getUserId()+"'";
+            String query = "SELECT * FROM `otp_cas_initialize` where `userId`='" + request.getUserChargingInfo().getUserId() + "'";
             logger.info("QUERY FOR FETCHING DATA " + query);
 
             List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
@@ -48,8 +49,8 @@ public class CoreActivityController {
             logger.info("No Record found Excpetion:" + e);
         }
 
-        response= (String)jsonval;
-        response=response.replaceAll("BILLINGCODE",""+request.getBillingCode()+"");
+        response = (String) jsonval;
+        response = response.replaceAll("BILLINGCODE", "" + request.getBillingCode() + "");
 
         return response;
     }
@@ -66,7 +67,7 @@ public class CoreActivityController {
 
         Object jsonval = null;
         try {
-            String query = "SELECT * FROM `cas_consentApi` where `billingTransactionId`='"+request.getUserInfo().getBillingTransactionId()+"'";
+            String query = "SELECT * FROM `cas_consentApi` where `billingTransactionId`='" + request.getUserInfo().getBillingTransactionId() + "'";
             logger.info("QUERY FOR FETCHING DATA " + query);
 
             List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
@@ -79,7 +80,7 @@ public class CoreActivityController {
             logger.info("No Record found Excpetion:" + e);
         }
 
-        response= (String)jsonval;
+        response = (String) jsonval;
 
 
         return response;

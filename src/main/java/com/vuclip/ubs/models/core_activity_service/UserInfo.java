@@ -10,28 +10,28 @@ import lombok.Setter;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-"userId",
-"msisdn",
-"billingTransactionId",
-"circleCode",
-"languageId",
-"customerTransactionId",
-"partnerTransactionId"
+        "userId",
+        "msisdn",
+        "billingTransactionId",
+        "circleCode",
+        "languageId",
+        "customerTransactionId",
+        "partnerTransactionId"
 })
 public class UserInfo {
 
-	@JsonProperty("userId")
-	private String userId;
-	@JsonProperty("msisdn")
-	private String msisdn;
-	@JsonProperty("billingTransactionId")
-	private String billingTransactionId;
-	@JsonProperty("circleCode")
-	private String circleCode;
-	@JsonProperty("languageId")
-	private String languageId;
-	@JsonProperty("customerTransactionId")
-	private String customerTransactionId;
-	@JsonProperty("partnerTransactionId")
-	private String partnerTransactionId;
+    @JsonProperty("userId")
+    private String userId;
+    @JsonProperty("msisdn")
+    private String msisdn;
+    @JsonProperty("billingTransactionId")
+    private String billingTransactionId;
+    @JsonProperty("circleCode")
+    private String circleCode;
+    @JsonProperty("languageId")
+    private String languageId;
+    @JsonProperty("customerTransactionId")
+    private String customerTransactionId;
+    @JsonProperty("partnerTransactionId")
+    private String partnerTransactionId;
 }

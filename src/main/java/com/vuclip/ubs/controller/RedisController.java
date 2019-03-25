@@ -24,6 +24,7 @@ public class RedisController {
     private Logger logger = LogManager.getLogger(RedisController.class);
     private RedisConnection redisTemplateConnection = null;
     private JdbcTemplate jdbcTemplate = null;
+
     @RequestMapping(value = "/createRedisEntry", method = {RequestMethod.POST, RequestMethod.GET})
     public ResponseEntity<String> conversionPost(HttpServletRequest request) {
         logger.info("REDIS KEY CREATION");

@@ -11,14 +11,14 @@ import lombok.Setter;
 @Setter
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonPropertyOrder({
-"itemId",
-"itemTypeId"
+        "itemId",
+        "itemTypeId"
 })
 public class ItemInfo {
 
-@JsonProperty("itemId")
-private String itemId;
-@JsonProperty("itemTypeId")
-private String itemTypeId;
+    @JsonProperty("itemId")
+    private String itemId;
+    @JsonProperty("itemTypeId")
+    private String itemTypeId;
 
 }

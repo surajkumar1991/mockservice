@@ -130,12 +130,11 @@ public class VuconnectControllers {
     }
 
 
-
     @RequestMapping(value = "/otp/generate", method = {RequestMethod.POST}, produces = {
-             MediaType.APPLICATION_JSON_VALUE})
+            MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
     String response(
-            @RequestBody  GenerateOtpResquestVO request) {
+            @RequestBody GenerateOtpResquestVO request) {
 
         logger.debug(request);
 
@@ -143,7 +142,7 @@ public class VuconnectControllers {
 
         Object jsonval = null;
         try {
-            String query = "SELECT * FROM `otp_pg_generate` where `userId`='"+request.getUserId()+"'";
+            String query = "SELECT * FROM `otp_pg_generate` where `userId`='" + request.getUserId() + "'";
             logger.info("QUERY FOR FETCHING DATA " + query);
 
             List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
@@ -156,27 +155,27 @@ public class VuconnectControllers {
             logger.info("No Record found Excpetion:" + e);
         }
 
-         response= (String)jsonval;
-        response = response.replaceAll("BILLINGTXNID",request.getBillingTransactionId());
+        response = (String) jsonval;
+        response = response.replaceAll("BILLINGTXNID", request.getBillingTransactionId());
 
         return response;
     }
-
 
 
     @RequestMapping(value = "/otp/verify", method = {RequestMethod.POST}, produces = {
             MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
     String response(
-            @RequestBody  VerifyOtpResquestVO request) {
+            @RequestBody VerifyOtpResquestVO request) {
 
         logger.debug(request);
 
         String response = null;
 
+
         Object jsonval = null;
         try {
-            String query = "SELECT * FROM `otp_pg_verify` where `otpTransactionId`='"+request.getOtpTransactionId()+"'";
+            String query = "SELECT * FROM `otp_pg_verify` where `otpTransactionId`='" + request.getOtpTransactionId() + "'";
             logger.info("QUERY FOR FETCHING DATA " + query);
 
             List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
@@ -189,8 +188,8 @@ public class VuconnectControllers {
             logger.info("No Record found Excpetion:" + e);
         }
 
-        response= (String)jsonval;
-        response= response.replaceAll("CURRENTDATE",""+System.currentTimeMillis()+"");
+        response = (String) jsonval;
+        response = response.replaceAll("CURRENTDATE", "" + System.currentTimeMillis() + "");
 
 
         return response;
@@ -201,15 +200,13 @@ public class VuconnectControllers {
             MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
     String response(
-            @RequestBody  ResendOtpResquestVO request) {
+            @RequestBody ResendOtpResquestVO request) {
 
         logger.debug(request);
-
         String response = null;
-
         Object jsonval = null;
         try {
-            String query = "SELECT * FROM `otp_pg_regenerate` where `otpTransactionId`='"+request.getOtpTransactionId()+"'";
+            String query = "SELECT * FROM `otp_pg_regenerate` where `otpTransactionId`='" + request.getOtpTransactionId() + "'";
             logger.info("QUERY FOR FETCHING DATA " + query);
 
             List<Map<String, Object>> respon = jdbcTemplate.queryForList(query);
@@ -222,7 +219,7 @@ public class VuconnectControllers {
             logger.info("No Record found Excpetion:" + e);
         }
 
-        response= (String)jsonval;
+        response = (String) jsonval;
 
         return response;
     }

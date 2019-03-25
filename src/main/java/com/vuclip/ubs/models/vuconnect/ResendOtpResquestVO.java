@@ -10,19 +10,19 @@ import lombok.Setter;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-"productId",
-"partnerId",
-"country",
-"otpTransactionId"
+        "productId",
+        "partnerId",
+        "country",
+        "otpTransactionId"
 })
 public class ResendOtpResquestVO {
 
-	@JsonProperty("productId")
-	private String productId;
-	@JsonProperty("partnerId")
-	private String partnerId;
-	@JsonProperty("country")
-	private String country;
-	@JsonProperty("otpTransactionId")
-	private String otpTransactionId;
+    @JsonProperty("productId")
+    private String productId;
+    @JsonProperty("partnerId")
+    private String partnerId;
+    @JsonProperty("country")
+    private String country;
+    @JsonProperty("otpTransactionId")
+    private String otpTransactionId;
 }

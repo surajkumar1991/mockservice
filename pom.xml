@@ -65,11 +65,11 @@
     </pluginRepositories>
 
     <dependencies>
-    <dependency>
-			<groupId>com.vuclip.premiumengg</groupId>
-			<artifactId>system-tests-domain</artifactId>
-			<version>1.3.0</version>
-		</dependency>
+        <dependency>
+            <groupId>com.vuclip.premiumengg</groupId>
+            <artifactId>system-tests-domain</artifactId>
+            <version>1.3.0</version>
+        </dependency>
         <dependency>
             <groupId>com.vuclip</groupId>
             <artifactId>paytm-checksum</artifactId>
@@ -108,6 +108,17 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -117,6 +128,11 @@
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
         </dependency>
 
         <dependency>
@@ -139,6 +155,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>2.8.5</version>
         </dependency>
     </dependencies>
 

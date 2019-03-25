@@ -10,38 +10,38 @@ import lombok.Setter;
 @Setter
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonPropertyOrder({
-"itemInfo",
-"consentInfo",
-"userChargingInfo",
-"billingCode",
-"mode",
-"dirtNetworkParams",
-"source",
-"chargingParamMap",
-"clientTransactionId",
-"isOtpFlow"
+        "itemInfo",
+        "consentInfo",
+        "userChargingInfo",
+        "billingCode",
+        "mode",
+        "dirtNetworkParams",
+        "source",
+        "chargingParamMap",
+        "clientTransactionId",
+        "isOtpFlow"
 })
 public class InitializeOtpResquestVO {
 
-@JsonProperty("itemInfo")
-private ItemInfo itemInfo;
-@JsonProperty("consentInfo")
-private Object consentInfo;
-@JsonProperty("userChargingInfo")
-private UserChargingInfo userChargingInfo;
-@JsonProperty("billingCode")
-private String billingCode;
-@JsonProperty("mode")
-private String mode;
-@JsonProperty("dirtNetworkParams")
-private String dirtNetworkParams;
-@JsonProperty("source")
-private String source;
-@JsonProperty("chargingParamMap")
-private Object chargingParamMap;
-@JsonProperty("clientTransactionId")
-private String clientTransactionId;
-@JsonProperty("isOtpFlow")
-private String isOtpFlow;
+    @JsonProperty("itemInfo")
+    private ItemInfo itemInfo;
+    @JsonProperty("consentInfo")
+    private Object consentInfo;
+    @JsonProperty("userChargingInfo")
+    private UserChargingInfo userChargingInfo;
+    @JsonProperty("billingCode")
+    private String billingCode;
+    @JsonProperty("mode")
+    private String mode;
+    @JsonProperty("dirtNetworkParams")
+    private String dirtNetworkParams;
+    @JsonProperty("source")
+    private String source;
+    @JsonProperty("chargingParamMap")
+    private Object chargingParamMap;
+    @JsonProperty("clientTransactionId")
+    private String clientTransactionId;
+    @JsonProperty("isOtpFlow")
+    private String isOtpFlow;
 
 }

@@ -11,40 +11,40 @@ import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-"itemInfo",
-"mode",
-"userInfo",
-"dirtNetworkParams",
-"source",
-"partnerId",
-"productId",
-"additionalParams",
-"chargedBillingCode",
-"isOtpFlow",
-"activityResult"
+        "itemInfo",
+        "mode",
+        "userInfo",
+        "dirtNetworkParams",
+        "source",
+        "partnerId",
+        "productId",
+        "additionalParams",
+        "chargedBillingCode",
+        "isOtpFlow",
+        "activityResult"
 })
 public class ConsentApiResquestVO {
 
-	@JsonProperty("itemInfo")
-	private String itemInfo;
-	@JsonProperty("mode")
-	private String mode;
-	@JsonProperty("userInfo")
-	private UserInfo userInfo;
-	@JsonProperty("dirtNetworkParams")
-	private String dirtNetworkParams;
-	@JsonProperty("source")
-	private String source;
-	@JsonProperty("partnerId")
-	private String partnerId;
-	@JsonProperty("productId")
-	private String productId;
-	@JsonProperty("additionalParams")
-	private AdditionalParams additionalParams;
-	@JsonProperty("chargedBillingCode")
-	private String chargedBillingCode;
-	@JsonProperty("isOtpFlow")
-	private String isOtpFlow;
-	@JsonProperty("activityResult")
-	private String activityResult;
+    @JsonProperty("itemInfo")
+    private String itemInfo;
+    @JsonProperty("mode")
+    private String mode;
+    @JsonProperty("userInfo")
+    private UserInfo userInfo;
+    @JsonProperty("dirtNetworkParams")
+    private String dirtNetworkParams;
+    @JsonProperty("source")
+    private String source;
+    @JsonProperty("partnerId")
+    private String partnerId;
+    @JsonProperty("productId")
+    private String productId;
+    @JsonProperty("additionalParams")
+    private AdditionalParams additionalParams;
+    @JsonProperty("chargedBillingCode")
+    private String chargedBillingCode;
+    @JsonProperty("isOtpFlow")
+    private String isOtpFlow;
+    @JsonProperty("activityResult")
+    private String activityResult;
 }

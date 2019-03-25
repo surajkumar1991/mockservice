@@ -3,23 +3,23 @@
 USE ubs_mock_services;
 
 CREATE TABLE `telr_create_order` (
-  `key` bigint(20) NOT NULL AUTO_INCREMENT,
+  `key` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `json` json DEFAULT NULL,
-  `ivp_method` varchar(45) DEFAULT NULL,
+  `ivp_method` VARCHAR(45) DEFAULT NULL,
   UNIQUE KEY `order_id_UNIQUE` (`key`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `telr_delete_order` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `response` varchar(10000) DEFAULT NULL,
-  `agrementId` varchar(45) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `response` VARCHAR(10000) DEFAULT NULL,
+  `agrementId` VARCHAR(45) DEFAULT NULL,
   UNIQUE KEY `order_id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `telr_refund` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `response` varchar(1000) DEFAULT NULL,
-  `transactionref` varchar(45) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `response` VARCHAR(1000) DEFAULT NULL,
+  `transactionref` VARCHAR(45) DEFAULT NULL,
   UNIQUE KEY `order_id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
