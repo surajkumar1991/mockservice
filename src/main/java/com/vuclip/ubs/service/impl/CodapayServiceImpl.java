@@ -75,7 +75,7 @@ public class CodapayServiceImpl implements CodapayService {
         response = ObjectMapperUtils.readValueFromString((String) jsonval, CodapayCheckStatusResponse.class);
         CodapayCheckStatusResponse response1 = Optional.ofNullable(response).orElse(CodapayCheckStatusResponse.builder().subscriptionResult(CodapayCheckStatusResponse.SubscriptionResult.builder().resultCode(355).resultDesc("Error").build()).build());
         CodapayCheckStatusResponse.SubscriptionInfo subscriptionInfo = response1.getSubscriptionResult().getSubscriptionInfo();
-        subscriptionInfo.setSubscriptionId(Long.parseLong(request.getSubscriptionRequest().getCheckStatusValue()));
+        subscriptionInfo.setSubscriptionId(Long.parseLong(request.getSubscriptionRequest().getCheckStatusValue().substring(0,4)));
         log.info(subscriptionInfo.getSubscriptionId());
 
         response1.getSubscriptionResult().setSubscriptionInfo(subscriptionInfo);
