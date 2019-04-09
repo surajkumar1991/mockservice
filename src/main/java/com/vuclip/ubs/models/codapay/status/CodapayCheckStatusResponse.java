@@ -38,7 +38,7 @@ public class CodapayCheckStatusResponse implements Serializable {
     @AllArgsConstructor
     public static class SubscriptionInfo implements Serializable {
         private static final long serialVersionUID = -4186659394156607227L;
-        private Integer subscriptionId;
+        private Long subscriptionId;
         private String subscriptionStatus;
     }
 }
