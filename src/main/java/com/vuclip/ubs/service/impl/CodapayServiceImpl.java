@@ -41,6 +41,8 @@ public class CodapayServiceImpl implements CodapayService {
                 log.info("Object : {}", jsonval);
                 log.info("found record");
                 result = ObjectMapperUtils.getXmlObjectMapper().readValue((String) jsonval, CodapayInitResult.class);
+                result.setTxnId(System.currentTimeMillis());
+                log.info("Transaction Id   ---->"+result);
             }
         } catch (Exception e) {
             log.error("No Record found. Exception Occurred: {}", e);
@@ -69,10 +71,13 @@ public class CodapayServiceImpl implements CodapayService {
             return response;
         }
 
+
         response = ObjectMapperUtils.readValueFromString((String) jsonval, CodapayCheckStatusResponse.class);
         CodapayCheckStatusResponse response1 = Optional.ofNullable(response).orElse(CodapayCheckStatusResponse.builder().subscriptionResult(CodapayCheckStatusResponse.SubscriptionResult.builder().resultCode(355).resultDesc("Error").build()).build());
         CodapayCheckStatusResponse.SubscriptionInfo subscriptionInfo = response1.getSubscriptionResult().getSubscriptionInfo();
-        subscriptionInfo.setSubscriptionId(Integer.valueOf(request.getSubscriptionRequest().getCheckStatusValue()));
+        subscriptionInfo.setSubscriptionId(Long.parseLong(request.getSubscriptionRequest().getCheckStatusValue().substring(0,4)));
+        log.info(subscriptionInfo.getSubscriptionId());
+
         response1.getSubscriptionResult().setSubscriptionInfo(subscriptionInfo);
 
         return response1;
