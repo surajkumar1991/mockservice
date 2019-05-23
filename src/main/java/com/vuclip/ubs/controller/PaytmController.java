@@ -73,8 +73,11 @@ public class PaytmController {
         }
 
         String orderId = request.getParameter("ORDER_ID");
+
+        String userId = paytmChecksumUtils.getUserId(orderId);
+
         if (orderId != null) {
-            String query = "SELECT * FROM paytm_renewal where user_id='" + orderId.split("_")[0] + "' ";
+            String query = "SELECT * FROM paytm_renewal where user_id='" + userId + "' ";
             PaytmRenewalResponse record = getRenewalRecords(query);
             record.setORDERID(orderId);
             record.setSUBSID(request.getParameter("SUBS_ID"));
