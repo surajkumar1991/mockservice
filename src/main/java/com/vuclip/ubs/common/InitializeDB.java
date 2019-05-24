@@ -17,7 +17,7 @@ public class InitializeDB {
         FileInputStream inputStream = null;
         Properties properties = new Properties();
         try {
-            String filepath =System.getProperty("user.dir").replaceAll("target","")+"src/main/resources/application.properties";
+            String filepath =System.getProperty("user.dir").replaceAll("/target","/")+"src/main/resources/application.properties";
 
             System.out.println(filepath);
 
