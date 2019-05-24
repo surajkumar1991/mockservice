@@ -1,9 +1,12 @@
 package com.vuclip.ubs.controller;
 
+import com.vuclip.ubs.common.InitializeDB;
 import com.vuclip.ubs.common.ObjectMapperUtils;
 import com.vuclip.ubs.models.paytm.PaytmRenewalResponse;
 import com.vuclip.ubs.models.paytm.PaytmStatusCheckRequestVO;
 import com.vuclip.ubs.models.paytm.PaytmStatusCheckResponseVO;
+import com.vuclip.ubs.utils.DBHelper;
+import com.vuclip.ubs.utils.PaytmChecksumUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +21,12 @@ import java.util.Map;
 public class PaytmController {
     private Logger logger = LogManager.getLogger(PaytmController.class);
 
+    PaytmChecksumUtils paytmChecksumUtils = new PaytmChecksumUtils();
+
     @Autowired(required = true)
     private JdbcTemplate jdbcTemplate;
 
-    @RequestMapping(value = "/oltp/HANDLER_INTERNAL/TXNSTATUS", method = {RequestMethod.GET}, produces = {
+        @RequestMapping(value = "/oltp/HANDLER_INTERNAL/TXNSTATUS", method = {RequestMethod.GET}, produces = {
             "application/json"})
     public @ResponseBody
     PaytmStatusCheckResponseVO processPaytmStatusResponse(@RequestParam String JsonData) {
@@ -32,8 +37,13 @@ public class PaytmController {
 
             logger.info("REQUEST : " + paytmStatusCheckRequestVO.toString());
             String orderId = paytmStatusCheckRequestVO.getORDERID();
+
+
+            //Fetching  UserId by OrderId from  PartnerGateway
+            String userId = paytmChecksumUtils.getUserId(orderId);
+
             if (orderId != null) {
-                String query = "SELECT * FROM paytm_status where user_id='" + orderId.split("_")[0] + "' ";
+                String query = "SELECT * FROM paytm_status where user_id='" + userId + "' ";
                 PaytmStatusCheckResponseVO record = getRecords(query);
                 record.setORDERID(orderId);
                 logger.info("TXNSTATUS Response: " + record.toString());
@@ -63,8 +73,11 @@ public class PaytmController {
         }
 
         String orderId = request.getParameter("ORDER_ID");
+
+        String userId = paytmChecksumUtils.getUserId(orderId);
+
         if (orderId != null) {
-            String query = "SELECT * FROM paytm_renewal where user_id='" + orderId.split("_")[0] + "' ";
+            String query = "SELECT * FROM paytm_renewal where user_id='" + userId + "' ";
             PaytmRenewalResponse record = getRenewalRecords(query);
             record.setORDERID(orderId);
             record.setSUBSID(request.getParameter("SUBS_ID"));
