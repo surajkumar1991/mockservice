@@ -24,24 +24,18 @@ public class InitializeDB {
 //			String filepath = System.getProperty("user.dir").replaceAll("/target", "/") + "/application.properties";
 
 
-
-
 			String envName = System.getProperty("envName");
 			System.out.println("Environment Name: " + System.getProperty("envName"));
-			String propertyFileName = envName + ".properties";
+			String propertyFileName = "application" + ".properties";
 			String filePath = new File(propertyFileName).getAbsolutePath();
 			logger.info(filePath);
 			File configFile = new File(filePath);
-
 
 
 			//File configFile = new File(filepath);
 
 			inputStream = new FileInputStream(configFile);
 			properties.load(inputStream);
-
-
-
 
 
 			Configuration.pldbServer = properties.getProperty("pldbServer");
