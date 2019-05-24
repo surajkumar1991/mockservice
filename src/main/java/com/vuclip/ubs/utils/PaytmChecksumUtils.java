@@ -1,7 +1,6 @@
 package com.vuclip.ubs.utils;
 
 import com.paytm.merchant.CheckSumServiceHelper;
-import com.vuclip.ubs.common.InitializeDB;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -73,18 +72,7 @@ public class PaytmChecksumUtils {
 
 	}
 
-	public String getUserId(String orderId) {
 
-		logger.info("Fetching  UserId from  Partner Txn MAP table for " + orderId);
-		InitializeDB initidb = new InitializeDB();
-		initidb.init();
-		DBHelper dBHelper = new DBHelper();
-		String userId = dBHelper.getUserIdfromPartnerTxnMap(orderId);
-		logger.info("UserId Fetched : " + userId);
-
-		return userId;
-
-	}
 
 
 }
