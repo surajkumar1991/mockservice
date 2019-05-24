@@ -20,14 +20,12 @@ public class InitializeDB {
 		FileInputStream inputStream = null;
 		Properties properties = new Properties();
 		try {
-//			logger.info(System.getProperty("user.dir"));
-//			String filepath = System.getProperty("user.dir").replaceAll("/target", "/") + "/application.properties";
+			logger.info(System.getProperty("user.dir"));
+			String filePath = System.getProperty("user.dir")+ "/src/main/resources/db.cfg";
 
 
-			String envName = System.getProperty("envName");
-			System.out.println("Environment Name: " + System.getProperty("envName"));
-			String propertyFileName = "application" + ".properties";
-			String filePath = new File(propertyFileName).getAbsolutePath();
+//			String propertyFileName = "application" + ".properties";
+//			String filePath = new File(propertyFileName).getAbsolutePath();
 			logger.info(filePath);
 			File configFile = new File(filePath);
 
