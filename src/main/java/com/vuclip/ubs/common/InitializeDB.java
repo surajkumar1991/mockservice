@@ -1,5 +1,8 @@
 package com.vuclip.ubs.common;
 
+import com.vuclip.ubs.utils.PaytmChecksumUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeSuite;
 
 import java.io.File;
@@ -13,13 +16,15 @@ public class InitializeDB {
      */
     @BeforeSuite(alwaysRun = true)
     public final void init() {
+         Logger logger = LogManager.getLogger(InitializeDB.class);
         Context.get().getCommonLogger().info("====== SettingUp Mock execution ======");
         FileInputStream inputStream = null;
         Properties properties = new Properties();
         try {
+            logger.info(System.getProperty("user.dir"));
             String filepath =System.getProperty("user.dir").replaceAll("/target","/")+"src/main/resources/application.properties";
 
-            System.out.println(filepath);
+            logger.info(filepath);
 
             File configFile = new File(filepath);
 
@@ -38,7 +43,7 @@ public class InitializeDB {
         } catch (Exception e) {
             Context.get().getCommonLogger().info("error setting up Mock execution" + e.getMessage());
             e.printStackTrace();
-            //AppAssert.assertTrue(false, "error setting up Mock execution");
+
         }
     }
 
