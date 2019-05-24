@@ -22,7 +22,7 @@ public class InitializeDB {
         Properties properties = new Properties();
         try {
             logger.info(System.getProperty("user.dir"));
-            String filepath =System.getProperty("user.dir").replaceAll("/target","/")+"src/main/resources/application.properties";
+            String filepath =System.getProperty("user.dir").replaceAll("/target","/")+"/src/main/resources/application.properties";
 
             logger.info(filepath);
 
