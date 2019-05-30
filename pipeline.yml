@@ -14,3 +14,4 @@ googleCloudCredentialName: gcr:ppp-prod
 googleCloudProjectName: ppp-prod
 systemTestRunCommand: na
 recipients: cc:premium.automation@vuclip.com, cc:unified.billing@vuclip.com, cc:rahul.sahu@vuclip.com
+useGCPSonarQube: true
